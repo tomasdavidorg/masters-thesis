@@ -35,8 +35,84 @@ Někdy se také označuje SDK (Software Development Kit). Jedná se o sadu JRE d
 
 
 \section{Android}
+Android je mobilní operační systém vyvíjený společností Google, který je založený na Linuxovém jádře. Je vyvíjen jako opensource a používá se především v mobilních zařízeních jako jsou chytré telefony, hodinky a tablety. Můžeme jej však také nalézt také v přístrojích jako jsou set-top boxy, multimediální přehrávače a v jiné elektronice.\\
+\subsection{Historie}
+Počátky Androidu spadají do roku 2003, kdy byla v Kalifornii v USA založena společnost Android, Inc. O Dva roky později firmu odkupuje světoznámá společnost Google. V roce 2007 získává Google několik patentů v oblasti mobilních zařízení a 5. listopadu téhož roku dochází k oficiálnímu představení a vzniká sdružení firem Open Handset Alliance, která mé za cíl vytvoření otevřených standartů v oblasti mobilních zařízení. V tabulce TODO odkaz je zobrazena stručná historie verzí operačního systému Android.
 
+\begin {table}[h!]
+\begin{tabular}{|l|c|l|c|}
+\hline
+{\bf Datum}         & {\bf Verze}   & {\bf Označení}        & {\bf Verze API}   \\
+\hline \hline
+23. září 2008       & 1.0 -- 1.1    & --                    & 1 -- 2            \\
+\hline
+April 27, 2009      & 1.5           & Cupcake               & 3                 \\
+\hline
+September 15, 2009  & 1.6           & Donut                 & 4                 \\
+\hline
+October 26, 2009    & 2.0 -- 2.1    & Eclair                & 5 -- 7            \\
+\hline
+May 20, 2010        & 2.2 -- 2.2.3  & Froyo                 & 8                 \\
+\hline
+December 6, 2010    & 2.3 -- 2.3.7  & Gingerbread           & 9 -- 10           \\
+\hline
+February 22, 2011   & 3.0 -- 3.2    & Honeycomb             & 11 -- 13          \\
+\hline
+October 18, 2011    & 4.0 -- 4.0.4  & Ice Cream Sandwich    & 14 -- 15          \\
+\hline
+July 9, 2012        & 4.1 -- 4.3    & Jelly Bean            & 16 -- 18          \\
+\hline
+October 31, 2013    & 4.4           & KitKat                & 19 -- 20          \\
+\hline
+November 12, 2014   & 5.0           & Lollipop              & 21                \\
+\hline
+\end{tabular}
+\centering
+\caption{Verze operačního systému Android}
+\end{table}
 
+\subsection{Arcitektura}
+Architektura systému android je složena z šesti vrstev:
+\begin{itemize}
+\item Linuxové jádro
+\item HAL
+\item Knihovny
+\item Android runtime
+\item Application framework
+\item Aplikace
+\end{itemize}
+\subsubsection{Linuxové jádro}
+Tato nejnižší vrstva je postavena mezi hardware zařízení a ostatní vrstvy architektury. Od počátku byl android postaven na jádru 2.6, nejnověší android pak běží na jádru 3.4. Při startu se jádro zavede do operační paměti a je mu předáno řízení.
+\subsubsection{HAL}
+TODO
+\subsubsection{Knihovny}
+Nad linuxovým jádrem se nachází vrstva knihoven obsahující open source webový prohlížeč Webkit, knihovnu libc TODO
+\subsubsection{Android runtime}
+TODO
+\subsubsection{Application framework}
+Vrstva aplikačního frameworku poskytuje mnoho vysoko-úrovňových služeb aplikacím ve formě java knihoven. Pro vývojáře se jedná o nejdůležitější vrstvu,která umožňuje přístup ke službám daného zařízení. Tato vrstva je tvořena: 
+\begin{itemize}
+\item Activity manager -- ovládání životního cyklu aplikací
+\item Windows manager
+\item Content manager 
+\item View system -- 
+\item Notification manager --
+\item Package manager -- 
+\item Telephony manager
+\item Resource manager
+\item Location manager
+\item a další...
+\end{itemize}
+TODO
+
+\subsubsection{Aplikace}
+Poslední a nejvyšší vrstva se skládá ze samotných aplíkací. Jendak se jedná o předinstalované aplikace a druhak se jedná o aplikace, které byly postupem času přidány z android obchodu nebo jinou cestou.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.5]{fig/android_architecture.jpg}
+    \caption{Java SE JDK 1.8}
+\end{figure}
 
 \section{Gradle}
 

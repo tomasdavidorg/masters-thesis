@@ -1,7 +1,5 @@
-
-\section{Android}
 Android je mobilní operační systém vyvíjený společností Google, který je založený na Linuxovém jádře. Je vyvíjen jako opensource a používá se především v mobilních zařízeních jako jsou chytré telefony, hodinky a tablety. Můžeme jej však také nalézt také v přístrojích jako jsou set-top boxy, multimediální přehrávače a v jiné elektronice.\\
-\subsection{Historie}
+\section{Historie}
 Počátky Androidu spadají do roku 2003, kdy byla v Kalifornii v USA založena společnost Android, Inc. O Dva roky později firmu odkupuje světoznámá společnost Google. V roce 2007 získává Google několik patentů v oblasti mobilních zařízení a 5. listopadu téhož roku dochází k oficiálnímu představení a vzniká sdružení firem Open Handset Alliance, která mé za cíl vytvoření otevřených standartů v oblasti mobilních zařízení. V tabulce TODO odkaz je zobrazena stručná historie verzí operačního systému Android.
 
 \begin {table}[h!]
@@ -36,7 +34,7 @@ November 12, 2014   & 5.0           & Lollipop              & 21                
 \caption{Verze operačního systému Android}
 \end{table}
 
-\subsection{Arcitektura}
+\section{Arcitektura}
 Architektura systému android je složena z šesti vrstev:
 \begin{itemize}
 \item Linuxové jádro
@@ -46,11 +44,18 @@ Architektura systému android je složena z šesti vrstev:
 \item Application framework
 \item Aplikace
 \end{itemize}
-\subsubsection{Linuxové jádro} %https://source.android.com/devices/
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.5]{fig/android_architecture.jpg}
+    \caption{Android architecture}
+\end{figure}
+
+\subsection{Linuxové jádro} %https://source.android.com/devices/
 Tato nejnižší vrstva je postavena mezi hardware zařízení a ostatní vrstvy architektury. Android je postavený na zvlaštní verzi Linuxového jádra a několika speciálními doplňky jako jsou správa systémové paměti, the Binder IPC driver, and other. Od počátku byl android postaven na linuxovém jádru 2.6, nejnověší android pak běží na jádru 3.4.  Při startu se jádro zavede do operační paměti a je mu předáno řízení.
-\subsubsection{Hardware abstraction layer (HAL)} %https://source.android.com/devices/
+\subsection{Hardware abstraction layer (HAL)} %https://source.android.com/devices/
 HAL je standartní rozhraní které umožňuje systému android volat do vrstvy ovladačů, zatímco je mu jedno jaká je implementace v nižších vrstvách obladačů a hardwareru. Pro každý kus hardwaru by měl existovat ovladač a k němu odpovídající HAL poskytující možnosti hardwaru.
-\subsubsection{Knihovny}
+\subsection{Knihovny}
 Nad HAL vrstvu se nachází vrstva nativních knihoven. Tyto knihovny jsou napsány v jazyce C nebo C++. K těmto knihonám se dá přistoupit přes android sdk pokud je však požadován přímý přístup je možné to provést přes NDK. Mezi tyto knihovny patří:
 \begin{itemize} %http://www.android-app-market.com/android-architecture.html
 \item Surface manager -- knihovna pro skládání oken na obrazovce
@@ -66,13 +71,38 @@ Nad HAL vrstvu se nachází vrstva nativních knihoven. Tyto knihovny jsou naps�
 \end{itemize}
 
 
-\subsubsection{Android runtime}
-Vedle vrstvy nativních knihoven se nachází se nachází Android Runtime vrstva, která se skládá ze dvou základních částí a to z Core Libraies a z Dalvik Virtual Machine (DVM). \\
-Core libraries jinak řečené Android API se skládají z tří hlavních částí
+\subsection{Android runtime}
+Vedle vrstvy nativních knihoven se nachází se nachází Android Runtime vrstva, která se skládá ze dvou základních částí a to z Core Libraies a z Dalvik Virtual Machine (DVM). Core libraries jinak řečené Android API pak můžeme rozdělit ještě na dvě částí a to Java Knihovny a Android knihovny.
 
+\subsubsection{Dalvik Virtual Machine (DVM)}
+DVM je virtuální stroj, který je vyvíjen od roku 2005 a byl do systému uzačleněn z důvodu, že JVM není licencován jako opensource a druhým důvodem byla optimalizace pro mobilní zařízení.
 
+Každá aplikace beží na android zařízení v rámcí své vlastníá instance DVM, tedy nikoliv jako proces přímo v linuxovém jádře.
 
-\subsubsection{Application framework}
+Spouštění aplikací na Virtuálních strojích přináší řadu výhod.  Jednak se jedná o to že pracují v izolovaném prostoru a tudíž nemohou zasáhnout do operačního systému či do jiných aplikací. Za druhé to činí z aplikace platformně nezávislou a tak může být zpuštěnan na jakémkoliv hardwaru.
+
+Mezi výhody DVM patří jeho efektivnost ve využívání paměti a díky tomu je lépe přizpůsoben k použití na mobilních zařízeních.
+
+Proto aby mohla být aplikace spuštěna v DVM, kód aplikace musí být transformován ze standartních java souboru do dalvik executables (.dex format). K tomuto se používá dx nástroj ktérý tento převod vykonává.
+\subsubsection{Java knihovny}
+Většina Android aplikací je napsána pomocí jazyka Java. Tyto Java knihovny jsou opensource implementaci knihoven založenou na Apache Harmony Projektu a jedná se o podmnožinu Java SE platformy. Neobsahují např. knihovny java.awt nebo java.swing, které jsou nahrazeny vlastními třídami pro tvorbu uživatelského rozhrani Android aplikací. Podrobnější srovnání je možné nalezt v kapitole TODO. 
+\subsubsection{Android knihovny}
+Jedná se o specifické knihovny, které poskytují veškerou funkcionalitu android zařízení. Knihovny jsou napsány v jazyku Java a patří mezi ně tyto balíky:
+\begin{itemize}
+\item android.app -- poskytuje přístup k aplikačnímu modelu a je základním kamenem všech aplikací 
+\item android.content -- obsahují třídy pro přístup a publikování dat aplikací
+\item android.database -- třídy pro přístup k datům a manipulaci s databazemi
+\item android.graphics -- knihovny pro vykreslování na obrazovku
+\item android.hardware -- poskytují přístup k hardware funkcím jako jsou kamera a sensory
+\item android.media -- knihovny pro práci s ultimédii
+\item android.text -- knihovny pro praci s řetězci a ajejich zobrazením na display
+\item android.util -- bežné nástroje jako manipulace s daty a časem převody mezi čísly a řetězci a další 
+\item android.view -- základní stavební blok pro budování grafického uživatelského rozhraní
+\item android.webkit -- knihovny pro práci s webovým obsahem
+\item and others.
+\end{itemize}
+
+\subsection{Application framework}
 Vrstva aplikačního frameworku poskytuje mnoho vysoko-úrovňových služeb aplikacím ve formě java knihoven. Pro vývojáře se jedná o nejdůležitější vrstvu,která umožňuje přístup ke službám daného zařízení. Tato vrstva je tvořena: 
 \begin{itemize} %http://developer.android.com/reference/
 \item Activity manager -- ovládání životního cyklu aplikací jejich start průběh a konec
@@ -87,11 +117,7 @@ Vrstva aplikačního frameworku poskytuje mnoho vysoko-úrovňových služeb apl
 \item and others.
 \end{itemize}
 
-\subsubsection{Aplikace}
+\subsection{Aplikace}
 Poslední a nejvyšší vrstva se skládá ze samotných aplíkací. Jendak se jedná o předinstalované aplikace a druhak se jedná o aplikace, které byly postupem času přidány z android obchodu nebo jinou cestou.
 
-\begin{figure}[h!]
-    \centering
-    \includegraphics[scale=0.5]{fig/android_architecture.jpg}
-    \caption{Android architecture}
-\end{figure}
+

@@ -81,29 +81,46 @@ Architektura systému android je složena z šesti vrstev:
 \item Application framework
 \item Aplikace
 \end{itemize}
-\subsubsection{Linuxové jádro}
-Tato nejnižší vrstva je postavena mezi hardware zařízení a ostatní vrstvy architektury. Od počátku byl android postaven na jádru 2.6, nejnověší android pak běží na jádru 3.4. Při startu se jádro zavede do operační paměti a je mu předáno řízení.
-\subsubsection{HAL}
-TODO
+\subsubsection{Linuxové jádro} %https://source.android.com/devices/
+Tato nejnižší vrstva je postavena mezi hardware zařízení a ostatní vrstvy architektury. Android je postavený na zvlaštní verzi Linuxového jádra a několika speciálními doplňky jako jsou správa systémové paměti, the Binder IPC driver, and other. Od počátku byl android postaven na linuxovém jádru 2.6, nejnověší android pak běží na jádru 3.4.  Při startu se jádro zavede do operační paměti a je mu předáno řízení.
+\subsubsection{Hardware abstraction layer (HAL)} %https://source.android.com/devices/
+HAL je standartní rozhraní které umožňuje systému android volat do vrstvy ovladačů, zatímco je mu jedno jaká je implementace v nižších vrstvách obladačů a hardwareru. Pro každý kus hardwaru by měl existovat ovladač a k němu odpovídající HAL poskytující možnosti hardwaru.
 \subsubsection{Knihovny}
-Nad linuxovým jádrem se nachází vrstva knihoven obsahující open source webový prohlížeč Webkit, knihovnu libc TODO
+Nad HAL vrstvu se nachází vrstva nativních knihoven. Tyto knihovny jsou napsány v jazyce C nebo C++. K těmto knihonám se dá přistoupit přes android sdk pokud je však požadován přímý přístup je možné to provést přes NDK. Mezi tyto knihovny patří:
+\begin{itemize} %http://www.android-app-market.com/android-architecture.html
+\item Surface manager -- knihovna pro skládání oken na obrazovce
+\item Media Framework -- poskytuje různé multimediální kodeky pro nahrávání a přehrávání videa v různých formátech.
+\item SQLite -- databázový engine pro použítí v oblasti uložení dat
+\item WebKit -- prohlížečový enginepro  zobrazování webového obsahu
+\item Libc -- standartní knihovna jazyka C 
+\item OpenGL ES -- knihovna pro podporu 2D a 3D grafiky a renderování.
+\item Audio Manager -- knihovna pro práci se zvuky zařízení
+\item FreeType -- knihovna pro bitmapové a vektorové vykreslení písma
+\item SSL -- knihovna pro využití šifrovacího protokolu pro bezpečnou intenetovou komunikaci.
+\item and others.
+\end{itemize}
+
+
 \subsubsection{Android runtime}
-TODO
+Vedle vrstvy nativních knihoven se nachází se nachází Android Runtime vrstva, která se skládá ze dvou základních částí a to z Core Libraies a z Dalvik Virtual Machine (DVM). \\
+Core libraries jinak řečené Android API se skládají z tří hlavních částí
+
+
+
 \subsubsection{Application framework}
 Vrstva aplikačního frameworku poskytuje mnoho vysoko-úrovňových služeb aplikacím ve formě java knihoven. Pro vývojáře se jedná o nejdůležitější vrstvu,která umožňuje přístup ke službám daného zařízení. Tato vrstva je tvořena: 
-\begin{itemize}
-\item Activity manager -- ovládání životního cyklu aplikací
-\item Windows manager
-\item Content manager 
-\item View system -- 
-\item Notification manager --
-\item Package manager -- 
-\item Telephony manager
-\item Resource manager
-\item Location manager
-\item a další...
+\begin{itemize} %http://developer.android.com/reference/
+\item Activity manager -- ovládání životního cyklu aplikací jejich start průběh a konec
+\item Windows manager -- pro správu viditelnosti oken a jejich uspořádání
+\item Content Providers -- umožňuje pracovat s obsahem jiných aplikací, poskytuje mechanismy pro jejich zabezpečení 
+\item View System -- View je základní stavební blok pro komponenty uživatelského rozhraní. View systém je sada View která slouží k budování uživatelského rozhraní aplikace.
+\item Notification manager -- Umožňuje uživatele informovat pomocí alertů a notifikací.
+\item Package manager -- Umožňuje získat různé informace o aplikacích které jsou aktuálně naisntalovány  zařízení.
+\item Telephony manager -- Poskytuje přístup k telefoním službám zařízení. 
+\item Resource manager -- Umožňuje přístup ke zdrojům jako jsou barevná nastavení, rozvržení a stringy.
+\item Location manager - Poskytuje přístup k systémovým lokačním službám. Tyto služby umožňují v pravidelných intervalech získávat geografick souřadnice zařízení.
+\item and others.
 \end{itemize}
-TODO
 
 \subsubsection{Aplikace}
 Poslední a nejvyšší vrstva se skládá ze samotných aplíkací. Jendak se jedná o předinstalované aplikace a druhak se jedná o aplikace, které byly postupem času přidány z android obchodu nebo jinou cestou.
@@ -111,7 +128,7 @@ Poslední a nejvyšší vrstva se skládá ze samotných aplíkací. Jendak se j
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.5]{fig/android_architecture.jpg}
-    \caption{Java SE JDK 1.8}
+    \caption{Android architecture}
 \end{figure}
 
 \section{Gradle}

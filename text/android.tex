@@ -121,3 +121,44 @@ Vrstva aplikačního frameworku poskytuje mnoho vysoko-úrovňových služeb apl
 Poslední a nejvyšší vrstva se skládá ze samotných aplíkací. Jendak se jedná o předinstalované aplikace a druhak se jedná o aplikace, které byly postupem času přidány z android obchodu nebo jinou cestou.
 
 
+
+
+\section{Struktura aplikace}
+\subsection{Prvky}
+\subsubsection{Aktivity}
+\subsubsection{Služby}
+\subsubsection{Content providers}
+\subsubsection{Intents}
+\subsubsection{Broadcast receivers}
+\subsubsection{Notification}
+
+\subsection{Application Resources}
+\subsection{Application Manifest} % http://developer.android.com/guide/topics/manifest/manifest-intro.html
+Každá aplikace ve své rootovské složcě musí mít soubor AndroidManifest.xml. Tento soubor obsahuje informace o aplikaci s ohledem na systém Android. 
+\subsection{User Interface}
+
+\section{Android SDK}
+?????? TODO .. nevim jestli je potřeba
+\section{Build System}%http://developer.android.com/sdk/installing/studio-build.html
+Build System je způsob jakým se vyprodukuje ze zdrojového kódu a závislostí a reourců .apk balík. Celý tento proces je automatizován pomocí gradle skriptů ale je pro portování aplikací je dobré mu porozumět.
+
+\subsection{Build Process}
+Ná obrázku je možné vidět jakým způsobem probíhá vytváření .apk balíčku. Jednotlivé kroky jsou pak tyto:
+\begin{enumerate}
+\item The Android Asset Packaging Tool zkompiluje resource soubory jako jsou manifest a xml soubory a vyprodukuje R.java takže je možné se na resourcy odkazovat.
+\item Aidl konvertuje všechny .aidl rozhraní do java rozhraní
+\item Všechen kód je zkompilován java kompilátorem, výstupem jsou .class soubory.
+\item Nástroj dex převede .class soubory do Dalvik byte kodu. Stejně tak soubory třetích stran
+\item Všechny nokompilované resourcy (např. obrázky), kompilované resourcy a .dex soubory jsou poslany apkbuilderu aby je zabalil do .apk souboru.
+\item Poté musím byt .apk podepsán.
+\item Nakonec pokud je podepsán v release módu musí být zipalign nástrojem vyrovnán a tím se sníží paměťová náročnost.
+\end{enumerate}
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.6]{fig/build.png}
+    \caption{Build process}
+\end{figure}
+
+
+

@@ -121,24 +121,43 @@ Vrstva aplikačního frameworku poskytuje mnoho vysoko-úrovňových služeb apl
 Poslední a nejvyšší vrstva se skládá ze samotných aplíkací. Jendak se jedná o předinstalované aplikace a druhak se jedná o aplikace, které byly postupem času přidány z android obchodu nebo jinou cestou.
 
 
-
-
 \section{Struktura aplikace}
 \subsection{Prvky}
-\subsubsection{Aktivity}
-\subsubsection{Služby}
-\subsubsection{Content providers}
-\subsubsection{Intents}
-\subsubsection{Broadcast receivers}
-\subsubsection{Notification}
+\subsubsection{Aktivity}%http://developer.android.com/guide/components/activities.html
+Aktivity reprezentují jednu samotnou obrazovku živatelského rozhraní. Typicky po spuštění aplikace je zobrazena hlavní aktivita z které se pak mohou spouštět aktivity další, či provádět jiné operace. Když se spustí nová aktivita, ta předchozí je uschována v Last in first out zásobníku. Po stisknutí tlačítka zpět je znovu vyvolána.
 
-\subsection{Application Resources}
+\subsubsection{Služby}
+Služby jsou komponenty, které beží na pozadí provádějící dlohotrvající operace. Neposkytují uživatelské rozhraní. Služby mohou být stále aktivní i na pozadí zatímco beží jiná aplikace. Příkladem služby může být stahování obsahu z internetu zatímco je spuštěná jiná aplikace.
+
+\subsubsection{Content providers} %http://developer.android.com/guide/components/fundamentals.html
+Content providers ukládají, načítají data a zpřístupňjí je pro všechny aplikace. Zkrz content providery mohou ostatní aplikace data modifikovat či s nimi manipulovat. Příkladem může být kontent provider který spravuje informace o kontaktech v zařízení.
+
+\subsubsection{Intents}
+Aplikační prostor je složen s aktivit a zpráv mezi nimi, které nazýváme intenty. Ty se skládájá z činnosti která se má vykonat a parametru který je k ní připojen. Intenty můžeme rozdělit na explicitní a implicitní. Explicitní intenty obsahují akci a záměr které se má provést a výběr aplikace už zařídí platforma.  Implicitní intenty obsahují také akci a objekt ale závisí na uživateli jakou aplikaci zvolí.
+
+\subsubsection{Broadcast receivers}
+Jsou to komponenty, které složí k nasloucháná oznámení z vnějšku popř. zevnitř aplikace. Podle typu oznámení následuje reakce: oznámeníve stavovém řádku, toast, či oznámení dialogovým oknem Příkladem může být oznámení o příchozí sms nebo nízkém stavu baterie.
+
+\subsection{Application Resources} %http://developer.android.com/guide/topics/resources/available-resources.html
+Android aplikace se skládá nejen ze drojových kódů ale také z resources, které jsou od kódu odděleny. Mezi tyto resourcy patří:
+\begin{enumerate}
+\item Animation Resources -- definují předem stanovené animace
+\item Color State List Resource -- definují barvy měnící se na základě stávu View
+\item Drawable Resources -- definují různé grafiky s bitmapami nebo xml soubory
+\item Layout Resource -- definují rozložení component aplikace
+\item Menu Resource -- definují obsah menu aplikace
+\item String Resources -- definují řetězce, pole řetěztců.
+\item Style Resource -- definují vzhled a formát ui elementů.
+\item and other resources.
+\end{enumerate}
+
 \subsection{Application Manifest} % http://developer.android.com/guide/topics/manifest/manifest-intro.html
-Každá aplikace ve své rootovské složcě musí mít soubor AndroidManifest.xml. Tento soubor obsahuje informace o aplikaci s ohledem na systém Android. 
-\subsection{User Interface}
+Každá aplikace ve své rootovské složcě musí mít soubor AndroidManifest.xml. Tento soubor obsahuje informace o aplikaci s ohledem na systém Android. Měl by obsahovat unikátní jméno balíčku pro danou aplikacim deklaraci použitých komponent - aktivitm, služeb. Dále pak oprávnění aplikace ke chtáněným částem api (jako přístup k fotoaparátu apod). Také je potřeba deklarovat minimální úroveň api a seznam knihoven s kterými je aplikace propojena.
+\todo{Vylepšit}
 
 \section{Android SDK}
-?????? TODO .. nevim jestli je potřeba
+\todo{nevim jestli je potřeba}
+
 \section{Build System}%http://developer.android.com/sdk/installing/studio-build.html
 Build System je způsob jakým se vyprodukuje ze zdrojového kódu a závislostí a reourců .apk balík. Celý tento proces je automatizován pomocí gradle skriptů ale je pro portování aplikací je dobré mu porozumět.
 

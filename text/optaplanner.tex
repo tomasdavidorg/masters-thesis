@@ -1,9 +1,30 @@
+\section{OptaPlanner}
 
-\section{JBoss Drools}
-
-  \subsection{Drools Expert}
-
-  \subsection{OptaPlanner}
+V této kapitole se zaměříme na planning engine Optaplanner. OptaPlanner je 
+\todo{co je to optaplanner atd}
 
 
-\section{Vehicle routing problem}
+\subsection{Planning problem}
+
+\subsection{Planner configuration}
+Planner configuration se dá rozdělit na pět základních kroků, které jsou potřeba udělat před získáním řešení. Tyto kroky jsou:
+\begin{enumerate}
+\item \textbf{Namodelování plánovacího problému} -- vytvoření třídy, která ipmlementuje rozhraní Solution, tříd plánovacích entit a plánovacích proměnných
+\item \textbf{Konfigurace Solveru} -- spočívá v nastavení pravidel a algoritmů řešeného problému
+\item \textbf{Náhrání data setu problému} -- přirazení instancí plánovacích entit a proměnných
+\item \textbf{Spuštění Solveru} -- zapnutí mechanismu pro řešení problému
+\item \textbf{Získání nejlepšího řešení} -- vyvolání metody, která vrátí nejlepší získané řešení.
+\end{enumerate}
+
+\subsubsection{Namodelování plánovacího problému}
+Při modelování plánovacího problému je dobré si ujasnit co je plánovací fakt a co entita. Problem fakt se během plánování nemění tedy jeho hodnoty zůstávají stále stejné. Oproti tomu je plánovací entita 
+\paragraph{Problem fact}
+\paragraph{Planning entity}
+\paragraph{Planning variable}
+\paragraph{Planning value and planning value ranges}
+\paragraph{Planning problem and planning solution}
+
+\subsubsection{Konfigurace Solveru}
+
+\subsection{Score calculation}
+

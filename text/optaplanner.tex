@@ -44,5 +44,11 @@ Konfigurace solveru probíhá pomocí konfiguračního XML souboru. V podstatě 
 \end{enumerate}
 Konfigurace může být také změněna dynamicky za běhu pomocí SolverConfig API. Je tak například možné získat aktuální nastavení, či nastavení změnit.
 
-\section{Score calculation} %http://docs.jboss.org/optaplanner/release/6.1.0.Final/optaplanner-docs/html_single/index.html#scoreTerminology
-Každé řešení má skóre 
+\subsection{Náhrání data setu problému}
+Ještě před samotným spuštením je potřeba nahrát potřebná data. Toto se provádí nahráním plánovacích entit a nastavení planning values do patřičných kolekcí tříd která implementuje rozhraní Solution. Nyní již je vše připraveno pro spuštění.
+
+\subsection{Spuštění solveru a získání nejlepšího řešení}
+Spuštění solveru probíha jednoduše zavoláním metody solve() s parametrem odkazu na istanci třídy implementující rozhraní solution. Po ukončení výpočtu a zavoláním metody getBestSolution získáme nejlepší nalezené řešení. V případě n-Queen problému nám vrátí řešení kde každá královna má přiřazený jeden řádek a v případě, že nalezla optimální řešení tak se žádné dvě královny neohrožují.
+
+\section{Score calculation}
+\todo{pokračovat zde}

@@ -1,12 +1,10 @@
-\section{OptaPlanner}
-
 V této kapitole se zaměříme na planning engine Optaplanner. OptaPlanner je 
 \todo{co je to optaplanner atd}
 
+\section{Planning problem}
+\todo{co je to planning problem, popsat trochu nqueen problem}
 
-\subsection{Planning problem}
-
-\subsection{Planner configuration}
+\section{Planner configuration}
 Planner configuration se dá rozdělit na pět základních kroků, které jsou potřeba udělat před získáním řešení. Tyto kroky jsou:
 \begin{enumerate}
 \item \textbf{Namodelování plánovacího problému} -- vytvoření třídy, která ipmlementuje rozhraní Solution, tříd plánovacích entit a plánovacích proměnných
@@ -16,15 +14,35 @@ Planner configuration se dá rozdělit na pět základních kroků, které jsou 
 \item \textbf{Získání nejlepšího řešení} -- vyvolání metody, která vrátí nejlepší získané řešení.
 \end{enumerate}
 
-\subsubsection{Namodelování plánovacího problému}
-Při modelování plánovacího problému je dobré si ujasnit co je plánovací fakt a co entita. Problem fakt se během plánování nemění tedy jeho hodnoty zůstávají stále stejné. Oproti tomu je plánovací entita 
-\paragraph{Problem fact}
-\paragraph{Planning entity}
-\paragraph{Planning variable}
-\paragraph{Planning value and planning value ranges}
-\paragraph{Planning problem and planning solution}
+\subsection{Namodelování plánovacího problému}
+Při modelování plánovacího problému je dobré si ujasnit co je plánovací fakt a co entita. Problem fakt se během plánování nemění tedy jeho hodnoty zůstávají stále stejné. Oproti tomu je plánovací entita \todo{dodělat}
+ 
+\subsubsection{Problem fact}
+Problem fact je třída, která obsahuje getry vracející určité vlastnosti(property) této třidy. Třída se během plánování nemění. V případě n-Queen problému jsou řádky a sloupce problem facts. Problem fact neobsahuje žádný specifický optaplanner kód.
 
-\subsubsection{Konfigurace Solveru}
+\subsubsection{Planning entity}
+Planning entity je třída, která se během plánování mění. V případě n-Queen problému se jewdná o třídu Queen, která mění svoji pozici na určitém řádu. Plánovací entita musí být označena @PlanningEntity anotací. Každá plánovací entita má 1 nebo více plánovacích promenných. \todo{opravit} V tomto případě je třída Queen definována 2 problem fakty - řádkeem a sloupcem a z toho je řádek právě plánovací proměnná. Dále je ještě potřeba do konfigurace solveru označit tuto planning entity třídu.
 
-\subsection{Score calculation}
+\subsubsection{Planning variable}
+Plánoovací proměnná je vlastnost planning entity třídy s potřebnými getry a setry. V připadě našeho n-Queen problému se jendná o řádek který je plánovací proměnná. Plánovací proměnná musí být označena @PlanningVariable anotací, která obsahuje valueRangeProviderRefs property. Tato property definuje jaké jsou možné hodnoty plánovací proměnné. \todo{spojit s @ValueRangeProvider id'}
 
+\subsubsection{Planning value and planning value ranges}
+Planning value je možná hodnota pro plánovací proměnnou. Obvykle je plánovací hodnota problem fakt ale může také být jiný objekt nebo hodnota typu double atd. Planning value range je množina pánovacícch hodnot a proměnných. Tato množina může být počitatelná (např. řádek 1, 2, 3 nebo 4) nebo nepočitatelná (double mezi 0.0 a 1.0).
+
+Value Range je označen @ValueRangeProvider anotací, která má property id, které se odkazuje na  @PlanningVariable's property valueRangeProviderRefs. Anotace může být na dvou typech metod - na solution nebo na plánovací entitě, a její návratový typ je buď kolekce možných hodnot nebo jsou to hranice hodnot.  
+
+\subsubsection{Planning problem and planning solution}
+Každý plánovací problém musí zabalen jako třída, kterou poté solver využívá pro řešení problému. V případě n-Queens problému třída musí obsahovat Column, row, a queen list.
+Plánovací problém je nevyřešené plánovací řešení. Toto řešení musí být popsáno třídou který implementuje Solution rozhraní. Toto rozhraní vyžaduje implementovat metody setScore a getScore a metodu getProblemFacts. \todo{Popsat více Solution interface}
+
+\subsection{Konfigurace Solveru}
+Konfigurace solveru probíhá pomocí konfiguračního XML souboru. V podstatě se dá rozdělit na tři části:
+\begin{enumerate}
+\item Definování modelu -- obsahuje jména třídy, která implementuje třídu solution a třídu která zastupuje v plánvacím problému plánovací entitu
+\item Definování score funkce -- základními parametry jsou typ skóre a třída pro výpočet skóre (resp soubor drl s pravidly podle kterých se skóre počítá)
+\item Konfigurace optimalizačních algoritmů -- obsahuje nastavení algoritmů, které se využijí pro výpočet řešení daného problému
+\end{enumerate}
+Konfigurace může být také změněna dynamicky za běhu pomocí SolverConfig API. Je tak například možné získat aktuální nastavení, či nastavení změnit.
+
+\section{Score calculation} %http://docs.jboss.org/optaplanner/release/6.1.0.Final/optaplanner-docs/html_single/index.html#scoreTerminology
+Každé řešení má skóre 

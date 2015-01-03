@@ -50,5 +50,49 @@ Ještě před samotným spuštením je potřeba nahrát potřebná data. Toto se
 \subsection{Spuštění solveru a získání nejlepšího řešení}
 Spuštění solveru probíha jednoduše zavoláním metody solve() s parametrem odkazu na istanci třídy implementující rozhraní solution. Po ukončení výpočtu a zavoláním metody getBestSolution získáme nejlepší nalezené řešení. V případě n-Queen problému nám vrátí řešení kde každá královna má přiřazený jeden řádek a v případě, že nalezla optimální řešení tak se žádné dvě královny neohrožují.
 
-\section{Score calculation}
-\todo{pokračovat zde}
+\section{Score}
+Score je způsob jak porovnat dvě solutions. Každé solution má své scóre a solution s větším scóre je lepší. Solver hledá řešení s co nejvyšším scóre, tomuto řešení se pak říká nejlepší nalezené řešení. Optimální řešení je však nejlepší řešení daného problému. To může Solver samozřejmě také nalézt a v tom případě je nejlepší řešení zároveň i optimální řešení. Exisutje několik technik jak počítat scóre:
+\begin{itemize}
+\item Score constraint signum -- založené na omezeních, u positive constraint se snažíme získat co nejvyšší scóre, a u negative constraints se snažíme snížit zápornou hodnotu scóre
+\item Score constraint weight -- všechny pomínky nemusí mít stejnou váhu a proto je někdy potřeba počítat s tím že jedna podmínka je několikrát důležitější než jiná
+\item Score level -- některé scóre jsou důležitější než jiné a proto můžeme porovnávat první podle dúležitějšího (hard) score a pak se rozhodnout až podle minoritního (soft) scóre
+\item Pareto scoring -- různé typy podmínek nemají proti sobě metr proto se porovnávají indoviduálně a scóre s vyšší dominací bude lepší řešení
+\item Kombinace různých typů -- také se můžou jednotlivé typy kombinovat
+ 
+\end{itemize}
+
+\subsection{Score calculation}
+Výpočet scóre každého solution může být prováděno několika způsoby: 
+\begin{itemize}
+\item Easy Java score calculation -- výpočet probíhá za pomocí jedinné metody, která vrací skóre pro dané soliton, to poskytuje jednoduchost výočtu ale za cenu pomalejšího výpočtu (pomocí rozhraní EasyScoreCalculator)
+\item Incremental Java score calculation -- výpočet probíhá pomocí několika výočetních metod, jedná se o rychlejší řešení ale složitší na implementaci (rozhraní IncrementalScoreCalculator)
+\item Drools score calculation -- výpočet za pomocí DRL pravidel, dobře optimalizovatelné ale za cenu použítí DRL jazyka
+\end{itemize}
+
+\section{Optimization algorithms}
+Každý výpočet jednotlivé solution zabírá určitou dobu, jenže OptaPlanner nepočítá pouze jedno solution ale hledá to nejlepší a řešení může být opravdu mnoho a prohledávaný prostor může narůst do astronomických rozměrů a s tím i doba výpočtu. Tato práce si neklade za cíl popisovat algoritmy pouze jednotlivé nastíníme. Více informací je pak možno získat na Optaplanner doc.
+
+Mezi algoritmy které je možné v nástroji OptaPlanner použít např. patří:
+\begin{itemize}
+\item Exhaustive Search -- Brute Force,  Branch And Bound
+\item Construction heuristics --  First Fit, Weakest Fit,  Strongest Fit, \dots
+\item Metaheuristics
+\begin{itemize}
+\item Local Search --  Hill Climbing, Tabu Search, Tabu Search, \dots
+\item Evolutionary Algorithms -- Evolutionary Strategies, Genetic Algorithms
+\end{itemize}
+\end{itemize}
+\subsection{Solver structure}
+Solver se může skládat z jedné až několika fázi. Podle toho kolik optimalizačních algoritmů použijeme tolik Solver bude mít fází. Pouze jedna fáze může běžet v jeden okamžit a  každá z fází se skládá z několika stepů. Jeden krok se pak dále skládá z několik move. Move je nenižší část solveru. Jedná se o změnu plánovací entity. V případě n-Queen problému se tedy jedná o přesunuti královny na jiný řádek.  
+
+\subsection{Termination}
+Ne každá fáze Solveru se automaticky ukončí a proto je někdy potřeba přidat podmínky při jakých se má výpočet ukončit. Možnosti jakými můžeme fázi zastavit jsou následující:
+\begin{itemize}
+\item Ukončení časovým limitem -- k ukončení dojde při dovršení časového limitu, rozhsah tohoto limitu je od milisekund po hodiny
+\item Při nalezení nejlepšího scóre -- specifikací nejlepšího scóre můžeme docílit ukončení když se toho skóre dosáhne
+\item Ukončení po počtu kroků -- ukonči se po dovršení limiti počtu kroků
+\item Kombinací jednotlivých ukončení -- také je možné ředchozí ukončení kombinovat
+\item Asynchronní ukončení z jiného vlákna -- pokud je potřeba ukončit výpočet dřivé než automatizovanými metodami je možné to udělat z jiného vlákna
+\end{itemize}
+
+

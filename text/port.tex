@@ -1,3 +1,79 @@
 tady popsat rozdil java jdk a android api
 java beans problem
 problemy android aplikaci
+
+
+\section{Java SE API and Android API}
+Android API je postaveno na Java SE 6, avšak jak je možno vidět na tabulce \todo{odkaz na tabulku} není kompletní Java SE API. Podstatná část balíčků chybí nebo jsou některé ne zcela kompletní. V případě balíčku uživatelského rozhraní jako je java.awt a java swing byly nahrazeny androidími grafickými uživatelskými prvky. Některé balíčky však nemusejí mít přímou souvislost s grafickým uživatelským rozhraním, a proto při portování aplikací můžeme narazit na problém s jejich nedispozicí.
+
+\subsection{Java Beans}
+Typick
+
+\begin {table}[h!]
+\begin{tabular}{|l|l|}
+\hline
+{\bf Java 6 SE Package} & {\bf Included in Android API} \\
+\hline \hline
+java.applet             & No -- missing completely    \\
+java.awt                & Yes -- incomplete            \\
+java.beans              & Yes -- incomplete            \\
+java.io	                & Yes -- completed             \\
+java.lang	            & Yes -- incomplete            \\
+java.math	            & Yes -- completed             \\
+java.net	            & Yes -- completed             \\
+java.nio	            & Yes -- completed             \\
+java.rmi	            & No  -- missing completely    \\
+java.security	        & Yes -- incomplete            \\
+java.sql	            & Yes -- completed             \\
+java.text	            & Yes -- completed             \\
+java.util	            & Yes -- incomplete            \\
+javax.accessibility     & No -- missing completely    \\
+javax.activation	    & No -- missing completely    \\
+javax.activity	        & No -- missing completely    \\
+javax.annotation	    & No -- missing completely    \\
+javax.crypto	        & Yes -- complete              \\
+javax.imageio	        & No -- missing completely    \\
+javax.jws	            & No -- missing completely    \\
+javax.lang	            & No -- missing completely    \\
+javax.management        & No -- missing completely    \\
+javax.naming	        & No -- missing completely    \\
+javax.net	            & Yes -- complete              \\
+javax.print		        & No -- missing completely    \\
+javax.rmi		        & No -- missing completely    \\
+javax.script	        & No -- missing completely    \\
+javax.security          & Yes -- incomplete            \\
+javax.sound             & No -- missing completely    \\
+javax.sql	            & Yes -- incomplete javax.sql  \\
+javax.swing	            & No -- missing completely    \\
+javax.tools	            & No -- missing completely    \\
+javax.transaction	    & No -- missing completely    \\
+javax.xml	            & Yes -- incomplete            \\
+org.ietf.jgss	        & No -- missing completely    \\
+org.omg                 & No -- missing completely    \\
+org.w3c.dom             & Yes -- incomplete            \\
+org.xml.sax	            & Yes -- complete              \\
+\hline
+\end{tabular}
+\centering
+\caption{Java 6 SE packages in Android API}
+\end{table}
+
+
+\subsection{OpenBeans}
+OpenBeans jsou redistribuce java.beans balíčku z Apache Harmony projektu. Namespace se ale od java.beans balíšku líší, v openbeans se používá com.googlecode.openbeans namespace. Vznikly v prvé řadě právě díky neexistenci java.beans na platformě Android. Jedná se o opensource projekt a je distribuován jako jar balíček, který je možné přidat do svého projektu.
+
+\subsection{Mad Robot}
+Podobný projekt jako je OpenBeans se nazývá Mad Robot. Stejně jako OpenBeans obsahuje redistribuci balíčku java.beans pod namespace com.madrobot.beans a navíc přidává i některé další balíčky např pro práci s databází, s grafikou, geometrií atd. Tento projekt je distribuován ve formě Maven závislostí.
+
+\subsection{Jar Jar Links}
+\todo{co je to jar jar}
+\todo{jak ho nastavit}
+
+
+\subsection{Core library flag}
+
+\section{Návrh způsoby portace OptaPlanneru}
+\subsection{}
+
+
+

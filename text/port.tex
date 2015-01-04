@@ -6,9 +6,6 @@ problemy android aplikaci
 \section{Java SE API and Android API}
 Android API je postaveno na Java SE 6, avšak jak je možno vidět na tabulce \todo{odkaz na tabulku} není kompletní Java SE API. Podstatná část balíčků chybí nebo jsou některé ne zcela kompletní. V případě balíčku uživatelského rozhraní jako je java.awt a java swing byly nahrazeny androidími grafickými uživatelskými prvky. Některé balíčky však nemusejí mít přímou souvislost s grafickým uživatelským rozhraním, a proto při portování aplikací můžeme narazit na problém s jejich nedispozicí.
 
-\subsection{Java Beans}
-Typick
-
 \begin {table}[h!]
 \begin{tabular}{|l|l|}
 \hline
@@ -17,15 +14,15 @@ Typick
 java.applet             & No -- missing completely    \\
 java.awt                & Yes -- incomplete            \\
 java.beans              & Yes -- incomplete            \\
-java.io	                & Yes -- completed             \\
+java.io	                & Yes -- complete            \\
 java.lang	            & Yes -- incomplete            \\
-java.math	            & Yes -- completed             \\
-java.net	            & Yes -- completed             \\
-java.nio	            & Yes -- completed             \\
+java.math	            & Yes -- complete            \\
+java.net	            & Yes -- complete             \\
+java.nio	            & Yes -- complete             \\
 java.rmi	            & No  -- missing completely    \\
 java.security	        & Yes -- incomplete            \\
-java.sql	            & Yes -- completed             \\
-java.text	            & Yes -- completed             \\
+java.sql	            & Yes -- complete            \\
+java.text	            & Yes -- complete              \\
 java.util	            & Yes -- incomplete            \\
 javax.accessibility     & No -- missing completely    \\
 javax.activation	    & No -- missing completely    \\
@@ -58,14 +55,37 @@ org.xml.sax	            & Yes -- complete              \\
 \caption{Java 6 SE packages in Android API}
 \end{table}
 
+\section{JavaBeans}
+OptaPlanner je kompletně napsán v programovacím jazyce Java a jednou z jeho závislostí jsou třídy z balíčeku java.beans. Jak je možno vidět v tabulce tento balíček je nekompletní. Při spuštění jednoduchého OptaPlanner projektu vznikne vyjímka ClassNotFoundException, právě z důvodu, že potřebné třídy se v tomto balíčku nenacházejí.   V této sekci si ukážeme jak tento jaké jsou možnosti řešení tohoto problému.
 
-\subsection{OpenBeans}
-OpenBeans jsou redistribuce java.beans balíčku z Apache Harmony projektu. Namespace se ale od java.beans balíšku líší, v openbeans se používá com.googlecode.openbeans namespace. Vznikly v prvé řadě právě díky neexistenci java.beans na platformě Android. Jedná se o opensource projekt a je distribuován jako jar balíček, který je možné přidat do svého projektu.
+\subsection{Přebalení Java Beans redistribuce do java namespace}
+Prvním ze způsobů jak nahradit chybějící balík java.beans je využití redistribuce JavaBeans. Jedná se knihovny speciálně určené pro Android platformu pro podporu JavaBeans či dalších knihoven. Tyto knihovny je potřeba přebalit pomocí nástroje JarJar Links do namespace java.beans a výsledný jar soubor přiložit k android projektu. 
 
-\subsection{Mad Robot}
+\subsubsection{OpenBeans}
+OpenBeans jsou redistribuce java.beans balíčku z Apache Harmony projektu. Namespace se ale od java.beans balíšku líší, v openbeans se používá com.googlecode.openbeans namespace. Vznikly v prvé řadě právě díky neexistenci java.beans na platformě Android. Jedná se o opensource projekt a je distribuován jako jar balíček, který je možné přidat do svého projektu. 
+
+\subsubsection{Mad Robot}
 Podobný projekt jako je OpenBeans se nazývá Mad Robot. Stejně jako OpenBeans obsahuje redistribuci balíčku java.beans pod namespace com.madrobot.beans a navíc přidává i některé další balíčky např pro práci s databází, s grafikou, geometrií atd. Tento projekt je distribuován ve formě Maven závislostí.
 
-\subsection{Jar Jar Links}
+\subsubsection{Jar Jar Links}
+
+\subsection{Použití zdrojových kódu openJDK distribuce}
+Toto řešení zakládá na využití dostupných zdrojových kódu Java SE. Díky tomu je možné získat potřebné knihovny a přidat je přimo do svého projektu. Výhoda tohoto řešení je že se chyby závislostí ukáží už při překladu a ne až když beží aplikace. Díky tomu je možné si ze zdrojových kódu vybrat to potřebné. Tato upráva však není triviální a buď je potřeba použít speciální nástroje které odstraní nepoužívané závislosti nebo postup udělat manuálně. 
+
+\subsection{Použití prořezaného rt.jar}
+Poslední možnoistí bez zásahu do zdrojového kódu je použití balíku rt.jar který je součást knihoven Java SE. Tento balík obsahuje zkompilované třídy JavaBeans a další součásti Java SE. Díky své velikosti se však příliš nehodí pro android aplikace a navíc obsahuje i knihovny které Android API obsahuje a proto by docházelo ke kolizím. Proto je nutné jej prořezat. Výhodou tohoto přořezání je že se nemusíme starat o závislosti, které nejsou potřeba pro Optaplanner nástroj, protože tyto soubory již neprocházejí java kompilátorem. Na druhou stranu se může stát že během běhu aplikace se narazí na potřebnou závislost a aplikace vyhodí vyjímku a aplikace spadne.
+
+\subsection{Použití OpenBeans v OptaPlanner projektu}
+První možností při které je nutné zasahovat do zdrojového kódu je nahrazení závislostí java.beans za com.googlecode.openbeans. Tímto přepsáním importů a připojením balíčku openbeans.jar do jde k přeměrování na třídy open beans. Névyhodou tohoto řešení je právě zásah do zdrojových kódu optaplanneru. Z hlediska vývojáře android aplikace je potřeba vytvořit nový "fork" optaplanneru a ten upravit. A při nové verzi optaplanneru závést změny. Údržba je pak značně komplikovaná.
+
+\subsection{Odstranění a nahrazení JavaBeans z OptaPlanneru}
+Poslední možnost vyřešení problému JavaBeans jeho odstranění ze zdrojového kódu a nahrazení jinou technologií. Nevýhody tohoto řešení zpočívají především v zásahu do zdrojových kódů. V podstatě by se jednalo o největší zásah z nábízených řešení. 
+
+
+\todo{tabulka vyhody a nevyhody}
+
+
+
 \todo{co je to jar jar}
 \todo{jak ho nastavit}
 

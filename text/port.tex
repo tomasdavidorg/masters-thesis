@@ -68,6 +68,22 @@ OpenBeans jsou redistribuce java.beans balíčku z Apache Harmony projektu. Name
 Podobný projekt jako je OpenBeans se nazývá Mad Robot. Stejně jako OpenBeans obsahuje redistribuci balíčku java.beans pod namespace com.madrobot.beans a navíc přidává i některé další balíčky např pro práci s databází, s grafikou, geometrií atd. Tento projekt je distribuován ve formě Maven závislostí.
 
 \subsubsection{Jar Jar Links}
+Jar Jar Links je nástroj pro přebalování Java knihoven. Umožňuje za přebalit java třídy z jednoho namespace do druhého. Proces probíhá pomocí pomocného souboru, kde se určí pravidla a způsob přebalení. Nakonec se pomocí příkazu spustí proces.
+\\
+\begin{lstlisting}[captionpos={b},caption={Spanning tree broadcast algorithm.},frame={lines},label={rule},basicstyle=\footnotesize]
+rule com.googlecode.openbeans.** java.beans.@1
+\end{lstlisting}
+
+\begin{lstlisting}[captionpos={b},caption={Spanning tree broadcast algorithm.},frame={lines},label={command},basicstyle=\footnotesize]
+java -jar jarjar.jar process rule.txt openbeans.jar javabeans.jar
+\end{lstlisting}
+
+\subsubsection{Core library flag}
+Při překladu android aplikace, která obsahuje třídy z namespace java.* nebo javax.* dojde k chybě, která upozorňuje na používání tříd z java core namespace. Tomuto se dá předejít použitím flagu --core-library v nástroji dx, který je umístěn v android-sdk ve složce build tools. Přidáním flagu na poslední řádek povolí překlad aplikace. V listungu je možné vidět jak tento řádek má vypadat.\todo{přidat zmínku k ostatním}
+\\
+\begin{lstlisting}[captionpos={b},caption={Spanning tree broadcast algorithm.},frame={lines},label={command},basicstyle=\footnotesize]
+exec java $javaOpts -jar "$jarpath" --core-library "$@"
+\end{lstlisting}
 
 \subsection{Použití zdrojových kódu openJDK distribuce}
 Toto řešení zakládá na využití dostupných zdrojových kódu Java SE. Díky tomu je možné získat potřebné knihovny a přidat je přimo do svého projektu. Výhoda tohoto řešení je že se chyby závislostí ukáží už při překladu a ne až když beží aplikace. Díky tomu je možné si ze zdrojových kódu vybrat to potřebné. Tato upráva však není triviální a buď je potřeba použít speciální nástroje které odstraní nepoužívané závislosti nebo postup udělat manuálně. 
@@ -81,19 +97,46 @@ První možností při které je nutné zasahovat do zdrojového kódu je nahraz
 \subsection{Odstranění a nahrazení JavaBeans z OptaPlanneru}
 Poslední možnost vyřešení problému JavaBeans jeho odstranění ze zdrojového kódu a nahrazení jinou technologií. Nevýhody tohoto řešení zpočívají především v zásahu do zdrojových kódů. V podstatě by se jednalo o největší zásah z nábízených řešení. 
 
+\subsection{Shrnutí jednotlivých přístupů}
+V následující tabulce je možné vidět jaké jsou výhody a nevýhody jednotlivých řečení. Dále jsou přidány licence, které je potřeba respektovat při použití:
+\begin {table}[h!]
+\begin{tabular}{|p{2.5cm}|p{2cm}|p{2.4cm}|p{2.1cm}|p{5cm}|}
+\hline
+{\bf Přístup} & {\bf Licence} & {\bf Optaplanner modification} & {\bf Complexity} & {\bf Notes} \\
+\hline \hline
+Použití přebaleného OpenBean redistribuce & Apache License 2.0 & No & Easy & 
+{\bf Výhovy:} samostatný soubor jar, bez problémů se závistlostmi \\
+\hline
+Použití přebaleného Mad Robot redistribuce & LGPL 2.1 & No & Easy &  stejné jako předchozí \\
+\hline
+Použití zdrojových kódu openJDK distribuce &  GPL 2.0 / proprietary & No & Hard &
++ chyby závislostí se objeví už při překladu
++ kontrola nad zdrojovými kódy
+- obtížná úprava
+- soubory nejsou v samostatném jar \\
+\hline
+Použití prořezaného rt.jar & GPL 2.0 / proprietary & No & Hard & 
++ samostatný soubor jar
++ není potřeba řešit závislosti pro spravný překlad
+- nutnost prořezání
+- obtížnější úprava
+- možné problémy se závislostmi
+- nekonzistentní jar\\
+\hline
+Použití OpenBeans v OptaPlanner projektu & Apache License 2.0 & Yes & Easy &
+{\bf Výhovy:} Jednoduchá úprava
 
-\todo{tabulka vyhody a nevyhody}
+{\bf Nevýhovy:} nutnost úpravy optaplanner kódu a jeho
+následná údržby forku optaplanneru \\
+\hline
+Odstranění a nahrazení JavaBeans z OptaPlanneru & -- & Yes & Medium &
+{\bf Nevýhovy:} stejné jako v předchozím případě \\
+\hline
+\end{tabular}
+\centering
+\caption{Java 6 SE packages in Android API}
+\end{table}
 
-
-
-\todo{co je to jar jar}
-\todo{jak ho nastavit}
-
-
-\subsection{Core library flag}
-
-\section{Návrh způsoby portace OptaPlanneru}
-\subsection{}
 
 
 

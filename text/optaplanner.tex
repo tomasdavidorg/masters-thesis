@@ -1,104 +1,153 @@
-V této kapitole se zaměříme na planning engine Optaplanner. Jedná se software určený k řešení plánovacích problémů. OptaPlanner je opensource projekt vyvíjený JBoss comunitou od roku 2006 a je součástí Drools projektu. Kombinuje optimalizační algoritmy s jádrem pravidlového engine (Drools Expert). 
+In this chapter, we focus on the planning engine Optaplanner, software designed to solve planning problems. OptaPlanner is an open source project developed JBoss community since 2006 and is part of the Drools project. It combines optimization algorithms with the core of rule engine (Drools Expert).
+%V této kapitole se zaměříme na planning engine Optaplanner. Jedná se software určený k řešení plánovacích problémů. OptaPlanner je opensource projekt vyvíjený JBoss comunitou od roku 2006 a je součástí Drools projektu. Kombinuje optimalizační algoritmy s jádrem pravidlového engine (Drools Expert). 
 
-V sekci \ref{planningProblem} si blíže ukážeme co je to plánovací problém, sekce \ref{plannerConf} a \ref{score} zmíní konfiguraci optaplanneru a ukážeme si co je to skóre a jaké jsou možnosti jeho výpočtu. Na závěr v sekci \ref{optimalAlg} zmíníme optimalizační algoritmy které je možno použít.
+Section \ref{planningProblem} shows what is planning problem, then sections \ref{plannerConf} and \ref{score} mention configuration of OptaPlanner and we highlight what is score and options of its calculation. Finally in section \ref{optimalAlg}, we look at the possibilities of optimalization algorithms.
+%V sekci \ref{planningProblem} si blíže ukážeme co je to plánovací problém, sekce \ref{plannerConf} a \ref{score} zmíní konfiguraci optaplanneru a ukážeme si co je to skóre a jaké jsou možnosti jeho výpočtu. Na závěr v sekci \ref{optimalAlg} zmíníme optimalizační algoritmy které je možno použít.
 
 \section{Planning problem}\label{planningProblem}
-V běžném životě, v práci či při jiných příležitostech se setkáváme s problémy, ke kterým máme omezené prostředky (čas, peníze, apod.), stejně tak organizace musí čelit problémům na které mají např. jen omezený počet zaměstnanců. OptaPlanner slouží k optimalizaci takovýchto plánovaní a ke zvýšení efektivnosti za cenu snížení nákladů.
+In everyday life, at work or on an other occasions, we meet the problems for which we have limited resources (time, money, etc.), as well as organizations need to face the problems that have eg. only a limited number of employees. OptaPlanner optimizes such planning and it is used for increase efficiency and reduced costs.
+%V běžném životě, v práci či při jiných příležitostech se setkáváme s problémy, ke kterým máme omezené prostředky (čas, peníze, apod.), stejně tak organizace musí čelit problémům na které mají např. jen omezený počet zaměstnanců. OptaPlanner slouží k optimalizaci takovýchto plánovaní a ke zvýšení efektivnosti za cenu snížení nákladů.
 
-Plánovací problém je v nástroji reprezentován Java třídami. Základním plánovacím problémem může být N-queen problem, mezi problémy z reálného života pak můžeme zařadit např. Vehicle routing problem,  Course timetabling nebo Hospital bed planning.
+In Optaplanner, the planning problems are represented by Java classes. Basic planning problem may be e.g. N-queen problem, to the problems of real life we can include for example Vehicle routing problem, Course timetabling or Hospital bed planning.
+%Plánovací problém je v nástroji reprezentován Java třídami. Základním plánovacím problémem může být např. N-queen problem, mezi problémy z reálného života pak můžeme zařadit např. Vehicle routing problem,  Course timetabling nebo Hospital bed planning.
 
-N-queen problém, ač není příliš z reálného světa je vhodný jako příklad. Na šachovém poli o velikosti n je rozestavěno n dam. Dáma se může pohybovat horizontálně vertikálně a do úhlopříčky. V tomto problému se snažíme dosáhnout toho aby žádná z dam neohrožovala jinou. 
+N-queen problem although it is not too much from the real world is ideal as an example.  Problem is that we should place n queens to the chess field of size n. We know from chess that queen can move vertically, horizontally and diagonally. The goal is that we try to achieve that none of the queens should threaten another.
+%N-queen problém, ač není příliš z reálného světa je vhodný jako příklad. Na šachovém poli o velikosti n je rozestavěno n dam. Dáma se může pohybovat horizontálně vertikálně a do úhlopříčky. V tomto problému se snažíme dosáhnout toho aby žádná z dam neohrožovala jinou. 
 
 \section{Planner configuration}\label{plannerConf}
-Planner configuration se dá rozdělit na pět základních kroků, které jsou potřeba udělat před získáním řešení. Tyto kroky jsou:
+Planner configuration can be divided into five basic steps that are needed to get a solution. These are the following steps:
+%Planner configuration se dá rozdělit na pět základních kroků, které jsou potřeba udělat před získáním řešení. Tyto kroky jsou:
+
 \begin{enumerate}
-\item \textbf{Namodelování plánovacího problému} -- vytvoření třídy, která ipmlementuje rozhraní Solution, tříd plánovacích entit a plánovacích proměnných
-\item \textbf{Konfigurace Solveru} -- spočívá v nastavení pravidel a algoritmů řešeného problému
-\item \textbf{Náhrání data setu problému} -- přirazení instancí plánovacích entit a proměnných
-\item \textbf{Spuštění Solveru} -- zapnutí mechanismu pro řešení problému
-\item \textbf{Získání nejlepšího řešení} -- vyvolání metody, která vrátí nejlepší získané řešení.
+\item \textbf{Modeling of planning problem} -- creation of a class that implements the Solution interface, planning entities and planning entities classes
+%\item \textbf{Namodelování plánovacího problému} -- vytvoření třídy, která ipmlementuje rozhraní Solution, tříd plánovacích entit a plánovacích proměnných
+\item \textbf{Solver configuration} -- rules and algorithms setting of the problem
+%\item \textbf{Konfigurace Solveru} -- spočívá v nastavení pravidel a algoritmů řešeného problému
+\item \textbf{Loading of problem data set} -- insertion of planning entities and variables instances  
+%\item \textbf{Náhrání data setu problému} -- přirazení instancí plánovacích entit a proměnných
+\item \textbf{Starting of Solver} -- start of mechanism for solving the problem
+%\item \textbf{Spuštění Solveru} -- zapnutí mechanismu pro řešení problému
+\item \textbf{Acquirin the best solution} -- method invocation, which returns the best obtained solution 
+%\item \textbf{Získání nejlepšího řešení} -- vyvolání metody, která vrátí nejlepší získané řešení.
 \end{enumerate}
 
-\subsection{Namodelování plánovacího problému}
-Při modelování plánovacího problému je dobré si ujasnit co je plánovací fakt a co entita. Problem fakt se během plánování nemění tedy jeho hodnoty zůstávají stále stejné. Oproti tomu je plánovací entita \todo{dodělat}
+\subsection{Modeling of planning problem}
+For proper modeling of planning problem is good to know what is the difference between planning entity and planning fact. 
+%Při modelování plánovacího problému je dobré si ujasnit co je plánovací fakt a co entita. Problem fakt se během plánování nemění tedy jeho hodnoty zůstávají stále stejné. Oproti tomu je plánovací entita \todo{dodělat}
  
 \subsubsection{Problem fact}
-Problem fact je třída, která obsahuje getry vracející určité vlastnosti(property) této třidy. Třída se během plánování nemění. V případě n-Queen problému jsou řádky a sloupce problem facts. Problem fact neobsahuje žádný specifický optaplanner kód.
+Problem fact is class, which contains getters returning properties of this class. These classes don't contain special OptaPlanner code (they could be classic java classes) and during planning they don't change. In case of N-queen problem, rows and columns classes are problem facts.
+%Problem fact je třída, která obsahuje getry vracející určité vlastnosti(property) této třidy. Třída se během plánování nemění. V případě n-Queen problému jsou řádky a sloupce problem facts. Problem fact neobsahuje žádný specifický optaplanner kód.
 
 \subsubsection{Planning entity}
-Planning entity je třída, která se během plánování mění. V případě n-Queen problému se jewdná o třídu Queen, která mění svoji pozici na určitém řádu. Plánovací entita musí být označena @PlanningEntity anotací. Každá plánovací entita má 1 nebo více plánovacích promenných. \todo{opravit} V tomto případě je třída Queen definována 2 problem fakty - řádkeem a sloupcem a z toho je řádek právě plánovací proměnná. Dále je ještě potřeba do konfigurace solveru označit tuto planning entity třídu.
+Planning entity is class, which change during planning.  In case of N-queen problem, Queen class is planning entity, because it change its row position. Planning entity must be marked with @PlanningEntity annotation. Each planning entity má jednu nebo více plánovacích proměnných. In case of N-queen problem, row class is planning variable.
+%Planning entity je třída, která se během plánování mění. V případě n-Queen problému se jewdná o třídu Queen, která mění svoji pozici na určitém řádu. Plánovací entita musí být označena @PlanningEntity anotací. Každá plánovací entita má 1 nebo více plánovacích promenných. \todo{opravit} V tomto případě je třída Queen definována 2 problem fakty - řádkeem a sloupcem a z toho je řádek právě plánovací proměnná. Dále je ještě potřeba do konfigurace solveru označit tuto planning entity třídu.
 
 \subsubsection{Planning variable}
-Plánoovací proměnná je vlastnost planning entity třídy s potřebnými getry a setry. V připadě našeho n-Queen problému se jendná o řádek který je plánovací proměnná. Plánovací proměnná musí být označena @PlanningVariable anotací, která obsahuje valueRangeProviderRefs property. Tato property definuje jaké jsou možné hodnoty plánovací proměnné. \todo{spojit s @ValueRangeProvider id'}
+Planning variable is property of planning entity class with necessery getter and setter. In case of our N-queen problem, Row property is planning variable. It must be marked with @PlanningVariable annotation, which contains valueRangeProviderRefs property. This property defines how possible values of planning variable can be.
+%Plánoovací proměnná je vlastnost planning entity třídy s potřebnými getry a setry. V připadě našeho n-Queen problému se jendná o řádek který je plánovací proměnná. Plánovací proměnná musí být označena @PlanningVariable anotací, která obsahuje valueRangeProviderRefs property. Tato property definuje jaké jsou možné hodnoty plánovací proměnné. \todo{spojit s @ValueRangeProvider id'}
 
 \subsubsection{Planning value and planning value ranges}
-Planning value je možná hodnota pro plánovací proměnnou. Obvykle je plánovací hodnota problem fakt ale může také být jiný objekt nebo hodnota typu double atd. Planning value range je množina pánovacícch hodnot a proměnných. Tato množina může být počitatelná (např. řádek 1, 2, 3 nebo 4) nebo nepočitatelná (double mezi 0.0 a 1.0).
+Planning value is possible value of planning variable. Usually, a planning value is a problem fact, but it can be any object, for example a double. Planning value range is set of possible planning values of planning variable. This set can be a countable (for example row 1, 2, 3 or 4) or uncountable (for example any double between 0.0 and 1.0).
+%Planning value je možná hodnota pro plánovací proměnnou. Obvykle je plánovací hodnota problem fakt ale může také být jiný objekt nebo hodnota typu double atd. Planning value range je množina pánovacícch hodnot proměnných. Tato množina může být počitatelná (např. řádek 1, 2, 3 nebo 4) nebo nepočitatelná (double mezi 0.0 a 1.0).
 
-Value Range je označen @ValueRangeProvider anotací, která má property id, které se odkazuje na  @PlanningVariable's property valueRangeProviderRefs. Anotace může být na dvou typech metod - na solution nebo na plánovací entitě, a její návratový typ je buď kolekce možných hodnot nebo jsou to hranice hodnot.  
+Value Range is markerd with @ValueRangeProvider annotation, which has property id pointing to @PlanningVariable's property valueRangeProviderRefs. This annotation can be located on 2 types of methods -- on the Solution and On the planning entity, but usually first type is used. Also return type of the method can be 2 types -- collection or value range.
+%Value Range je označen @ValueRangeProvider anotací, která má property id, které se odkazuje na  @PlanningVariable's property valueRangeProviderRefs. Anotace může být na dvou typech metod - na solution nebo na plánovací entitě, a její návratový typ je buď kolekce možných hodnot nebo jsou to hranice hodnot.  
 
 \subsubsection{Planning problem and planning solution}
-Každý plánovací problém musí zabalen jako třída, kterou poté solver využívá pro řešení problému. V případě n-Queens problému třída musí obsahovat Column, row, a queen list.
-Plánovací problém je nevyřešené plánovací řešení. Toto řešení musí být popsáno třídou který implementuje Solution rozhraní. Toto rozhraní vyžaduje implementovat metody setScore a getScore a metodu getProblemFacts. \todo{Popsat více Solution interface}
+Each planning problem has to be packaged as a class, which then the solver uses to solve the problem. In the case of n-Queens problem, class must contain column, row, and queen list.
+%Každý plánovací problém musí zabalen jako třída, kterou poté solver využívá pro řešení problému. V případě n-Queens problému třída musí obsahovat Column, row, a queen list.
 
-\subsection{Konfigurace Solveru}
-Konfigurace solveru probíhá pomocí konfiguračního XML souboru. V podstatě se dá rozdělit na tři části:
+The planning problem is unresolved planning solutions. This solution must be described by a class that implements the interface Solution. This interface requires to implement setScore, getScore a getProblemFacts methods.
+%Plánovací problém je nevyřešené plánovací řešení. Toto řešení musí být popsáno třídou který implementuje Solution rozhraní. Toto rozhraní vyžaduje implementovat metody setScore a getScore a metodu getProblemFacts. \todo{Popsat více Solution interface}
+
+\subsection{Solver configuration}
+Solver configuration is described by configuration XML file. Basically, it can be divided into three parts:
+%Konfigurace solveru probíhá pomocí konfiguračního XML souboru. V podstatě se dá rozdělit na tři části:
+
 \begin{enumerate}
-\item Definování modelu -- obsahuje jména třídy, která implementuje třídu solution a třídu která zastupuje v plánvacím problému plánovací entitu
-\item Definování score funkce -- základními parametry jsou typ skóre a třída pro výpočet skóre (resp soubor drl s pravidly podle kterých se skóre počítá)
-\item Konfigurace optimalizačních algoritmů -- obsahuje nastavení algoritmů, které se využijí pro výpočet řešení daného problému
+\item \textbf{Model defining} -- contains the name of a class that implements the solution interface and name of class that represents the planning entity
+%obsahuje jména třídy, která implementuje třídu solution a třídu která zastupuje v plánvacím problému plánovací entitu
+\item \textbf{Score funkce defining} -- basic parameters are the type of score and class to calculate the score (or DRL file with the rules that are used for calculating)
+%základními parametry jsou typ skóre a třída pro výpočet skóre (resp soubor drl s pravidly podle kterých se skóre počítá)
+\item \textbf{Defining of optimization algorithm(s)} -- contains settings of algorithms that are used to calculate the solution of the problem
+%obsahuje nastavení algoritmů, které se využijí pro výpočet řešení daného problému
 \end{enumerate}
-Konfigurace může být také změněna dynamicky za běhu pomocí SolverConfig API. Je tak například možné získat aktuální nastavení, či nastavení změnit.
 
-\subsection{Náhrání data setu problému}
-Ještě před samotným spuštením je potřeba nahrát potřebná data. Toto se provádí nahráním plánovacích entit a nastavení planning values do patřičných kolekcí tříd která implementuje rozhraní Solution. Nyní již je vše připraveno pro spuštění.
+Configuration can also be changed dynamically at runtime using SolverConfig API. It is possible for example to obtain the current settings, or change the settings.
+%Konfigurace může být také změněna dynamicky za běhu pomocí SolverConfig API. Je tak například možné získat aktuální nastavení, či nastavení změnit.
 
-\subsection{Spuštění solveru a získání nejlepšího řešení}
-Spuštění solveru probíha jednoduše zavoláním metody solve() s parametrem odkazu na istanci třídy implementující rozhraní solution. Po ukončení výpočtu a zavoláním metody getBestSolution získáme nejlepší nalezené řešení. V případě n-Queen problému nám vrátí řešení kde každá královna má přiřazený jeden řádek a v případě, že nalezla optimální řešení tak se žádné dvě královny neohrožují.
+\subsection{Loading of problem data set}
+Before the start, it is necessary to record the necessary data. This is done by uploading planning entities planning and planning values into the appropriate collection class placedin class implements an interface Solution. From this step, everything is ready for Solver start.
+%Ještě před samotným spuštením je potřeba nahrát potřebná data. Toto se provádí nahráním plánovacích entit a nastavení planning values do patřičných kolekcí tříd která implementuje rozhraní Solution. Nyní již je vše připraveno pro spuštění.
+
+\subsection{Starting of Solver and acquiring the best solution}
+Starting solver takes place simply by calling the solve() method with the parameter containing reference to instance of class that implements the interface solution. After the calculation by calling getBestSolution() method, we get the best solution found. In the case of n-Queen problem we should get a solution where each queen has assigned one row and if optimal solution is found no two queens do not threaten to each other.
+%Spuštění solveru probíha jednoduše zavoláním metody solve() s parametrem odkazu na istanci třídy implementující rozhraní solution. Po ukončení výpočtu a zavoláním metody getBestSolution získáme nejlepší nalezené řešení. V případě n-Queen problému nám vrátí řešení kde každá královna má přiřazený jeden řádek a v případě, že nalezla optimální řešení tak se žádné dvě královny neohrožují.
 
 \section{Score}\label{score}
-Score je způsob jak porovnat dvě solutions. Každé solution má své scóre a solution s větším scóre je lepší. Solver hledá řešení s co nejvyšším scóre, tomuto řešení se pak říká nejlepší nalezené řešení. Optimální řešení je však nejlepší řešení daného problému. To může Solver samozřejmě také nalézt a v tom případě je nejlepší řešení zároveň i optimální řešení. Exisutje několik technik jak počítat scóre:
+Score is a way to compare two solutions. Every solution has own score and solution with higher score is better. Solver finds solution with the higest score from possible solutions (best solution), but it is not always the optimal solution which is the best solution of current problem. This is a significant difference. There are several techniques for comparing scores:
+%Score je způsob jak porovnat dvě solutions. Každé solution má své scóre a solution s větším scóre je lepší. Solver hledá řešení s co nejvyšším scóre, tomuto řešení se pak říká nejlepší nalezené řešení. Optimální řešení je však nejlepší řešení daného problému. To může Solver samozřejmě také nalézt a v tom případě je nejlepší řešení zároveň i optimální řešení. Exisutje několik technik jak počítat scóre:
 \begin{itemize}
-\item Score constraint signum -- založené na omezeních, u positive constraint se snažíme získat co nejvyšší scóre, a u negative constraints se snažíme snížit zápornou hodnotu scóre
-\item Score constraint weight -- všechny pomínky nemusí mít stejnou váhu a proto je někdy potřeba počítat s tím že jedna podmínka je několikrát důležitější než jiná
-\item Score level -- některé scóre jsou důležitější než jiné a proto můžeme porovnávat první podle dúležitějšího (hard) score a pak se rozhodnout až podle minoritního (soft) scóre
-\item Pareto scoring -- různé typy podmínek nemají proti sobě metr proto se porovnávají indoviduálně a scóre s vyšší dominací bude lepší řešení
-\item Kombinace různých typů -- také se můžou jednotlivé typy kombinovat
+\item \textbf{Score constraint signum} -- Based on constraints. We try to get the highest score for positive constraint and try to reduce the negative value for negative constraints.
+%založené na omezeních, u positive constraint se snažíme získat co nejvyšší scóre, a u negative constraints se snažíme snížit zápornou hodnotu scóre
+\item \textbf{Score constraint weight} -- All constraints may not have same weight and thus some of them can be more important then others.
+%všechny pomínky nemusí mít stejnou váhu a proto je někdy potřeba počítat s tím že jedna podmínka je několikrát důležitější než jiná
+\item \textbf{Score level} -- Some scores are more important than others (hard score). Therefore we compare them first and then we can decide by the less important score (soft score).
+%některé scóre jsou důležitější než jiné a proto můžeme porovnávat první podle dúležitějšího (hard) score a pak se rozhodnout až podle minoritního (soft) scóre
+\item \textbf{Pareto scoring} -- Score constraints are not weighted against each other, therefore they are compared individually and the score with the most dominating score constraints wins.
+%různé typy podmínek nemají proti sobě metr proto se porovnávají indoviduálně a scóre s vyšší dominací bude lepší řešení
+\item \textbf{Combining score techniques} -- Mentioned techniques also can be combined.
+%také se můžou jednotlivé typy kombinovat
  
 \end{itemize}
 
 \subsection{Score calculation}
-Výpočet scóre každého solution může být prováděno několika způsoby: 
+Score calculation may be performed in several ways:
+%Výpočet scóre každého solution může být prováděno několika způsoby: 
 \begin{itemize}
-\item Easy Java score calculation -- výpočet probíhá za pomocí jedinné metody, která vrací skóre pro dané soliton, to poskytuje jednoduchost výočtu ale za cenu pomalejšího výpočtu (pomocí rozhraní EasyScoreCalculator)
-\item Incremental Java score calculation -- výpočet probíhá pomocí několika výočetních metod, jedná se o rychlejší řešení ale složitší na implementaci (rozhraní IncrementalScoreCalculator)
-\item Drools score calculation -- výpočet za pomocí DRL pravidel, dobře optimalizovatelné ale za cenu použítí DRL jazyka
+\item \textbf{Easy Java score calculation} -- The calculation is performed using single method, which returns score of solution. This is simple way how to calculate score, but it is slower and less scalable than other methods. Class for score calculation must implements the EasyScoreCalculator interface.
+%výpočet probíhá za pomocí jedinné metody, která vrací skóre pro dané soliton, to poskytuje jednoduchost výočtu ale za cenu pomalejšího výpočtu (pomocí rozhraní EasyScoreCalculator)
+\item \textbf{Incremental Java score calculation} -- The calculation is performed using several computational methods. This is a quicker approach, but more difficult for implementation. Class for score calculation must implements the IncrementalScoreCalculator interface.
+%výpočet probíhá pomocí několika výočetních metod, jedná se o rychlejší řešení ale složitší na implementaci (rozhraní IncrementalScoreCalculator)
+\item \textbf{Drools score calculation} -- The calculation is performed using DRL rules. This approach is well optimizable, but DRL language must be used.
+%výpočet za pomocí DRL pravidel, dobře optimalizovatelné ale za cenu použítí DRL jazyka
 \end{itemize}
 
 \section{Optimization algorithms}\label{optimalAlg}
-Každý výpočet jednotlivé solution zabírá určitou dobu, jenže OptaPlanner nepočítá pouze jedno solution ale hledá to nejlepší a řešení může být opravdu mnoho a prohledávaný prostor může narůst do astronomických rozměrů a s tím i doba výpočtu. Tato práce si neklade za cíl popisovat algoritmy pouze jednotlivé nastíníme. Více informací je pak možno získat na Optaplanner doc.
+Each individual solution computation takes some time. OptaPlanner doesn't count only one solution but looking for the best solution and there may be a lot of solutions. The search space can grow to astronomical proportions, and the calculation time as well.
+% Každý výpočet jednotlivé solution zabírá určitou dobu, jenže OptaPlanner nepočítá pouze jedno solution ale hledá to nejlepší a řešení může být opravdu mnoho a prohledávaný prostor může narůst do astronomických rozměrů a s tím i doba výpočtu. Tato práce si neklade za cíl popisovat algoritmy pouze jednotlivé nastíníme. Více informací je pak možno získat na Optaplanner doc.
 
-Mezi algoritmy které je možné v nástroji OptaPlanner použít např. patří:
+This work does not aim to describe algorithms, more information about them can then be found at \cite{OptaPlannerDoc}. These are some algorithms that can be used:
+%Mezi algoritmy které je možné v nástroji OptaPlanner použít např. patří:
 \begin{itemize}
-\item Exhaustive Search -- Brute Force,  Branch And Bound
-\item Construction heuristics --  First Fit, Weakest Fit,  Strongest Fit, \dots
-\item Metaheuristics
+\item \textbf{Exhaustive Search} -- Brute Force,  Branch And Bound
+\item \textbf{Construction heuristics} --  First Fit, Weakest Fit,  Strongest Fit, \dots
+\item \textbf{Metaheuristics}
 \begin{itemize}
-\item Local Search --  Hill Climbing, Tabu Search, Tabu Search, \dots
-\item Evolutionary Algorithms -- Evolutionary Strategies, Genetic Algorithms
+\item \textbf{Local Search} --  Hill Climbing, Tabu Search, Tabu Search, \dots
+\item \textbf{Evolutionary Algorithms} -- Evolutionary Strategies, Genetic Algorithms
 \end{itemize}
 \end{itemize}
 
-\subsection{Solver structure}
-Solver se může skládat z jedné až několika fázi. Podle toho kolik optimalizačních algoritmů použijeme tolik Solver bude mít fází. Pouze jedna fáze může běžet v jeden okamžit a  každá z fází se skládá z několika stepů. Jeden krok se pak dále skládá z několik move. Move je nenižší část solveru. Jedná se o změnu plánovací entity. V případě n-Queen problému se tedy jedná o přesunuti královny na jiný řádek.  
+\subsection{Solver phases}
+Solver may consist of one or several phases. With the number for optimization algorithms corralates the number of Solver phases. Only one phase can run at one moment and each phase consists of several steps. One step can be divided into severel moves and one move is the lowest part of Solver phase, which corresponds with planning entity change. In case of N-queen problem, it is move of queen to another row.
+%Solver se může skládat z jedné až několika fázi. Podle toho kolik optimalizačních algoritmů použijeme tolik Solver bude mít fází. Pouze jedna fáze může běžet v jeden okamžit a  každá z fází se skládá z několika stepů. Jeden krok se pak dále skládá z několik move. Move je nenižší část solveru. Jedná se o změnu plánovací entity. V případě n-Queen problému se tedy jedná o přesunuti královny na jiný řádek.  
 
 \subsection{Termination}
-Ne každá fáze Solveru se automaticky ukončí a proto je někdy potřeba přidat podmínky při jakých se má výpočet ukončit. Možnosti jakými můžeme fázi zastavit jsou následující:
-\begin{itemize}
-\item Ukončení časovým limitem -- k ukončení dojde při dovršení časového limitu, rozhsah tohoto limitu je od milisekund po hodiny
-\item Při nalezení nejlepšího scóre -- specifikací nejlepšího scóre můžeme docílit ukončení když se toho skóre dosáhne
-\item Ukončení po počtu kroků -- ukonči se po dovršení limiti počtu kroků
-\item Kombinací jednotlivých ukončení -- také je možné ředchozí ukončení kombinovat
-\item Asynchronní ukončení z jiného vlákna -- pokud je potřeba ukončit výpočet dřivé než automatizovanými metodami je možné to udělat z jiného vlákna
-\end{itemize}
+Not all phases terminate automatically and therefore it is sometimes necessary to add conditions which end the calculation. Options we can stop phase are as follows:
+%Ne každá fáze Solveru se automaticky ukončí a proto je někdy potřeba přidat podmínky při jakých se má výpočet ukončit. Možnosti jakými můžeme fázi zastavit jsou následující:
 
+\begin{itemize}
+\item \textbf{Time limit termination} -- Termination occurs after exceeding the time limit. The range is from milliseconds to hours. 
+%k ukončení dojde při dovršení časového limitu, rozsah tohoto limitu je od milisekund po hodiny
+\item \textbf{Best score termination} -- If specified best score is achieved, calculation will stop.
+%specifikací nejlepšího scóre můžeme docílit ukončení když se toho skóre dosáhne
+\item \textbf{Step count termination} -- Termination occurs after exceeding the limit of step count.
+% k ukončení dojde se po dovršení limiti počtu kroků
+\item \textbf{Combining multiple terminations} -- Previous terminations methods is also possible combined.
+% Předchozí způsoby ukončení je možné taká kombinovat.
+\item \textbf{Asynchronous termination from another thread} -- If it is necessary to terminate the calculation differently than automated methods, it is possible to do this from another thread.
+%pokud je potřeba ukončit výpočet dřivé než automatizovanými metodami je možné to udělat z jiného vlákna
+\end{itemize}
 

@@ -1,10 +1,15 @@
-V této kapitole se zaměříme na planning engine Optaplanner. OptaPlanner je 
-\todo{co je to optaplanner atd}
+V této kapitole se zaměříme na planning engine Optaplanner. Jedná se software určený k řešení plánovacích problémů. OptaPlanner je opensource projekt vyvíjený JBoss comunitou od roku 2006 a je součástí Drools projektu. Kombinuje optimalizační algoritmy s jádrem pravidlového engine (Drools Expert). 
 
-\section{Planning problem}
-\todo{co je to planning problem, popsat trochu nqueen problem}
+V sekci \ref{planningProblem} si blíže ukážeme co je to plánovací problém, sekce \ref{plannerConf} a \ref{score} zmíní konfiguraci optaplanneru a ukážeme si co je to skóre a jaké jsou možnosti jeho výpočtu. Na závěr v sekci \ref{optimalAlg} zmíníme optimalizační algoritmy které je možno použít.
 
-\section{Planner configuration}
+\section{Planning problem}\label{planningProblem}
+V běžném životě, v práci či při jiných příležitostech se setkáváme s problémy, ke kterým máme omezené prostředky (čas, peníze, apod.), stejně tak organizace musí čelit problémům na které mají např. jen omezený počet zaměstnanců. OptaPlanner slouží k optimalizaci takovýchto plánovaní a ke zvýšení efektivnosti za cenu snížení nákladů.
+
+Plánovací problém je v nástroji reprezentován Java třídami. Základním plánovacím problémem může být N-queen problem, mezi problémy z reálného života pak můžeme zařadit např. Vehicle routing problem,  Course timetabling nebo Hospital bed planning.
+
+N-queen problém, ač není příliš z reálného světa je vhodný jako příklad. Na šachovém poli o velikosti n je rozestavěno n dam. Dáma se může pohybovat horizontálně vertikálně a do úhlopříčky. V tomto problému se snažíme dosáhnout toho aby žádná z dam neohrožovala jinou. 
+
+\section{Planner configuration}\label{plannerConf}
 Planner configuration se dá rozdělit na pět základních kroků, které jsou potřeba udělat před získáním řešení. Tyto kroky jsou:
 \begin{enumerate}
 \item \textbf{Namodelování plánovacího problému} -- vytvoření třídy, která ipmlementuje rozhraní Solution, tříd plánovacích entit a plánovacích proměnných
@@ -50,7 +55,7 @@ Ještě před samotným spuštením je potřeba nahrát potřebná data. Toto se
 \subsection{Spuštění solveru a získání nejlepšího řešení}
 Spuštění solveru probíha jednoduše zavoláním metody solve() s parametrem odkazu na istanci třídy implementující rozhraní solution. Po ukončení výpočtu a zavoláním metody getBestSolution získáme nejlepší nalezené řešení. V případě n-Queen problému nám vrátí řešení kde každá královna má přiřazený jeden řádek a v případě, že nalezla optimální řešení tak se žádné dvě královny neohrožují.
 
-\section{Score}
+\section{Score}\label{score}
 Score je způsob jak porovnat dvě solutions. Každé solution má své scóre a solution s větším scóre je lepší. Solver hledá řešení s co nejvyšším scóre, tomuto řešení se pak říká nejlepší nalezené řešení. Optimální řešení je však nejlepší řešení daného problému. To může Solver samozřejmě také nalézt a v tom případě je nejlepší řešení zároveň i optimální řešení. Exisutje několik technik jak počítat scóre:
 \begin{itemize}
 \item Score constraint signum -- založené na omezeních, u positive constraint se snažíme získat co nejvyšší scóre, a u negative constraints se snažíme snížit zápornou hodnotu scóre
@@ -69,7 +74,7 @@ Výpočet scóre každého solution může být prováděno několika způsoby:
 \item Drools score calculation -- výpočet za pomocí DRL pravidel, dobře optimalizovatelné ale za cenu použítí DRL jazyka
 \end{itemize}
 
-\section{Optimization algorithms}
+\section{Optimization algorithms}\label{optimalAlg}
 Každý výpočet jednotlivé solution zabírá určitou dobu, jenže OptaPlanner nepočítá pouze jedno solution ale hledá to nejlepší a řešení může být opravdu mnoho a prohledávaný prostor může narůst do astronomických rozměrů a s tím i doba výpočtu. Tato práce si neklade za cíl popisovat algoritmy pouze jednotlivé nastíníme. Více informací je pak možno získat na Optaplanner doc.
 
 Mezi algoritmy které je možné v nástroji OptaPlanner použít např. patří:
@@ -82,6 +87,7 @@ Mezi algoritmy které je možné v nástroji OptaPlanner použít např. patří
 \item Evolutionary Algorithms -- Evolutionary Strategies, Genetic Algorithms
 \end{itemize}
 \end{itemize}
+
 \subsection{Solver structure}
 Solver se může skládat z jedné až několika fázi. Podle toho kolik optimalizačních algoritmů použijeme tolik Solver bude mít fází. Pouze jedna fáze může běžet v jeden okamžit a  každá z fází se skládá z několika stepů. Jeden krok se pak dále skládá z několik move. Move je nenižší část solveru. Jedná se o změnu plánovací entity. V případě n-Queen problému se tedy jedná o přesunuti královny na jiný řádek.  
 

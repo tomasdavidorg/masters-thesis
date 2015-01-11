@@ -1,3 +1,17 @@
+This chapter shows how to add Optaplanner dependency to Android project. It describes differences between Java SE API and Android API. Finally, it looks for a solution of JavaBeans problem. 
+
+\section{Addition of Optaplanner dependency to project}
+Application on Android platform use in recent versions build system gradle which can use maven dependencies. One of the distribution that the core OptaPlanner is distributed is the form of Maven repository. As we can see on Listing \ref{mvndep}, simple way how to connect to Optaplannet to Android application is adding maven dependence to build.gradle file to section depedencies.
+%Aplikace na platformě android využívají v posledních verzích buildovací systém gradle, který umí využívat závislosti typu Maven. Jednou z distribucí, kterou je jádro OptaPlanner sitribuováno je ve formě  Maven repozitáře. Jak je možno vidět v Listings \ref{mvndep}, jednoduchý způsob jak připojit Optaplannet do anroid aplikace je přidáním maven závislosti do build.gradle souboru do sekce depedencies. 
+\\
+\begin{lstlisting}[captionpos={b},caption={Maven Optaplanner dependency.},frame={lines},label={mvndep},basicstyle=\footnotesize]
+dependencies {
+    ...
+    compile 'org.optaplanner:optaplanner-core:6.1.0.Final'
+    ...
+}
+\end{lstlisting}
+
 \section{Java SE API and Android API}\label{apis}
 Android API is based on Apache Harmony Java SE, but as we can see in Table \ref{javaDiff} it is not complete Java SE API. A significant part of the package are missing or some are incomplete. In the case of a package for the graphical user interface such as java.swing and java.awt were replaced with android graphical user elements. GUI is often separated from the computational part of the application and therefore when porting applications this is not a major problem. The real problem occurs when applications will require class dependencies that are not in the android api
 %Android API je postaveno na Apache Harmony Java SE, avšak jak je možno vidět na tabulce \ref{javaDiff} není kompletní Java SE API. Podstatná část balíčků chybí nebo jsou některé ne zcela kompletní. V případě balíčku uživatelského rozhraní jako je java.awt a java swing byly nahrazeny androidími grafickými uživatelskými prvky. GUI  bývá často odděleno od výpočetní části aplikace, a proto při portování aplikací toto není hlavní problém. Skutečný problém nastává when aplikace bude vyžadovat třídní závislosti, které nejsou v android api.
@@ -52,8 +66,6 @@ org.xml.sax	            & Yes -- complete              \\
 \label{javaDiff}
 \end{table}
 
-\section{Jádro optaplanneru}
-
 \section{JavaBeans}
 OptaPlanner is completely written in the Java language and one of its dependencies are classes from java.beans package. As can be seen in the table, this package is incomplete. When you run a simple OptaPlanner project on Android platform, ClassNotFoundException is thrown, precisely because the necessary classes in this package are not found. In this section we will see how this what are the possible solutions to this problem.
 %OptaPlanner je kompletně napsán v programovacím jazyce Java a jednou z jeho závislostí jsou třídy z balíčeku java.beans. Jak je možno vidět v tabulce tento balíček je nekompletní. Při spuštění jednoduchého OptaPlanner projektu vznikne vyjímka ClassNotFoundException, právě z důvodu, že potřebné třídy se v tomto balíčku nenacházejí.   V této sekci si ukážeme jak tento jaké jsou možnosti řešení tohoto problému.
@@ -106,7 +118,7 @@ During the translation of android application that contains a class from namespa
 exec java $javaOpts -jar "$jarpath" --core-library "$@"
 \end{lstlisting}
 
-\subsection{Shrnutí jednotlivých přístupů}
+\subsection{Summary of approaches}
 In Table \ref{advDis} we can see what are the advantages and disadvantages of each proposals. Furthermore, there are mentioned licenses, which should be respected when we choose specific solotion.
 %V následující tabulce je možné vidět jaké jsou výhody a nevýhody jednotlivých řečení. Dále jsou přidány licence, které je potřeba respektovat při použití:
 \begin {table}[h!]
@@ -144,7 +156,4 @@ In Table \ref{advDis} we can see what are the advantages and disadvantages of ea
 \caption{Advantages and disadvantages of solutions of JavaBeans problem}
 \label{advDis}
 \end{table}
-
-
-
 

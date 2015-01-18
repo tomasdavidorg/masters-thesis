@@ -1,5 +1,8 @@
-\todo{make introduction to the chapter}
-\section{Introduction}
+This chapter deals with Android operating system which becoming more popular with the time. Android platform is quite different from Java plaform. They using same language for source code and the build process is also similat but the differences cause that they are not fully compatible.
+
+In Section~\ref{AndroidIntroduction}, Android and its history is presented. Architecture of this platform is described in Section~\ref{AndroidArchitecture} and part of this architecture -- Android runtime is discussed in more detail in Section~\ref{AndroidRuntime}. Basic components of Android application are presented in Section~\ref{AppStructure} and build processing of Android source code and resources are described in Section~\ref{buildProcess}
+
+\section{Introduction}\label{AndroidIntroduction}
 Android is mobile operating system developed by Google. It's opensource system based on the Linux kernel mainly used in mobile devices such as smartphones, tablets and smart watches, but it can be found also in devices such as set-top boxes, media players and other electronics.
 
 Android, Inc. was founded in California USA in 2003. Google, Inc. bought Android two years later. In 2007, Google acquired several patents in the field of mobile devices. The same year on November 5, there is official presentation of an association of companies formed the Open Handset Alliance which aims to create open standards in mobile devices. The first smartphone running Android released on October 22, 2008.
@@ -39,7 +42,7 @@ Table \ref{androidHistory} presents a brief history of an operating system Andro
     \label{androidHistory}
 \end{table}
 
-\section{Architecture}
+\section{Architecture}\label{AndroidArchitecture}
 The following section describes the architecture of Android system which consists from six layers. Figure~\ref{androidArchitecture} shows this architecture starting with kernel layer and ending with user application.
 \\
 \begin{figure}[h!]
@@ -91,7 +94,7 @@ Application framework layer provides many high-level services to applications in
 \paragraph{Applications}
 The last and highest layer consists of the application itself. These comprise both pre-installed applications and applications that have been added over time from the Android store or an other way.
 
-\section{Android runtime}
+\section{Android runtime}\label{AndroidRuntime}
 Both Android runtime and JRE include a virtual machine and Java SE API. In case of Android runtime, Android contains special virtual machine named Dalvik Virtual Machine, API lacks several Java packages and classes and special Android libraries are included.
 
 \subsubsection{Dalvik Virtual Machine (DVM)}
@@ -108,99 +111,70 @@ The application code must be always transformed from a standard .java file into 
 Most of Android applications are written using Java. Android contains libraries based on Apache Harmony Project that is open source Java implementation. These libraries are a subset of the Java SE platform. They do not contain all of package. For example java.awt or java.swing libraries are replaced by Android user interface classes and packeges. More detailed comparison can be found in the Chapter~\ref{apis}.
 
 \paragraph{Android libraries}
-Android libraries are specific libraries that provide all the functionality of android devices. Libraries are written in Java and the following packages are included:
+Android libraries contains specific packages that provide all the functionality of android devices. Libraries are written in Java and they includes the following packages:
 
 \begin{itemize}
-\item android.app -- provides access to the application model and is the cornerstone of all applications
-\item android.content -- classes for accessing and publishing data applications
-\item android.database -- classes for data access and database manipulation 
-\item android.graphics -- library for screen low-level 2D graphics drawing
-\item android.hardware -- provide access to hardware features such as cameras and sensors
-\item android.media -- library for handling with multimedia 
-\item android.text -- library for manipulate and rendering of strings
-\item android.util -- common tools such as data manipulation and time, conversions between numbers and strings, and more
-\item android.view -- basic building library for building a graphical user interface
-\item android.webkit -- libraries for working with web content
+\item \textbf{android.app} -- provides access to the application model and it is the cornerstone of all applications
+\item \textbf{android.content} -- classes for accessing and publishing data applications
+\item \textbf{android.database} -- classes for data access and database manipulation 
+\item \textbf{android.graphics} -- library for screen low-level 2D graphics drawing
+\item \textbf{android.hardware} -- provide access to hardware features such as cameras and sensors
+\item \textbf{android.media} -- library for handling with multimedia 
+\item \textbf{android.text} -- library for manipulate and rendering of strings
+\item \textbf{android.util} -- common tools such as data manipulation and time utils, conversions between numbers and strings, and other classes
+\item \textbf{android.view} -- basic library for building a graphical user interface
+\item \textbf{android.webkit} -- libraries for working with web content
 \end{itemize}
 
 \section{Application structure}\label{AppStructure}
-In this section we will describe the anatomy of the application, various components that are used for creating android applications.
-%V této sekci budou popsány hlavní části aplikace. Budou popsány jednotivé komponenty které se používají oro tvorbu android aplikací.
+In this section, anatomy of the application is described. Application consist of the various components and blocks whose description follows.
 
-\paragraph{Activities}%http://developer.android.com/guide/components/activities.html
-Activities represent one single screen of user interface. Typically, after starting the application the main activity shows and from there we can run another activity or perform other operations. When you start a new activity, the previous one is stored in a LIFO stack. After pressing the back button is invoked again.
-%Aktivity reprezentují jednu samotnou obrazovku živatelského rozhraní. Typicky po spuštění aplikace je zobrazena hlavní aktivita z které se pak mohou spouštět aktivity další, či provádět jiné operace. Když se spustí nová aktivita, ta předchozí je uschována v Last in first out zásobníku. Po stisknutí tlačítka zpět je znovu vyvolána.
+\paragraph{Activities}
+Activities represent one single screen of user interface. Typically after starting the application, the main activity shows and from there we can run another activity or perform other operations. When you start a new activity, the previous one is stored in a LIFO stack. After pressing the back button, the stored Activity is invoked again.
 
 \paragraph{Services}
-Services are components that run in the background performing long-term tasks. They do not provide a user interface. Services may be still active in the background while running other applications. Example of services can be download content from the Internet while another application is running.
-%Služby jsou komponenty, které beží na pozadí provádějící dlohotrvající operace. Neposkytují uživatelské rozhraní. Služby mohou být stále aktivní i na pozadí zatímco beží jiná aplikace. Příkladem služby může být stahování obsahu z internetu zatímco je spuštěná jiná aplikace.
+Services are components that run in the background performing long-term tasks. They do not provide a user interface. Services may be still active in the background while other applications is running. For example, a service might be playing music or downloading from the Internet.
 
-\paragraph{Content providers} %http://developer.android.com/guide/components/fundamentals.html
-Content providers store, load data and make it available for other applications. Through the content providers other applications may modify or manipulate specific data. An example might be a content provider that manages the contact information on the device.
-%Content providers ukládají, načítají data a zpřístupňjí je pro všechny aplikace. Zkrz content providery mohou ostatní aplikace data modifikovat či s nimi manipulovat. Příkladem může být kontent provider který spravuje informace o kontaktech v zařízení.
+\paragraph{Content providers}
+Content providers store, load data and make them available for other applications. Through the content providers other applications may modify or manipulate specific data. An example might be a content provider that manages the contact information on the device.
 
 \paragraph{Intents}
-The application area is composed of activities and messages between them, which we call Intents. Intent consist of activities to be done and the parameter that is attached to it. We can divide intents into explicit and implicit. Explicit Intent contain action and intention to be made and platform will select the application. Implicit Intent also contain action and object but depends on which application the user chooses.
-%Aplikační prostor je složen s aktivit a zpráv mezi nimi, které nazýváme intenty. Ty se skládájá z činnosti která se má vykonat a parametru který je k ní připojen. Intenty můžeme rozdělit na explicitní a implicitní. Explicitní intenty obsahují akci a záměr které se má provést a výběr aplikace už zařídí platforma.  Implicitní intenty obsahují také akci a objekt ale závisí na uživateli jakou aplikaci zvolí.
+Intents are messages between one component and other component. Intent can be sent inside or outside of an application and that means one applications can communicate with other. The three types of application components are supported for Intents communication -- Activities, Services, and Broadcast receivers. There are two types of intents: Explicit and Implicit. Explicit intents specify the component to start by name. Implicit intents do not specify the component, another application can handle it and makes appropriate response.
 
 \paragraph{Broadcast receivers}
-These are components which are used to listen notification from outside or from inside of the application. Reaction is formed by the type of notification: notification in the status bar, toast, or notification dialog box. An example might be a notification of incoming sms or low battery.
-%Jsou to komponenty, které složí k nasloucháná oznámení z vnějšku popř. zevnitř aplikace. Podle typu oznámení následuje reakce: oznámeníve stavovém řádku, toast, či oznámení dialogovým oknem Příkladem může být oznámení o příchozí sms nebo nízkém stavu baterie.
+These components are used to listen to message notifications (Intents) from outside (other application or system) or from inside of the application. After receiving the message, receivers can initiate appropriate reaction. An example might be a incoming sms or low battery notification.
 
-\paragraph{Application Resources} %http://developer.android.com/guide/topics/resources/available-resources.html
-Android application consists not only from source code but also from the resources that are separated from the code. These resources include:
-%Android aplikace se skládá nejen ze drojových kódů ale také z resources, které jsou od kódu odděleny. Mezi tyto resourcy patří:
+\paragraph{Application Resources}
+Android application consists not only from java files but also from the resources that are separated from the source code. These resources include:
 \begin{enumerate}
-\item Animation Resources -- defines predefined animation
-%definují předem stanovené animace
-\item Color State List Resource -- defines color change based on the View state
-%definují barvy měnící se na základě stávu View
-\item Drawable Resources -- defines different graphics -- bitmaps or xml files
-%definují různé grafiky s bitmapami nebo xml soubory
-\item Layout Resource -- defines the layout of application components
-%definují rozložení component aplikace
-\item Menu Resource -- defines content of aplication menus
-%definují obsah menu aplikace
-\item String Resources -- defines string, string arrays
-%definují řetězce, pole řetěztců.
-\item Style Resource -- defines the appearance and format of ui elements.
-%definují vzhled a formát ui elementů.
-\item and other resources.
+\item \textbf{Animation Resources} -- defines predefined animation
+\item \textbf{Color State List Resource} -- defines color change based on the View state
+\item \textbf{Drawable Resources} -- defines different bitmaps or xml graphics files
+\item \textbf{Layout Resource} -- defines the layout of application components
+\item \textbf{Menu Resource} -- defines content of aplication menus
+\item \textbf{String Resources} -- defines string and string arrays
+\item \textbf{Style Resource} -- defines the appearance and format of ui elements.
 \end{enumerate}
 
-\paragraph{Application Manifest} % http://developer.android.com/guide/topics/manifest/manifest-intro.html
-Each application's root folder must have a file AndroidManifest.xml. This file contains information about the application with regard to Android. It should contain a unique package name for the application, the declaration of used components - activities, services. Then application permissions to the protected parts of the API (such as access to the camera, etc.). There also have to be declared a minimum level api, list of libraries with which the application is connected and other informations about application.
-%Každá aplikace ve své rootovské složcě musí mít soubor AndroidManifest.xml. Tento soubor obsahuje informace o aplikaci s ohledem na systém Android. Měl by obsahovat unikátní jméno balíčku pro danou aplikacim deklaraci použitých komponent - aktivitm, služeb. Dále pak oprávnění aplikace ke chtáněným částem api (jako přístup k fotoaparátu apod). Také je potřeba deklarovat minimální úroveň api a seznam knihoven s kterými je aplikace propojena.
+\paragraph{Application manifest file}
+Each application must have an AndroidManifest.xml file. This file contains information about application with regard to Android and it have to be placed in root directory of project. It must contain a unique package name for the application, the declaration of used Activity and Service components, application permissions to the protected parts of the API (such as access to the camera, etc.). There also have to be declared a minimum API level, list of connected and used libraries and other important informations about application. Android manifest is together with resources compiled by aapt tool to R.java file. Thanks to this, the information is then available in the source code.
 
-\section{Build System}\label{buildProcess}
-Build System is the way how .apk package is produced from source code and resources. Apk file is the package file format used to distribute and install application software to Android. The entire process is automated by using Gradle scripts in the latest versions.
-%Build System je způsob jakým se vyprodukuje ze zdrojového kódu a závislostí a reourců .apk balík. Celý tento proces je automatizován pomocí gradle skriptů ale je pro portování aplikací je dobré mu porozumět.
+\section{Build Process}\label{buildProcess}
+Build process is the way how .apk package is produced from Android project. Apk file is a package file format used to distribution and installation of application software to Android devices. It contains all of the necessery files to run an application. Figure~\ref{buildProcess} shows how .apk package is created from Java source code and resources, including Android Manifest file. The individual steps are:
 
-\subsection{Build Process}
-Figure \ref{buildProcess} shows way of creating .apk package. The individual steps are these:
-%Ná obrázku je možné vidět jakým způsobem probíhá vytváření .apk balíčku. Jednotlivé kroky jsou pak tyto:
 \begin{enumerate}
-\item The Android Asset Packaging Tool compile resource files and AndroidManifest.xml and produce R.java file, so it is possible to refer to the resources.
-%The Android Asset Packaging Tool zkompiluje resource soubory jako jsou manifest a xml soubory a vyprodukuje R.java takže je možné se na resourcy odkazovat.
-\item Aidl coverts all .aidl interfacese to java interfaces.
-%Aidl konvertuje všechny .aidl rozhraní do java rozhraní
-\item Whole code is compilated by java compilator. Outputs are .class files. 
-%Všechen kód je zkompilován java kompilátorem, výstupem jsou .class soubory.
-\item Dex tool converts .class and third-party files into Dalvik byte code.
-%Nástroj dex převede .class soubory do Dalvik byte kodu. Stejně tak soubory třetích stran
-\item All uncompiled resource (eg. Images), compiled resource and .dex files are sent to apkbuilderu which is pack them to .apk file.
-%Všechny nokompilované resourcy (např. obrázky), kompilované resourcy a .dex soubory jsou poslany apkbuilderu aby je zabalil do .apk souboru.
-\item Then .apk file must be signed.
-%Poté musím byt .apk podepsán.
-\item Finally, if the application is being signed in release mode, zipalign tool align the .apk file and thereby decreases memory usage
-%Nakonec pokud je podepsán v release módu musí být zipalign nástrojem vyrovnán a tím se sníží paměťová náročnost.
+\item The Android Asset Packaging Tool compiles resource files and AndroidManifest.xml and produce R.java. Resource references from Java code are then linked to this file.
+\item Aidl coverts all .aidl interfacese to java interfaces. Aidl files are interfacese used for interprocess communication between client and service.
+\item Java compiler takes and compiles R.java file, application source code and Java interfaces to bytecode. Bytecode is stored in .class output files. 
+\item Any 3rd party libraries and .class files are converted by Dex tool to Dalvik byte code which is stored in .dex files.
+\item Other uncompiled resource (eg. images), compiled resource and .dex files are processed by apkbuilder tool which packs them to .apk file.
+\item Once the .apk is created, it must be signed by debug or release key. Jarsigner tool provides signing and creates signed .apk file.
+\item Finally, zipalign tool align the .apk file, if the application is being signed in release mode. This creates signed and aligned .apk file which is not so memory consuming.
 \end{enumerate}
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.7]{fig/build.png}
+    \includegraphics[scale=0.45]{fig/build.png}
     \caption{Build process}
 \end{figure}
-
-
 

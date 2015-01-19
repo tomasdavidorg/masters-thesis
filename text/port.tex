@@ -1,90 +1,88 @@
-This chapter shows how to add Optaplanner dependency to Android project. It describes differences between Java SE API and Android API. Finally, it looks for a solution of JavaBeans problem. 
+This chapter deals with differences between Java SE API and Android API. Although Java libraries of Andoid API are based on Java SE, lot of libraries are missing or they are incomplete. It causes problems that are dealt with in this chapter. These libraries can be added to Android project or dependencies to libraries have to be removed from the OptaPlanner core.
 
-\section{Addition of Optaplanner dependency to project}
-Application on Android platform use in recent versions build system gradle which can use maven dependencies. One of the distribution that the core OptaPlanner is distributed is the form of Maven repository. As we can see on Listing \ref{mvndep}, simple way how to connect to Optaplannet to Android application is adding maven dependence to build.gradle file to section depedencies.
-%Aplikace na platformě android využívají v posledních verzích buildovací systém gradle, který umí využívat závislosti typu Maven. Jednou z distribucí, kterou je jádro OptaPlanner sitribuováno je ve formě  Maven repozitáře. Jak je možno vidět v Listings \ref{mvndep}, jednoduchý způsob jak připojit Optaplannet do anroid aplikace je přidáním maven závislosti do build.gradle souboru do sekce depedencies. 
-\\
-\begin{lstlisting}[captionpos={b},caption={Maven Optaplanner dependency.},frame={lines},label={mvndep},basicstyle=\footnotesize]
-dependencies {
-    ...
-    compile 'org.optaplanner:optaplanner-core:6.1.0.Final'
-    ...
-}
-\end{lstlisting}
+Portation is modification of software for the purpose of usage on different platforms. Optaplanner is designed for Java SE platform and for integration on Android platform is necessary to check the API to find what difference are and solve the problems that occurs.
 
-\section{Java SE API and Android API}\label{apis}
-Android API is based on Apache Harmony Java SE, but as we can see in Table \ref{javaDiff} it is not complete Java SE API. A significant part of the package are missing or some are incomplete. In the case of a package for the graphical user interface such as java.swing and java.awt were replaced with android graphical user elements. GUI is often separated from the computational part of the application and therefore when porting applications this is not a major problem. The real problem occurs when applications will require class dependencies that are not in the android api
-%Android API je postaveno na Apache Harmony Java SE, avšak jak je možno vidět na tabulce \ref{javaDiff} není kompletní Java SE API. Podstatná část balíčků chybí nebo jsou některé ne zcela kompletní. V případě balíčku uživatelského rozhraní jako je java.awt a java swing byly nahrazeny androidími grafickými uživatelskými prvky. GUI  bývá často odděleno od výpočetní části aplikace, a proto při portování aplikací toto není hlavní problém. Skutečný problém nastává when aplikace bude vyžadovat třídní závislosti, které nejsou v android api.
+In the first Section \ref{comparsion}, Java SE API and Android API is compared. There are also shown packages which are used by OptaPlanner and JavaBeans problem is introduces. The proposals for solutions of JavaBean problem are described in Section \ref{JavaBeans} and its summary is presented in the last Section~\ref{summary}.
+
+\section{Java core packages comparsion}\label{comparsion}
+In this section, Java core packages of Java Standart Edition API are compared with packages of Android API. In second part of this section, it is pointed to packages which OptaPlanner tool uses.
+
+\subsubsection{Java SE API and Android API}\label{apis}
+Android API is based on Apache Harmony Java SE (the open source version of Java SE) but as we can see in comparison in Table~\ref{javaDiff} it is not complete Java SE API. In Android API, 20 packages are completely missing and 9 packages are incomplete out of 38 packages.
+
+Packages for the graphical user interface such as java.swing and java.awt were replaced with android graphical elements. GUI is often separated from the computational part of the application and therefore and this is not a major problem for porting libraries and tools.
+
+The real problem occurs when applications will require core class dependencies that are not in the android api.
+
+\subsubsection{Android API and Optaplanner}
+From the total number of 38 packages, Table~\ref{javaDiff} shows that OptaPlannet tool directly uses 6 of them, namely: java.beans, java.io, java.lang, java.math, java.net, and java.util. Three of the used packages are incomplete but only one of them affects OptaPlanner and that is java.beans package. Solutions of this problem are described in the Section~\ref{JavaBeans}.
+\paragraph{Java Beans}
+Beans are reusable software programs that can be assebled to create other application. Mostly, its classes are used for creation of graphical user interface but they also can be used for event handling. More information about java.beans can be found in \cite{}
 
 \begin {table}[h!]
-\begin{tabular}{|l|l|}
+\begin{tabular}{|l|c|c|}
 \hline
-{\bf Java 6 SE Package} & {\bf Included in Android API} \\
+{\bf Java 6 SE Package} & {\bf Included in Android API} & {\bf Need by OptaPlanner} \\
 \hline \hline
-java.applet             & No -- missing completely    \\
-java.awt                & Yes -- incomplete            \\
-java.beans              & Yes -- incomplete            \\
-java.io	                & Yes -- complete            \\
-java.lang	            & Yes -- incomplete            \\
-java.math	            & Yes -- complete            \\
-java.net	            & Yes -- complete             \\
-java.nio	            & Yes -- complete             \\
-java.rmi	            & No  -- missing completely    \\
-java.security	        & Yes -- incomplete            \\
-java.sql	            & Yes -- complete            \\
-java.text	            & Yes -- complete              \\
-java.util	            & Yes -- incomplete            \\
-javax.accessibility     & No -- missing completely    \\
-javax.activation	    & No -- missing completely    \\
-javax.activity	        & No -- missing completely    \\
-javax.annotation	    & No -- missing completely    \\
-javax.crypto	        & Yes -- complete              \\
-javax.imageio	        & No -- missing completely    \\
-javax.jws	            & No -- missing completely    \\
-javax.lang	            & No -- missing completely    \\
-javax.management        & No -- missing completely    \\
-javax.naming	        & No -- missing completely    \\
-javax.net	            & Yes -- complete              \\
-javax.print		        & No -- missing completely    \\
-javax.rmi		        & No -- missing completely    \\
-javax.script	        & No -- missing completely    \\
-javax.security          & Yes -- incomplete            \\
-javax.sound             & No -- missing completely    \\
-javax.sql	            & Yes -- incomplete javax.sql  \\
-javax.swing	            & No -- missing completely    \\
-javax.tools	            & No -- missing completely    \\
-javax.transaction	    & No -- missing completely    \\
-javax.xml	            & Yes -- incomplete            \\
-org.ietf.jgss	        & No -- missing completely    \\
-org.omg                 & No -- missing completely    \\
-org.w3c.dom             & Yes -- incomplete            \\
-org.xml.sax	            & Yes -- complete              \\
+java.applet           & No -- missing completely  & No\\
+java.awt              & Yes -- incomplete         & No\\
+java.beans            & Yes -- incomplete         & Yes\\
+java.io               & Yes -- complete           & Yes\\
+java.lang             & Yes -- incomplete         & Yes\\
+java.math             & Yes -- complete           & Yes\\
+java.net              & Yes -- complete           & Yes\\
+java.nio              & Yes -- complete           & No\\
+java.rmi              & No -- missing completely  & No\\
+java.security         & Yes -- incomplete         & No\\
+java.sql              & Yes -- complete           & No\\
+java.text             & Yes -- complete           & No\\
+java.util             & Yes -- incomplete         & Yes\\
+javax.accessibility   & No -- missing completely  & No\\
+javax.activation      & No -- missing completely  & No\\
+javax.activity        & No -- missing completely  & No\\
+javax.annotation      & No -- missing completely  & No\\
+javax.crypto          & Yes -- complete           & No\\
+javax.imageio         & No -- missing completely  & No\\
+javax.jws             & No -- missing completely  & No\\
+javax.lang            & No -- missing completely  & No\\
+javax.management      & No -- missing completely  & No\\
+javax.naming          & No -- missing completely  & No\\
+javax.net             & Yes -- complete           & No\\
+javax.print           & No -- missing completely  & No\\
+javax.rmi             & No -- missing completely  & No\\
+javax.script          & No -- missing completely  & No\\
+javax.security        & Yes -- incomplete         & No\\
+javax.sound           & No -- missing completely  & No\\
+javax.sql             & Yes -- incomplete         & No\\
+javax.swing           & No -- missing completely  & No\\
+javax.tools           & No -- missing completely  & No\\
+javax.transaction     & No -- missing completely  & No\\
+javax.xml             & Yes -- incomplete         & No\\
+org.ietf.jgss         & No -- missing completely  & No\\
+org.omg               & No -- missing completely  & No\\
+org.w3c.dom           & Yes -- incomplete         & No\\
+org.xml.sax           & Yes -- complete           & No\\
 \hline
 \end{tabular}
 \centering
-\caption{Java 6 SE packages in Android API}
+\caption{Java 6 SE API packages in Android API and Optaplanner core}
 \label{javaDiff}
 \end{table}
 
-\section{JavaBeans}
-OptaPlanner is completely written in the Java language and one of its dependencies are classes from java.beans package. As can be seen in the table, this package is incomplete. When you run a simple OptaPlanner project on Android platform, ClassNotFoundException is thrown, precisely because the necessary classes in this package are not found. In this section we will see how this what are the possible solutions to this problem.
-%OptaPlanner je kompletně napsán v programovacím jazyce Java a jednou z jeho závislostí jsou třídy z balíčeku java.beans. Jak je možno vidět v tabulce tento balíček je nekompletní. Při spuštění jednoduchého OptaPlanner projektu vznikne vyjímka ClassNotFoundException, právě z důvodu, že potřebné třídy se v tomto balíčku nenacházejí.   V této sekci si ukážeme jak tento jaké jsou možnosti řešení tohoto problému.
+\section{JavaBeans problem}\label{JavaBeans}
+OptaPlanner is completely written in the Java language and one of its dependencies is java.beans package. As can be seen in the Table~\ref{javaDiff}, this package is incomplete and when a simple OptaPlanner project on Android platform is started, ClassNotFoundException is thrown because the necessary classes are not found in this package. In this sectionm, the possible solutions of this problem are presented.
 
 \subsection{Repacking of java.beans redistribution to java namespace}
-The first of the ways how to replace the missing package java.beans is use of java.beans redistribution. These libraries are specially designed for the Android platform to support JavaBeans or other missing packages. If we do not want to change optaplanner code we will need to repackage these libraries to java namespace. In the following paragraphs we will introduce two redistribution and a tool for changing jar files -- Jar Jar Links.
-%Prvním ze způsobů jak nahradit chybějící balík java.beans je využití redistribuce JavaBeans. Jedná se knihovny speciálně určené pro Android platformu pro podporu JavaBeans či dalších knihoven. Tyto knihovny je potřeba přebalit pomocí nástroje JarJar Links do namespace java.beans a výsledný jar soubor přiložit k android projektu. 
+The first of the ways how to replace the missing package java.beans is use of java.beans redistribution. These libraries are specially designed for the Android platform to support JavaBeans or other missing packages. If the optaplanner code should stay the same, it is necessary to repackage these libraries to java namespace. In the following paragraphs, two redistribution and the Jar Jar Links tool for repacking jar files are introduced. Last paragraph shows how solve problem with addition of Java core libraries to project. 
 
-\subsubsection{OpenBeans}
-OpenBeans is redistribution of java.beans package from the Apache Harmony project, which was created precisely because missing JavaBean on Android platfor. Used namespace of this redistribution is com.googlecode.openbeans namespace. It is an open source project and it is distributed as jar package that can be included into android project. 
-%OpenBeans jsou redistribuce java.beans balíčku z Apache Harmony projektu. Namespace se ale od java.beans balíšku líší, v openbeans se používá com.googlecode.openbeans namespace. Vznikly v prvé řadě právě díky neexistenci java.beans na platformě Android. Jedná se o opensource projekt a je distribuován jako jar balíček, který je možné přidat do svého projektu. 
+\paragraph{OpenBeans}
+OpenBeans is redistribution of java.beans package from the Apache Harmony project which was created because missing JavaBean on Android platform. Used namespace of this redistribution is com.googlecode.openbeans. It is an open source project and it is distributed as jar package that can be included into Android project. 
 
-\subsubsection{Mad Robot}
-A similar project as OpenBeans called Mad Robot. Like OpenBeans contains redistribution of java.beans package in com.madrobot.beans namespace. It also contains some additional packeges such as for database, graphic, geometry manipulation, etc. This project is distributed as Maven dependencies.
-%Podobný projekt jako je OpenBeans se nazývá Mad Robot. Stejně jako OpenBeans obsahuje redistribuci balíčku java.beans pod namespace com.madrobot.beans a navíc přidává i některé další balíčky např pro práci s databází, s grafikou, geometrií atd. Tento projekt je distribuován ve formě Maven závislostí.
+\paragraph{Mad Robot}
+A similar project as OpenBeans is called Mad Robot. As well as OpenBeans, it contains redistribution of java.beans package in com.madrobot.beans namespace. It also includes some additional packeges for database, graphic and geometry manipulation. This project is distributed as Maven dependencies.
 
-\subsubsection{Jar Jar Links}
-Jar Jar Links is a utility for repackaging Java libraries. Enables repack java classes from one namespace to another. It is necessary to include rules file, which describe way how jar file should be repacked. Example of rule we can see on Listing \ref{rule}. Finally we just run the command with three parameters: rule file, input jar and output jar (Listing \ref{command}). 
-%Jar Jar Links je nástroj pro přebalování Java knihoven. Umožňuje za přebalit java třídy z jednoho namespace do druhého. Proces probíhá pomocí pomocného souboru, kde se určí pravidla a způsob přebalení. Nakonec se pomocí příkazu spustí proces.
+\paragraph{Jar Jar Links}
+Jar Jar Links is a utility for repackaging Java libraries. Enables repack Java classes from one namespace to another. It is necessary to include rules file which describe way how jar file should be repacked. Example of rule can be seen on Listing \ref{rule}. Finally, the command with three parameters: rule file, input jar and output jar has to be run to repack (Listing \ref{command}). 
 \\
 \begin{lstlisting}[captionpos={b},caption={Jar Jar Links rule for repacking OpenBeans to java.beans namespace},frame={lines},label={rule},basicstyle=\footnotesize]
 rule com.googlecode.openbeans.** java.beans.@1
@@ -94,66 +92,64 @@ rule com.googlecode.openbeans.** java.beans.@1
 java -jar jarjar.jar process rule.txt openbeans.jar javabeans.jar
 \end{lstlisting}
 
-\subsection{Use the OpenJDK distribution source code}
-This solution is based on the use of available source code of OpenJDK Java SE. So you can get the necessary libraries and add them directly to your project. The advantage of this solution is that we wil see the dependency failure in translation, not when running the application. This makes possible to choose source code we need. However, this adjustment is not trivial. Either it needs to use a special tool that removes unused dependencies or we must do it manually.
-%Toto řešení zakládá na využití dostupných zdrojových kódu Java SE. Díky tomu je možné získat potřebné knihovny a přidat je přimo do svého projektu. Výhoda tohoto řešení je že se chyby závislostí ukáží už při překladu a ne až když beží aplikace. Díky tomu je možné si ze zdrojových kódu vybrat to potřebné. Tato upráva však není triviální a buď je potřeba použít speciální nástroje které odstraní nepoužívané závislosti nebo postup udělat manuálně. 
-
-\subsection{Use of pruned rt.jar from OpenJDK distribution}
-The last option without interfering with the source code is to use the package rt.jar which is part of the Java SE libraries. This package contains JavaBeans compiled classes and other parts of Java SE. Due to its size it is not well suited for android applications and also includes a libraries that are contained the Android API and thus causing collisions. Therefore, it needs to be pruned. The advantage of this pruning is that we do not have to worry about dependencies that are not needed for Optaplanner tool, because these files are not again compiled. On the other hand, it may happen that during runtime to hit the required dependencies and application throws an exception and the application crashes.
-%Poslední možnoistí bez zásahu do zdrojového kódu je použití balíku rt.jar který je součást knihoven Java SE. Tento balík obsahuje zkompilované třídy JavaBeans a další součásti Java SE. Díky své velikosti se však příliš nehodí pro android aplikace a navíc obsahuje i knihovny které Android API obsahuje a proto by docházelo ke kolizím. Proto je nutné jej prořezat. Výhodou tohoto přořezání je že se nemusíme starat o závislosti, které nejsou potřeba pro Optaplanner nástroj, protože tyto soubory již neprocházejí java kompilátorem. Na druhou stranu se může stát že během běhu aplikace se narazí na potřebnou závislost a aplikace vyhodí vyjímku a aplikace spadne.
-
-\subsection{Use of OpenBeans in OptaPlanner project}
-The first option in which it is necessary to intervene in the Optaplanner source code is to replace dependencies java.beans for com.googlecode.openbeans by rewriting all java.beans imports and and by addition if openBeans.jar archive to Optaplanner project. All dependencies then will be redirected to OpenBeans. The disadvantage of this solution is the interference to OptaPlanner source code.  In terms of android application developers, we need to create a new fork of OptaPlanner and modify it and when new version of Optaplanner is released, we should merge changes. Maintenance is then considerably complicated.
-%První možností při které je nutné zasahovat do zdrojového kódu je nahrazení závislostí java.beans za com.googlecode.openbeans. Tímto přepsáním importů a připojením balíčku openbeans.jar do jde k přeměrování na třídy open beans. Névyhodou tohoto řešení je právě zásah do zdrojových kódu optaplanneru. Z hlediska vývojáře android aplikace je potřeba vytvořit nový "fork" optaplanneru a ten upravit. A při nové verzi optaplanneru závést změny. Údržba je pak značně komplikovaná.
-
-\subsection{Removind and replacing JavaBeans from OptaPlanner}
-Last chance to solve the JavaBeans problem is his removal from the source code and its replacing by another technology. The disadvantages of this solution are primarily that this would be the biggest intervention to optaplanner code of the offered solutions.
-%Poslední možnost vyřešení problému JavaBeans jeho odstranění ze zdrojového kódu a nahrazení jinou technologií. Nevýhody tohoto řešení zpočívají především v zásahu do zdrojových kódů. V podstatě by se jednalo o největší zásah z nábízených řešení. 
-
-\subsection{Core library flag}
-During the translation of android application that contains a class from namespace java. * or javax. *, translation crashes, which is highlighted by message that tell we use classes from java core namespace. This can be avoided by using the flag --core-library in the tool dx, which is located in android-sdk tools build folder. Adding a flag on the last line allow translation application. In Listing \ref{lastline} is possible to see how this line should look like.
-%Při překladu android aplikace, která obsahuje třídy z namespace java.* nebo javax.* dojde k chybě, která upozorňuje na používání tříd z java core namespace. Tomuto se dá předejít použitím flagu --core-library v nástroji dx, který je umístěn v android-sdk ve složce build tools. Přidáním flagu na poslední řádek povolí překlad aplikace. V listungu je možné vidět jak tento řádek má vypadat.\todo{přidat zmínku k ostatním}
+\paragraph{Core library flag}
+Translation of Android application that contains a class from namespace java. * or javax. * crashes during the translation which is highlighted by message about using of a classes from Java core namespace. This can be avoided by using the flag --core-library in the tool dx which is located in android-sdk tools build folder. Adding a flag on the last line allows translation of application. Listing \ref{lastline} shows how this line should looks like.
 \\
 \begin{lstlisting}[captionpos={b},caption={Spanning tree broadcast algorithm.},frame={lines},label={lastline},basicstyle=\footnotesize]
 exec java $javaOpts -jar "$jarpath" --core-library "$@"
 \end{lstlisting}
 
-\subsection{Summary of approaches}
-In Table \ref{advDis} we can see what are the advantages and disadvantages of each proposals. Furthermore, there are mentioned licenses, which should be respected when we choose specific solotion.
-%V následující tabulce je možné vidět jaké jsou výhody a nevýhody jednotlivých řečení. Dále jsou přidány licence, které je potřeba respektovat při použití:
+\subsection{Use the OpenJDK distribution source code}
+This solution is based on the use of available source code of OpenJDK Java SE which is open source distribution of Java SE. So it is possible to get the necessary libraries and add them directly to project. The advantage of this solution is that the dependency failure are seen in translation and not when the application runs. This makes possible to choose only the required classes. However, this adjustment is not trivial. Either it needs to use a special tool that removes unused dependencies or it must be done manually.
+
+\subsection{Use of pruned rt.jar from OpenJDK distribution}
+The last option without interfering the source code is to use the package rt.jar which is part of the Java SE libraries. This package contains JavaBeans compiled classes and other parts of Java SE. Due to its size, it is not well suited for Android applications and also it includes libraries that are already contained in the Android API and it causes collisions. Therefore, it needs to be pruned. The advantage of pruning is that we do not have to worry about dependencies that are not needed for Optaplanner tool because these files are not again compiled. On the other hand, it may happen that an application hits the required dependencies during runtime and the application crashes.
+
+\subsection{Use of OpenBeans in OptaPlanner project}
+The first option which intervenes to the Optaplanner source code is replacing of all java.beans dependencies for the com.googlecode.openbeans by rewriting all imports and by addition of openBeans.jar archive to Optaplanner project. This causes that all dependencies are redirected to OpenBeans. The disadvantage of this solution is the interference to OptaPlanner source code. In terms of Android application developers, it is needed to create a new fork of OptaPlanner and modify it and this causes that the maintenance is then considerably complicated.
+
+\subsection{Removing and replacing JavaBeans from OptaPlanner}
+Last option to solve the JavaBeans problem is its elimination from the source code and its replacing by another technology. This is the biggest intervention to Optaplanner code of the offered solutions and it is also the major disadvantage.
+
+\section{Summary of approaches}\label{summary}
+Table \ref{advDis} shows the advantages and disadvantages of each proposals. Furthermore, there are mentioned licenses which should be respected when specific solution is chosen and also there is mentioned the difficulty of each approach.
+
+The best solution of Java Beans problem seems to be Repacking of OpenBean redistribution of JavaBean to Java namespace. In this approach, Apache licence must be respected. This licence is free software license and it allows easily use the code. It is not necessary to modify the OptaPlaner code and generally, this approach requires less effort from the programmer.
+
 \begin {table}[h!]
 \begin{tabular}{|p{2.5cm}|p{2cm}|p{2.4cm}|p{2.1cm}|p{5cm}|}
 \hline
-{\bf Approach} & {\bf Licence} & {\bf Optaplanner modification} & {\bf Complexity} & {\bf Notes} \\
+{\bf Approach} & {\bf Licence} & {\bf Optaplanner modification} & {\bf Level of difficulty} & {\bf Advantages and disadvantages} \\
 \hline \hline
     Repacking OpenBeans redistribution to java namespace & Apache License 2.0 & No & Easy & 
-    {\bf Advantages:} standalone jar file, no problems with dependencies \\
+    {\bf +} standalone jar file, no problems with dependencies \\
     \hline
     Repacking of Mad Robot redistribution to java namespace & LGPL 2.1 & No & Easy &
-    {\bf Advantages:} same as in previous case \\
+    {\bf +} same as in previous case \\
 \hline
-    Use the OpenJDK distribution source code &  GPL 2.0 & No & Hard &
-    {\bf Advantages:} dependency failure occurs in translation, source code control
+    Use the OpenJDK distribution source code &  GPL 2.0 & No & Medium &
+    {\bf +} dependency failure occurs in translation, source code control
 
-    {\bf Disadvantages:} difficult adjustment which can cause problems with dependencies \\
+    {\bf --} difficult adjustment which can cause problems with dependencies \\
 \hline
     Use of pruned rt.jar from OpenJDK distribution & GPL 2.0  & No & Hard &
-    {\bf Advantages:} standalone jar file, 
+    {\bf +} standalone jar file, 
 
-    {\bf Disadvantages:}
+    {\bf --}
     difficult adjustment which can cause problems with dependencies, incosistent jar, prunning \\
 \hline
     Use of OpenBeans in OptaPlanner project & Apache License 2.0 & Yes & Easy &
-    {\bf Advantages:} easy adjustment
+    {\bf +} easy adjustment
 
-    {\bf Disadvantages:} need of modification of Optaplanner source code and the subsequent maintenance of OptaPlanner fork \\
+    {\bf --} need of modification of Optaplanner source code and the subsequent maintenance of OptaPlanner fork \\
 \hline
     Removind and replacing JavaBeans from OptaPlanner & -- & Yes & Medium &
-    {\bf Disadvantages:} same as in previous case\\
+    {\bf --} same as in previous case\\
 \hline
 \end{tabular}
 \centering
 \caption{Advantages and disadvantages of solutions of JavaBeans problem}
 \label{advDis}
 \end{table}
+
 

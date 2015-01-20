@@ -1,22 +1,22 @@
-In this chapter, the planning engine Optaplanner is presented. OptaPlanner is an open source project developed by JBoss community since 2006 and it is software designed for solving planning problems. Optaplanner is a part of the Drools project and tt combines optimization algorithms with the core of rule engine (Drools Expert).
+In this chapter, the planning engine Optaplanner is presented. OptaPlanner \cite{OptaPlannerPages, DroolsBook} is an open-source project developed by JBoss community since 2006 and it is software designed for solving planning problems. Optaplanner is a part of the Drools project \cite{Drools} and it combines optimization algorithms with the core of rule engine -- Drools Expert \cite{Drools}.
 
 Section~\ref{planningProblem} shows what planning problem is and presents basic terminology. Introduction of basic phases of the OptaPlanner configuration is described in Section~\ref{plannerConf}. 
 
 \section{Planning problem}\label{planningProblem}
 In everyday life, at work or in another occasion, the people meet the problems for which they have limited resources (time, money, etc.). Also organizations need to face these problems at a larger scale. Planning mechanisims help them to save these resources and time. The planning problem is something what can be described and on what mechanisms can be applied.
 
-In Optaplanner, the planning problem is represented by Java classes, XML configuration file and optional DRL rule files. Java classes together form the model of the planning problem. Configuration file is written in Extensible Markup Language and it serves to describe the configuration of Solver. Confiration contains declarated model classes, score configuration and used optimalization algorithm. DRL files are optional. They can be used for contains special rules calculation of a score otherwise the score can be calculated by a Java function.
+In Optaplanner, the planning problem is represented by Java classes, XML configuration file and optional DRL rule files. Java classes together form the model of the planning problem. Configuration file is written in Extensible Markup Language and it serves to describe the configuration of Solver. Configuration contains declarated model classes, score configuration and used optimalization algorithm. DRL files are optional. They contain special rules and can be used for calculation of a score otherwise the score can be calculated by a Java function.
 
-Planning problems can be for example N-Queen problem, Vehicle routing problem, Course timetabling or Hospital bed planning. More examples can be found on \cite{}.
+Planning problems can be for example N-Queen problem, Vehicle routing problem, Course timetabling or Hospital bed planning. More examples can be found in \cite{OptaPlannerDoc}.
 
 \paragraph{Solver}
-A tool in OptaPlanner which solves optimalization problems is the Solver. It uses the problem model and calculates the score of possible initialized solutions. Score is a way how to compare two solution. Except of calculating the score, solver use optimalization algorithms to find the best score of planning problem. End of calculation can be caused for example by find the best solution or by reaching the time limit.
+A tool in OptaPlanner which solves optimalization problems is the Solver. It uses the problem model and calculates the score of possible solutions. Except of calculating the score, Solver use optimalization algorithms to find the best score of planning problem. End of calculation can be caused for example by find the best solution or by reaching the time limit.
 
 \paragraph{Solution}
-An instance of the problems is called solution. There are two basic types of solution in OptaPlanner -- uninitialized and initialized solution. In contrast to second type, the first one does not have the calculated score yet.
+An instance of the problem is called solution. There are two basic types of solution in OptaPlanner -- uninitialized and initialized solutions. In contrast to second type, the first one does not have the calculated score yet.
 
 \paragraph{Score}\label{score}
-Score is a way how to compare two solutions of problem. Every solution has own score and solution with higher score is better. There is significant difference between best and optimal solution. Solver finds solution with the higest score from possible solutions -- the best solution but it is not always the optimal solution which is the best solution of current problem. There are several techniques for comparing scores:
+Score is a way how to compare two solutions of a problem. Every solution has own score and solution with higher score is better. There is significant difference between best and optimal solution. Solver always finds solution with the higest score from possible solutions -- the best solution but it is not always the optimal solution which is the best solution of current problem. There are several techniques for comparing scores:
 \begin{itemize}
 \item \textbf{Score constraint signum} -- based on constraints. Solver finds the highest score for positive constraint and try to reduce the negative value for negative constraints.
 \item \textbf{Score constraint weight} -- technique where constraints may not have same weight and thus some of them can be more important then others. For example, the first condition is three times more important than the second condition.
@@ -26,7 +26,7 @@ Score is a way how to compare two solutions of problem. Every solution has own s
 \end{itemize}
 
 \paragraph{Optimization algorithms}\label{optimalAlg}
-Every individual solution computation takes some time. OptaPlanner doesn't count only one solution but looking for the best solution and there may be a lot of solutions. The search space can grow to astronomical proportions, and the calculation time as well. More information about optimization algorithms can be found at \cite{OptaPlannerDoc}. Following list shows some of algorithms that can be used:
+Every individual solution computation takes some time. OptaPlanner does not count only one solution but looking for the best solution and there may be a lot of solutions. The search space can grow to astronomical proportions and the calculation time as well. More information about optimization algorithms can be found at \cite{OptaPlannerDoc}. Following list shows some of algorithms that can be used:
 \begin{itemize}
 \item \textbf{Exhaustive Search} -- Brute Force,  Branch And Bound
 \item \textbf{Construction heuristics} --  First Fit, Weakest Fit,  Strongest Fit, \dots
@@ -38,14 +38,14 @@ Every individual solution computation takes some time. OptaPlanner doesn't count
 \end{itemize}
 
 \paragraph{N-Queen problem}
-One of planning problems is N-Queen problem. It is not very realistic case but it is ideal as an example. Problem is that it is necessary to place n queens to the chess field of size n. It is known that from the Chess game that queen can move vertically, horizontally and diagonally. The goal is to achieve that none of the queens should threaten another.
+One of planning problems is N-Queen problem. It is not very realistic case but it is ideal as an example. In this problem, it is necessary to place \texttt{n} queens to the chess field of size \texttt{n}. It is known from the Chess game that queen can move vertically, horizontally and diagonally. The goal is to achieve that none of the queens should threaten another.
 
 \section{OptaPlanner configuration}\label{plannerConf}
 In this section, OptaPlanner configuration is described. It can be divided into five basic steps that are required to get the best solution. The steps are the following:
 
 \begin{enumerate}
 \item \textbf{Modeling of planning problem} -- creation of a class that implements the Solution interface and definition of planning domain classes
-\item \textbf{Solver configuration} -- settings of a score function, optimization algorithms and other parameters of a Solver
+\item \textbf{Solver configuration} -- settings of a score function, optimization algorithms and other parameters of Solver
 \item \textbf{Loading of problem data set} -- insertion of planning entities and variables instances into Solver
 \item \textbf{Starting of Solver} -- start of mechanism for solving the problem and automatic calculation of scores
 \item \textbf{Acquiring the best solution} -- method invocation, which returns the best obtained solution
@@ -55,26 +55,25 @@ In this section, OptaPlanner configuration is described. It can be divided into 
 Modeling of planning problem consists of defining individual parts of the problem and creation of corresponding Java classes such as problem fact, planning entity and variable, planning solution and other classes.
 
 \paragraph{Problem fact}
-Problem fact is a class which contains getters returning its properties. This class does not contain special OptaPlanner code (it can be ordinary java class) and during planning it does not change. In case of N-Queen problem, rows and columns classes are problem facts.
+Problem fact is a class which contains getters returning its properties. This class does not contain special OptaPlanner code (it can be ordinary Java class) and during planning it does not change. In case of N-Queen problem, rows and columns classes are problem facts.
 
 \paragraph{Planning entity}
-Planning entity is a class which change during planning. It has to be marked with @PlanningEntity annotation. Each planning entity has one or more planning variables. In case of N-Queen problem, Queen class is planning entity because it changes its row position.
+Planning entity is a class which change during planning. It has to be marked with \texttt{@PlanningEntity} annotation. Each planning entity has one or more planning variables. In case of N-Queen problem, Queen class is planning entity because it changes its row position.
 
 \paragraph{Planning variable}
-Planning variable is property of planning entity class with necessery getter and setter. In case of N-queen problem, row property is planning variable. It must be marked with @PlanningVariable annotation, which contains valueRangeProviderRefs property. This property defines which possible values of planning variable can be.
-
+Planning variable is property of planning entity class with necessery getter and setter. In case of N-queen problem, row property is planning variable. It must be marked with \texttt{@PlanningVariable} annotation which contains \texttt{valueRangeProviderRefs} property. This property defines which possible values of planning variable can be.
 
 \paragraph{Planning value and planning value ranges}
-Planning value is a possible value of a planning variable. Usually, a planning value is a problem fact but it can be any object for example a double. Planning value range is set of a possible planning values of planning variable. This set can be a countable (for example row 1, 2, 3 or 4) or uncountable (for example any double between 0.0 and 1.0). Value Range is markerd with @ValueRangeProvider annotation, which has property id pointing to valueRangeProviderRefs @PlanningVariable's property. This annotation can be located on 2 types of methods -- on the Solution and on the planning entity. Usually, first type is used. Also return type of the method can be 2 types -- collection or value range.
+Planning value is a possible value of a planning variable. Usually, a planning value is a problem fact but it can be any object for example a Double. Planning value range is set of a possible planning values of planning variable. This set can be a countable (for example row 1, 2, 3 or 4) or uncountable (for example any double between 0.0 and 1.0). Value Range is markerd with \texttt{@ValueRangeProvider} annotation, which has property \texttt{id} pointing to \texttt{valueRangeProviderRefs} of \texttt{@PlanningVariable} property. This annotation can be located on 2 types of methods -- on the Solution and on the planning entity. Usually, first type is used. Also return type of the method can be 2 types -- collection or value range.
 
 \paragraph{Planning problem and planning solution}
-Each planning problem has to be packaged as a class which a solver uses to solve the problem. In the case of n-Queens problem, class must contains column, row, and queen lists. The planning problem corresponds with unresolved planning solution. The solution must be described by a class that implements the Solution interface. This interface requires to implement setScore, getScore and getProblemFacts methods.
+Each planning problem has to be packaged as a class which Solver uses to solve the problem. In the case of N-Queens problem, class must contains column, row, and queen lists. The planning problem corresponds with unresolved planning solution. The solution must be described by a class that implements the Solution interface. This interface requires to implement setScore, getScore and getProblemFacts methods.
 
 \subsection{Solver configuration}
-The second part of OptaPlanner configuration is configuration of a solver. It is described by XML file and it also can be changed dynamically at runtime using SolverConfig API. Basically, it can be divided into three parts:
+The second part of OptaPlanner configuration is configuration of Solver. It is described by XML file and it also can be changed dynamically at runtime using SolverConfig API. Basically, it can be divided into three parts:
 
 \begin{enumerate}
-\item \textbf{Model definion} -- consists of the name of a class that implements the solution interface and a name of class that represents the planning entity
+\item \textbf{Model definion} -- consists of the name of a class that implements the Solution interface and a name of class that represents the planning entity
 \item \textbf{Score function definition} -- consists of settings such as a type of score and a class which calculate the score (or DRL file with a rules that are used for calculating)
 \item \textbf{Optimization algorithms definition} -- contains settings of algorithms that are used to optimize the calculation for obtaining a best score of the problem
 \end{enumerate}
@@ -82,29 +81,29 @@ The second part of OptaPlanner configuration is configuration of a solver. It is
 Thanks to the score calculation, all of the initialized solution can be evaluated by a score and these are three following ways how it can be implemented:
 
 \begin{itemize}
-\item \textbf{Easy Java score calculation} -- a class that must implements the EasyScoreCalculator interface. The calculation is performed using single method, which should returns score of solution. This simple way how to calculate score is slower and less scalable than other methods.
-\item \textbf{Incremental Java score calculation} -- a class that must implements the IncrementalScoreCalculator interface. The calculation is performed using several specific computational methods. This is a quicker approach, but more difficult for implementation.
-\item \textbf{Drools score calculation} -- The calculation is performed using DRL rules. These are rules are stored in .drl file. More information about rules can be found on \cite{DroolsBook}. This approach is well optimizable but DRL language must be used.
+\item \textbf{Easy Java score calculation} -- The calculation is performed using single method, which should returns score of solution. This simple way how to calculate score is slower and less scalable than other methods. Class that must implements the \texttt{EasyScoreCalculator} interface.
+\item \textbf{Incremental Java score calculation} -- The calculation is performed using several specific computational methods. This is a quicker approach, but more difficult for implementation. Class must implements the \texttt{IncrementalScoreCalculator} interface.
+\item \textbf{Drools score calculation} -- The calculation is performed using DRL rules. They are stored in \texttt{.drl} file. More information about rules can be found in \cite{DroolsBook, Drools}. This approach is well optimizable but DRL language must be used.
 \end{itemize}
 
 \subsection{Loading of problem data set}
-Last step before the start is the loading of problem data set into a solver. This is done by uploading planning entities and planning values to the appropriate collection in a class that implements an interface Solution. From this step, everything is ready for Solver start.
+Last step before the start is the loading of problem data set into Solver. This is done by uploading planning entities and planning values to the appropriate collection in a class that implements the Solution interface. From this step, everything is ready for Solver start.
 
-In N-Queen example, all the queens and all the rows have to be initialized and uploaded to the appropriate collections of NQueens solution class.
+In N-Queen example, all queens and all rows have to be initialized and uploaded to the appropriate collections of NQueens solution class.
 
 \subsection{Starting of Solver and acquiring the best solution}
-Starting solver takes place simply by calling the solve() method of instance of the Solver class with the parameter containing reference to an instance of a class that implements the interface solution.
+Starting of Solver takes place simply by calling the \texttt{solve()} method of the Solver instance class with the parameter containing reference to an instance of a class that implements the Solution interface .
 
-After the calculation by calling getBestSolution() method of a solver instace, the best solution is returned. In the case of N-Queen problem, a solution where each queen has assigned one row should be obtained and if optimal solution is found no two queens are threaten to each other.
+After the calculation by calling \texttt{getBestSolution()} method of the Solver instace, the best solution is returned. In the case of N-Queen problem, a solution where each queen has assigned one row should be obtained and if optimal solution is found no two queens are threaten to each other.
 
 \paragraph{Termination}
 Not all calculations terminate automatically and therefore it is sometimes necessary to add conditions which causes the end. Options that can stop a calculation are the following:
 
 \begin{itemize}
-\item \textbf{Time limit termination} -- occurs after exceeding the time limit. The range is from milliseconds to hours
+\item \textbf{Time limit termination} -- occurs after exceeding the time limit
 \item \textbf{Best score termination} -- terminates when a specified best score is achieved
 \item \textbf{Step count termination} -- occurs after exceeding the limit of step count of calculation
 \item \textbf{Combining of multiple terminations} -- previous termination methods can be also combined
-\item \textbf{Asynchronous termination from another thread} -- can be used if it is necessary to terminate the calculation differently than automated methods
+\item \textbf{Asynchronous termination from another thread} -- can be used if it is necessary to terminate the calculation differently than by automated methods
 \end{itemize}
 

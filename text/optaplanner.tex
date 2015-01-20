@@ -5,7 +5,7 @@ Section~\ref{planningProblem} shows what planning problem is and presents basic 
 \section{Planning problem}\label{planningProblem}
 In everyday life, at work or in another occasion, the people meet the problems for which they have limited resources (time, money, etc.). Also organizations need to face these problems at a larger scale. Planning mechanisims help them to save these resources and time. The planning problem is something what can be described and on what mechanisms can be applied.
 
-In Optaplanner, the planning problem is represented by Java classes, XML configuration file and optional DRL rule files. Java classes together form the model of the planning problem. Configuration file is written in Extensible Markup Language and it serves to describe the configuration of Solver. Confiration contains declarated model classes, score configuration and used optimalization algorithm. DRL files are optional. They can be used for contains special rules calculation of a score otherwise the score could be calculated by a Java function.
+In Optaplanner, the planning problem is represented by Java classes, XML configuration file and optional DRL rule files. Java classes together form the model of the planning problem. Configuration file is written in Extensible Markup Language and it serves to describe the configuration of Solver. Confiration contains declarated model classes, score configuration and used optimalization algorithm. DRL files are optional. They can be used for contains special rules calculation of a score otherwise the score can be calculated by a Java function.
 
 Planning problems can be for example N-Queen problem, Vehicle routing problem, Course timetabling or Hospital bed planning. More examples can be found on \cite{}.
 
@@ -55,7 +55,7 @@ In this section, OptaPlanner configuration is described. It can be divided into 
 Modeling of planning problem consists of defining individual parts of the problem and creation of corresponding Java classes such as problem fact, planning entity and variable, planning solution and other classes.
 
 \paragraph{Problem fact}
-Problem fact is a class which contains getters returning its properties. This class does not contain special OptaPlanner code (it could be ordinary java class) and during planning it does not change. In case of N-Queen problem, rows and columns classes are problem facts.
+Problem fact is a class which contains getters returning its properties. This class does not contain special OptaPlanner code (it can be ordinary java class) and during planning it does not change. In case of N-Queen problem, rows and columns classes are problem facts.
 
 \paragraph{Planning entity}
 Planning entity is a class which change during planning. It has to be marked with @PlanningEntity annotation. Each planning entity has one or more planning variables. In case of N-Queen problem, Queen class is planning entity because it changes its row position.

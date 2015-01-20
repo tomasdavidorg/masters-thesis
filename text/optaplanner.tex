@@ -20,7 +20,7 @@ Score is a way how to compare two solutions of problem. Every solution has own s
 \begin{itemize}
 \item \textbf{Score constraint signum} -- based on constraints. Solver finds the highest score for positive constraint and try to reduce the negative value for negative constraints.
 \item \textbf{Score constraint weight} -- technique where constraints may not have same weight and thus some of them can be more important then others. For example, the first condition is three times more important than the second condition.
-\item \textbf{Score level} -- based on levels of score. Some scores are more important than others (Hard scores). Therefore, we compare them first and then we can decide by the less important scores (Soft scores).
+\item \textbf{Score level} -- based on levels of score. Some scores are more important than others (Hard scores). Therefore, they are compared first and then it can be decided by some of the less important scores (Soft scores).
 \item \textbf{Pareto scoring} -- Score constraints cannot be weighted against each other therefore they are compared individually and the score with the most dominating score constraints wins.
 \item \textbf{Combining score techniques} -- All the previous techniques can also be combined.
 \end{itemize}
@@ -38,7 +38,7 @@ Every individual solution computation takes some time. OptaPlanner doesn't count
 \end{itemize}
 
 \paragraph{N-Queen problem}
-One of planning problems is N-Queen problem. It is not very realistic case but it is ideal as an example. Problem is that it is necessary to place n queens to the chess field of size n. It is known that from the Chess game that queen can move vertically, horizontally and diagonally. The goal is that we try to achieve that none of the queens should threaten another.
+One of planning problems is N-Queen problem. It is not very realistic case but it is ideal as an example. Problem is that it is necessary to place n queens to the chess field of size n. It is known that from the Chess game that queen can move vertically, horizontally and diagonally. The goal is to achieve that none of the queens should threaten another.
 
 \section{OptaPlanner configuration}\label{plannerConf}
 In this section, OptaPlanner configuration is described. It can be divided into five basic steps that are required to get the best solution. The steps are the following:
@@ -95,7 +95,7 @@ In N-Queen example, all the queens and all the rows have to be initialized and u
 \subsection{Starting of Solver and acquiring the best solution}
 Starting solver takes place simply by calling the solve() method of instance of the Solver class with the parameter containing reference to an instance of a class that implements the interface solution.
 
-After the calculation by calling getBestSolution() method of a solver instace, the best solution is returned. In the case of N-Queen problem we should get a solution where each queen has assigned one row and if optimal solution is found no two queens are threaten to each other.
+After the calculation by calling getBestSolution() method of a solver instace, the best solution is returned. In the case of N-Queen problem, a solution where each queen has assigned one row should be obtained and if optimal solution is found no two queens are threaten to each other.
 
 \paragraph{Termination}
 Not all calculations terminate automatically and therefore it is sometimes necessary to add conditions which causes the end. Options that can stop a calculation are the following:

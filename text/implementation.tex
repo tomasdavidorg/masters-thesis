@@ -1,34 +1,62 @@
 \section{Implementace portace}
 \section{Gradle scripts}
 Jak bylo popsáno v kapitole \ref{ProposalChapter} jedním z požadavků
-\section{Activity and Fragments}
+
+
+\section{Activities and Fragments}
 
 \subsubsection{hard soft score of vrp}
 
-\section{Implementace aplikace}
-\section{Material design}
-One of the new features which bring Android version 5 is material design. It is very sophisticated study that show how to handle with with elements,
-layouts, colors and more. Although this property is not fully backward compatible, it is possible partially to bring this design to earlier devices
-with older versions of Android.
+% decribe how application works
+\section{Application implementation}
 
-This application uses material design as much as possible. Every screen contains material design elements which will be described bellow.
+\subsection{Vehicle Routing problem}
 
-\subsubsection{Components}
-\subsubsection{Dialogs}
-\subsubsection{Recycler view}
-Recycler view
+\paragraph{Score calculator} % easy java score calculator
+\paragraph{Algorithms}%xml configs
+\paragraph{Vehicle routing importer}
+\paragraph{Domains}%vehicle customer ... planing entity planing value...
+\paragraph{Vrp example files}
 
 
-\subsubsection{Application screens}
+\section{Graphical user interface}
+\subsection{Application screens}
 Every application consists of fragments or activities which are collectively called screens. Using controls, it is
 possible to move from one screen to another or change its appearance or behavior. This application is composed from
-three screens. These screens can be seen in Figure \ref{screens}. The third screen is displayed with usolved and with
+three screens. These screens can be seen in Figure \ref{screens}. The third screen is displayed with unsolved and with
 solved solution.
 
 \paragraph{Main screen}
 Main screen is displayed after the application is started. It consists from action bar, welcome text, setting elements
 and button to continue to another screen. Action bar contains application name and buttons for displaying legend and
-application informations dialogs. Two controls are present for calculation options of the problem.
+application informations dialogs. Welcome text provides some basic instruction for the user. Two controls are present
+for calculation options of the problem. It is possible to set time limit in seconds using Number picker and Spinner
+allows select one of the three supported algorithms. Last element on this screen is Open file button which opens screen
+with list of vrp files.
+
+\paragraph{Screen with vrp files list} After Open file button from main screen is pressed this screen is displayed. It
+also contains action bar but it is very litimed because no controls are required there. Basically, whole screen is
+filled with list of vrp files. These example files were used from OptaPlanner project \cite{OptaPlannerPages}. After
+pressing the selected file it is switched to last screen which displays problem and its solution.
+
+\paragraph{Screen of solution}
+This screen is used to displaying unsolved and solved solution. It contains action bar with all items as shown in Figure
+\ref{actionBar}. Compared to the main screen, action bar has additionally button for displaying Navigation drawer and
+button for start and end of the solution process. On the bottom of the screen, Progress bar is placed. This component
+is used for displaying approximate remaining time. Rest of screen is filled with component which draws current solution.
+This component draws unsolved solution at the beginning and after start button is pressed it draws best solution after
+solver finds some. Individual elements represents:
+
+\begin{itemize}
+  \item \textbf{Circle with a number} -- customer with his demand
+  \item \textbf{Building image} -- depot from which depart vehicles
+  \item \textbf{Car image} -- vehicle with its color
+  \item \textbf{Solid line} -- vehicle road to customer
+  \item \textbf{Dashed line} -- vehicle road to depot
+  \item \textbf{Sector on a circle} -- time windows for vehicle arrival
+  \item \textbf{Line on a circle} -- vehicle arrival time
+\end{itemize}
+
 
 \begin{figure}[h!]
     \centering
@@ -36,6 +64,8 @@ application informations dialogs. Two controls are present for calculation optio
     \caption{Application screens -- main screen, list of vrp files, screen with unsolved and solved solution}
     \label{screens}
 \end{figure}
+
+\subsection{Application components}
 
 \subsubsection{Action bar}
 Action bar is a panel on top of the screen that provides basic user action and informations about user navigation. It

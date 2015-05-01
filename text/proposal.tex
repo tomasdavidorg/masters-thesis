@@ -1,0 +1,79 @@
+% todo introduction to proposal
+
+\section{Requirements for OptaPlanner portation}
+In chapter \ref{PortingChapter}, there was describe difference between Java SE API and Android API. Also there was explainded problem
+with JavaBeans package which is necessery for OptaPlanner library. This package needs to be included into project because it is not contained
+in Android API. From described solution of JavaBeans package replacement was selected first option: Repacking OpenBeans package into Java core
+name space.
+
+One of the requirement of portation should be automatic preparation of enviroment. When application is built it is good to make it all automatic.
+JavaBeans library should be included or should be prepared by build script. Also application should be built without much efford from side of programmer.
+
+As was described in chapter OptaPlanner, one of the way of calculation function in OptaPlanner is by the Drools rules. Drools is a big library and project
+which allows to write prescriptions for calculation of best choises. Because this project is not good optimalized for mobile platforms it was not included
+in the portation of OptaPlanner to Android. Instead of drools calculation standart Java calculation will be used as default tool.
+
+Another problem which may occur is problem of user classes in core namespace. When application is built, compiler reports a problem with included classes.
+It is excepted that java core name space is reserved for libraries from standart java api and not for user-created libraries. Therefor it is needed to add
+--core-library flag to dx file in android-sdk.
+
+In summary, it is necessery to repack OpenBeans to Java core namespace, include this package in application project, write automatic scripts which do all
+the work and exclude drools package from project to prevent possible problems and generally decrease size of the application.
+
+\subsubsection{Addition of JavaBeans package}
+The OpenBeans package can be repackaged into Java core name space and can be ordinary included as standard jar file. Howewer, if new verision of OpenBeans
+released it is good to make the process automatic. Basic proposal of repacking OpenBeans is following:
+\begin{itemize}
+\item Download JarJar tool for repacking libraries
+\item Download OpenBeans package which is in com.googlecode namaspace
+\item Run JarJar tools and repack OpenBeans package to java core namespace
+\item Clean temporary files after process and move final jar into lib directory.
+\item Add --core-library flag to dx file in android-sdk build tools
+\end{itemize}
+
+\section{Developer tools}
+Google supports two developer tools for developing Android applications. From the very beginning, eclipse with Android plugin was primary environment built
+on standarts of this system.
+
+Android studio is new deleloper tool which bring many different features againts Eclipse. It is based on developer enviroment Idea J with plugins supporting
+Android components. Also it brings new build system with base on gradle language.
+
+
+\section{Requirements for Android application}
+
+
+
+\subsubsection{Android devices support}
+Before the development starts, it is good to clarify for which version of Android application will be supported. Every version of Android
+comes with new API and new functionality. Biggest changes comes when first number of version is changed. Table \ref{distributon} shows
+actual distributions of android verisons on devices.
+
+Currently versions 2.x.x are on the decline, the most used version is 4.x and the newest version is still not so much used. Therefore it
+was decided that application will supports android from version 4.0 (API 14).
+
+\begin {table}[h!]
+    \begin{tabular}{|c|c|r|}
+        \hline
+        Android version   & API   & Distribution  \\ \hline \hline
+        2.2               & 8     & 0.4 \%        \\ \hline
+        2.3.3 -- 2.3.7    & 10    & 6.4 \%        \\ \hline
+        4.0.3 -- 4.0.4    & 15    & 5.7 \%        \\ \hline
+        4.1               & 16    & 16.5 \%       \\ \hline
+        4.2               & 17    & 18.6 \%       \\ \hline
+        4.3               & 18    & 5.6 \%        \\ \hline
+        4.4               & 19    & 41.4 \%       \\ \hline
+        5.0               & 21    & 5.0 \%        \\ \hline
+        5.1               & 22    & 0.4 \%        \\ \hline
+    \end{tabular}
+    \centering
+    \caption{Android version distributon \cite{Dashboards}}
+    \label{distributon}
+\end{table}
+
+
+
+\subsection{Design of screens}
+
+\subsection{Functionality of application}
+
+%diagram pruchodem programu nebo uml

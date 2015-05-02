@@ -5,10 +5,51 @@
 
 \section{Application implementation}
 %todo introduction to section
-\subsection{Application structure} % describe inner structure not ui
-Application consists from three screens.
 
-% activities and fragments
+\subsection{Application structure} % describe inner structure not ui
+Application consists from three screens. First screen is displayed after start of the application and it is used for
+settings of calculation time limit and algorithm. These parameters are packed in bundle and passed to next screen after
+user clicks on the Open file button placed on this screen. Second screen consist of list of example vrp files which is
+provided by RecyclerView component. User selects one of the files and its name is passed to last screen together with
+parameters from the first one. According to name, vrp file is open on the last screen and after click on start button
+asynchronous process for calculation is created. More details about individual components are described below.
+
+\subsubsection{Activities and fragments}
+Initialy, all the application screens was implemented as activities. However, it turns out that activities have problems
+with data storing and after some change of configuration (for example rotation of screen or restoring application from
+background) destroyes background process and totally recreates activity. Thus framgments were used instead.
+
+Fragments represents part of an Activity. Activity can contain multiple fragments and they can be replaced with another
+fragments. They can be presented as modular section of an activity with own lifecycle.
+
+Figure \ref{} shows usage of fragments and activities in this application. Only one activity is presented and it
+contains action bar and place for fragments. Compared to activites, only part for fragment changes and if new screen is
+required this part is replaced with another fragment. Activity is recreated only in case when application is restarted
+or configuration is changed.
+
+For proper storage of state in fragment \texttt{setRetainInstance(true);} has to be called in method \texttt{onCreate()}
+of current fragment.
+
+\subsubsection{Fragment components}
+In following section, important component of application is described. Especially, these components are related to
+background process and not graphical layout of application which is described in Section \ref{guiSection}.
+
+\paragraph{List of files}
+Second screen consist mainly from list of vrp example files. This list is implemented by \texttt{RecyclerView}
+component. This component simplifies data displaying to list and provides basic patterns of behavior.
+
+\paragraph{Solver asynchronous process}
+After button for calculation start is pressed, asynchronous process is created. This process sets, build and run solver
+with required parameters. Listener is added to solver to publish process every time when new best solution is found.
+Asynchronous process is represented by \texttt{VrpSolverTask} class which extends \texttt{AsyncTask}. \texttt{AsyncTask}
+class enables changes of gui, perform background operations and publishing results.
+
+\paragraph{Solution painter}
+When file is selected from list in second screen unsolved solution is painted. After start of caculation, every time
+when new best solution is found solution painter draws it. Solution painter is represented by \texttt{VrpPainter} class
+and it is partially modified \texttt{VehicleRoutingSolutionPainter} class from Optaplanner project. Because Android
+does not support awt and swing graphic libraries, it was rewritten to use android tools. Also some other changes was
+done like new appearance of customers, material design colors and more.
 
 \subsection{Porting of Vehicle Routing Problem}
 %todo introduction to subsection
@@ -42,7 +83,7 @@ customers and position of depot. This application includes 36 example files in t
 Example files are stored in specific vrp text format and have to be transformed into Vehicle routing solution. For this
 purpose, \texttt{VehicleRoutingImporter} class is imported and used from original Optaplanner application.
 
-\section{Graphical user interface}
+\section{Graphical user interface}\label{guiSection}
 %todo introduction to section
 
 \subsection{Application screens}

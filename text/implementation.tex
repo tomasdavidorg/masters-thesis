@@ -22,13 +22,20 @@ background) destroyes background process and totally recreates activity. Thus fr
 Fragments represents part of an Activity. Activity can contain multiple fragments and they can be replaced with another
 fragments. They can be presented as modular section of an activity with own lifecycle.
 
-Figure \ref{} shows usage of fragments and activities in this application. Only one activity is presented and it
+Figure \ref{activityFragment} shows usage of fragments and activities in this application. Only one activity is presented and it
 contains action bar and place for fragments. Compared to activites, only part for fragment changes and if new screen is
 required this part is replaced with another fragment. Activity is recreated only in case when application is restarted
 or configuration is changed.
 
 For proper storage of state in fragment \texttt{setRetainInstance(true);} has to be called in method \texttt{onCreate()}
 of current fragment.
+
+\begin{figure}[h!]
+    \centering
+    \includegraphics[scale=0.7]{fig/act_frag.pdf}
+    \caption{Activity and fragments in application}
+    \label{activityFragment}
+\end{figure}
 
 \subsubsection{Fragment components}
 In following section, important component of application is described. Especially, these components are related to

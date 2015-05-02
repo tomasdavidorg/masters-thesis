@@ -1,25 +1,50 @@
-\section{Implementace portace}
-\section{Gradle scripts}
-Jak bylo popsáno v kapitole \ref{ProposalChapter} jedním z požadavků
+\section{Portation implementation}
+%todo introduction to section
+\subsection{Gradle scripts}
 
 
-\section{Activities and Fragments}
-
-\subsubsection{hard soft score of vrp}
-
-% decribe how application works
 \section{Application implementation}
+%todo introduction to section
+\subsection{Application structure} % describe inner structure not ui
+Application consists from three screens.
 
-\subsection{Vehicle Routing problem}
+% activities and fragments
 
-\paragraph{Score calculator} % easy java score calculator
-\paragraph{Algorithms}%xml configs
-\paragraph{Vehicle routing importer}
-\paragraph{Domains}%vehicle customer ... planing entity planing value...
+\subsection{Porting of Vehicle Routing Problem}
+%todo introduction to subsection
+
+\paragraph{Vehicle Routing Problem definition}
+Without defining of the problem, application cannot work. Vehicle routing problem is defined by
+\texttt{VehicleRoutingSolution} class which implements \texttt{Solution} interface. This class contains all information
+about solved problem (list of all customers, depots and vehicles) and Solver use it together with solver configuration
+to solve the problem. \texttt{Customer} class is marked as planned entity which contains \texttt{Standstill} planning
+variable. More information about Vehicle Routing Problem definition can be found in OptaPlanner documentation
+\cite{OptaPlannerDoc}.
+
+\paragraph{Solver configurations}
+In this application, it is possible to use three algorithms and set time limit of calculation. These configurations
+including problem definition abd score calculator are stored in xml file from which is Solver built. For each algorithm
+is created such file and it is selected according to the choice. Time limit is additionally set after Solver is created.
+
+\paragraph{Score calculator}
+Every solution has own score and this score must be calculated one of the three methods described in Section
+\ref{scoreConfigSection}. For score calculation in this application, \texttt{VehicleRoutingEasyScoreCalculator} class
+which implements \texttt{EasyScoreCalculator} is used. This class calculates hard and soft score of solution. Hard score
+is computed as load of cars above their capacity. Soft score is calculated as total distance of cars. In case of time
+window variant, delay against due time of arrival is added to hard score.
+
 \paragraph{Vrp example files}
+Example .vrp files are used for problem datasets. These files are taken from Vehicle Routing problem part of original
+Optaplanner application. They cointains informations about number and capacity of vehicles, position and demand of
+customers and position of depot. This application includes 36 example files in total.
 
+\paragraph{Vehicle routing importer}
+Example files are stored in specific vrp text format and have to be transformed into Vehicle routing solution. For this
+purpose, \texttt{VehicleRoutingImporter} class is imported and used from original Optaplanner application.
 
 \section{Graphical user interface}
+%todo introduction to section
+
 \subsection{Application screens}
 Every application consists of fragments or activities which are collectively called screens. Using controls, it is
 possible to move from one screen to another or change its appearance or behavior. This application is composed from
@@ -66,6 +91,7 @@ solver finds some. Individual elements represents:
 \end{figure}
 
 \subsection{Application components}
+%todo introduction to subsection
 
 \subsubsection{Action bar}
 Action bar is a panel on top of the screen that provides basic user action and informations about user navigation. It

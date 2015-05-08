@@ -1,55 +1,74 @@
-% todo introduction to proposal
-
 \section{Requirements for OptaPlanner portation}
-In chapter \ref{PortingChapter}, there was describe difference between Java SE API and Android API. Also there was explainded problem
-with JavaBeans package which is necessery for OptaPlanner library. This package needs to be included into project because it is not contained
-in Android API. From described solution of JavaBeans package replacement was selected first option: Repacking OpenBeans package into Java core
-name space.
 
-One of the requirement of portation should be automatic preparation of enviroment. When application is built it is good to make it all automatic.
-JavaBeans library should be included or should be prepared by build script. Also application should be built without much efford from side of programmer.
+\paragraph{Automatic preparation of enviroment}
+First of the requirements of portation is automatic preparation of enviroment. When an application is built it is good
+to make all automatic. OptaPlanner libaries should be correctly imported and all missing parts as JavaBeans library
+should be included or should be prepared by build script. In summary, if the portation has special needs it must be done
+by way which does not required much efford from side of programmer.
 
-As was described in chapter OptaPlanner, one of the way of calculation function in OptaPlanner is by the Drools rules. Drools is a big library and project
-which allows to write prescriptions for calculation of best choises. Because this project is not good optimalized for mobile platforms it was not included
-in the portation of OptaPlanner to Android. Instead of drools calculation standart Java calculation will be used as default tool.
+\paragraph{Drools library}
+As was described in Chapter \ref{OptaPlannerChapter}, one of the ways of calculation function in OptaPlanner is by the
+Drools rules. Drools is a big library and project which allows to write rule prescriptions for calculation of best
+choices. Because this project is not optimalized for mobile platforms it should not be included in the portation of
+OptaPlanner to Android. Instead of drools calculation standart Java calculation can be used as a default tool.
 
-Another problem which may occur is problem of user classes in core namespace. When application is built, compiler reports a problem with included classes.
-It is excepted that java core name space is reserved for libraries from standart java api and not for user-created libraries. Therefor it is needed to add
---core-library flag to dx file in android-sdk.
+\paragraph{Adding of JavaBeans libraries}
+The JavaBeans problem, which was mentioned in OptaPlaner portation analysis, should be also covered. Repacking of
+JavaBeans redistribution to Java core namespace is the selected way how to solve that problem. It should be automatic
+and all the necessary tools have to be downloaded from the internet (not included directly).
 
-In summary, it is necessery to repack OpenBeans to Java core namespace, include this package in application project, write automatic scripts which do all
-the work and exclude drools package from project to prevent possible problems and generally decrease size of the application.
+\paragraph{Core library flag}
+This is the problem which is directly connected to the previous one. If libraries or classes from java core namespace
+are added into Android project, compiler reports an problem and project is not correctly compiled until these files are
+moved into another namespace. This can be avoided by using \texttt{--core-library} flag in dx file in android-sdk.
+It is desirable that the flag is used and it also should be done by an automatic way.
 
-\subsubsection{Addition of JavaBeans package}
-The OpenBeans package can be repackaged into Java core name space and can be ordinary included as standard jar file. Howewer, if new verision of OpenBeans
-released it is good to make the process automatic. Basic proposal of repacking OpenBeans is following:
-\begin{itemize}
-\item Download JarJar tool for repacking libraries
-\item Download OpenBeans package which is in com.googlecode namaspace
-\item Run JarJar tools and repack OpenBeans package to java core namespace
-\item Clean temporary files after process and move final jar into lib directory.
-\item Add --core-library flag to dx file in android-sdk build tools
-\end{itemize}
-
-\section{Developer tools}
-Google supports two developer tools for developing Android applications. From the very beginning, eclipse with Android plugin was primary environment built
-on standarts of this system.
-
-Android studio is new deleloper tool which bring many different features againts Eclipse. It is based on developer enviroment Idea J with plugins supporting
-Android components. Also it brings new build system with base on gradle language.
-
+\paragraph{Optaplanner usability}
+In summary, it is necessery to prepare OptaPlanner for the Android platform to enable possibility of using tools for
+solving planning problems. Also it should be aimed to OptaPlanner size to increasing applications speed.
 
 \section{Requirements for Android application}
 
+\subsection{Application features}
 
+\paragraph{Vehicle Routing Problem}
+Standard OptaPlanner distribution \cite{OptaPlannerDistribution} contains demonstration examples. One of the examples is
+Vehicle Routing application. Its source code already contains Vehicle Routing Problem model which should be included in
+this application. Also it contains some tools for importing specific \texttt{.vrp} files. Graphical user interface
+cannot be ported because application is written by Awt and Swing libraries which are not included in Android API as
+described in Section \ref{OptaPlannerChapter}. Thanks to that and because it is good practise to adapt the application
+to Android mobile platform, graphical user interface and functions of application should be completely rewritten and
+adjusted to fulfill aspects of Android application development.
 
-\subsubsection{Android devices support}
-Before the development starts, it is good to clarify for which version of Android application will be supported. Every version of Android
-comes with new API and new functionality. Biggest changes comes when first number of version is changed. Table \ref{distributon} shows
-actual distributions of android verisons on devices.
+\paragraph{Application settings}
+Application without any settings is too static and user cannot do much with it. Therefore, it should be option to choose
+problem solving algorithm  which can show that not all algorithms are suitable for such problems. Another option should
+be setting of the time limit of caculation. Thanks to this, process will be terminated earlier and last solution remains
+shown on the screen. Also it should be possible to terminate process before time limit.
 
-Currently versions 2.x.x are on the decline, the most used version is 4.x and the newest version is still not so much used. Therefore it
-was decided that application will supports android from version 4.0 (API 14).
+\paragraph{File opening}
+Original Vehicle Routing application contains \texttt{.vrp} example files. These files should be compatible with created
+application and some of them should be included. Because Android system by default does not contain file browser and
+user probably do not have own \texttt{.vrp} files application will not support opening files from device storage.
+
+\paragraph{Solution diplaying}
+When user selects file, unsolved solution should be displayable on the application screen. After start of solving
+process, new best solution also should be displayable every time when new it is found. Application should further
+contains resources how to display actual statistic information about solved problem.
+
+\paragraph{License}
+Whole application should be distributed as opensource software and it should be written under Apache License 2.0.
+Source code must be publicly available on the internet to guide other persons how to use OptaPlaner in their projects.
+
+\subsection{Android devices support}
+Before the development starts, it is good to clarify for which version of Android will be application supported. Every
+version of Android comes with new API and new functionality. Biggest changes comes when first number of version is
+changed. Table \ref{distributon} shows actual distributions of Android verisons on devices.
+
+Versions 2.x.x are on the decline, the most used versions are 4.x with higest percentage representation and the newest
+version 5.x is not so much used yet but their participation grows. Therefore it was decided that application should
+supports android from version 4.0 (API 14). It desides which resource can be used for application proposal and
+development and how application should be tested.
 
 \begin {table}[h!]
     \begin{tabular}{|c|c|r|}
@@ -71,16 +90,74 @@ was decided that application will supports android from version 4.0 (API 14).
 \end{table}
 
 
+\section{Portation proposal}
+
+\paragraph{Developer tools}
+Google supports two developer tools for developing Android applications. From the very beginning, Eclipse with Android
+plugin was primary environment. Android studio is newer deleloper tool which bring many different features comparing to
+Eclipse. It is based on enviroment IntelliJ Idea with plugins supporting Android features. Also it brings
+new build system with base on Gradle language. This laguage will be also used for automatization of process desribed
+bellow in this section.
+
+\paragraph{OptaPlanner libraries import}
+Due to Gradle scripts support Maven dependencies and it is just one of the distribution of Optaplanner, libraries can
+be imported this way. Because OptaPlanner is daily developed, its last snapshot version will be used to secure that new
+released version will be also compatible with Android.
+
+\paragraph{Exclusion of unnecessary libraries}
+Drools libraries will be excluded from portation. Because Gradle scripts are used, maven dependency to Optaplanner
+library will contain this exclusion. This helps to lower size of created applications.
+
+\paragraph{Completion of missing libraries}
+JavaBeans library will be completed automaticly by Gradle scripts. Basic proposal of procedure of repacking OpenBeans is
+following:
+\begin{itemize}
+\item Download JarJar tool for repacking libraries.
+\item Download OpenBeans package which is in \texttt{com.googlecode} namespace.
+\item Run JarJar tools and repack OpenBeans package to java core namespace (\texttt{java.beans}).
+\item Clean temporary files and move final jar into lib directory.
+\item Add \texttt{--core-library} flag to dx file in Android SDK build directory.
+\end{itemize}
+
+\paragraph{Adding of core library flag}
+Before application is build, core library flag should be added into dx file Android SDK build tools directory. This
+process have to be also automatic and performed by Gradle scripts. It should enter into proper directory find correct
+file and adde flag to the right place.
+
+% TODO ###################################################################
+\section{Application proposal}
+
+\subsection{Application features}
+
+\paragraph{Application settings}
+
+\paragraph{Vrp files}
+
+\paragraph{Porting of Vehicle Routing Problem}
+
+\paragraph{Solution solving}
+
+\paragraph{Solution displaying}
+
+\paragraph{Solution data}
 
 \subsection{Design of screens}
 
-\subsection{Functionality of application}
+\paragraph{Application top bar}
 
-\section{Material design}
+\paragraph{Settings screen}
+
+\paragraph{Screen with vrp files list}
+
+\paragraph{Screen of solution}
+
+\paragraph{Side menu with statistics}
+
+\paragraph{Informational dialogs}
+
+\paragraph{Material design}
 One of the new features which bring Android version 5 is material design. It is very sophisticated study that show how to handle with with elements,
 layouts, colors and more. Although this property is not fully backward compatible, it is possible partially to bring this design to earlier devices
 with older versions of Android.
 
 This application uses material design as much as possible. Every screen contains material design elements which will be described bellow.
-
-%diagram pruchodem programu nebo uml

@@ -1,0 +1,51 @@
+
+\section{Testing}
+
+\subsubsection{Devices}
+The application was tested on several devices during and also after developement. Table \ref{TestingDevicesTable} shows
+these testing devices and their important parameters. Some issues which are associated to them are described in
+following paragraphs.
+
+First one is Android version which specifies supported parts of Android features. Most of problems are related with
+unsupported functions and they are ordinarily detected by compiler. However, from time to time some problems can appear
+and therefore it is better to test application on various version of system.
+
+Next parameters are display size and display resolution which together define density of screens points. Every device
+has diferent display density and component layout must be well designed to fit on so many displays. Also after screen
+rotation, components layout changes and it must be adapted.
+
+Last parameters CPU and RAM defines device speed and computing capabilities. Because this application calculates with
+many values, it was performed some tests and measurements which compare these devices.
+
+\begin {table}[h!]
+\begin{adjustwidth}{-1cm}{}
+    \begin{tabular}{|l|c|c|c|c|}
+        \hline
+        \textbf{Device (Android version)} & \textbf{Display size} & \textbf{Display resolution} & \textbf{CPU} & \textbf{RAM} \\ \hline \hline
+        LG Nexus 5 (5.1.0)            & 4.95 inches  & 1080 x 1920 pixels & 4 core 2.3 GHz & 2 GB   \\ \hline
+        Asus Nexus 7 2013 (5.1.0)     & 7.0 inches   & 1200 x 1920 pixels & 4 core 1.5 GHz & 2 GB   \\ \hline
+        Samsung Galaxy Xcover (4.1.2) & 4.0 inches   & 480 x 800 pixels   & 2 core 1 GHz   & 1 GB   \\ \hline
+        Sony Xperia active (4.0.4)    & 3.0 inches   & 320 x 480 pixels   & 1 GHz          & 0.5 GB \\ \hline
+    \end{tabular}
+    \centering
+    \caption{Testing devices}
+    \label{TestingDevicesTable}
+    \end{adjustwidth}
+\end{table}
+
+\paragraph{Time measurement}
+
+
+\section{Future work}
+
+\paragraph{OptaPlanner game}
+Because OptaPlanner works on Android, following work which has already started is creating of simple game where user
+goal is defeat the OptaPlanner by finding shortest way for vehicles. Using clicking on the customers user create road
+for vehicle to the depot. Meanwhile time is measured and when user finish its work OptaPlanner do the same and results
+will be compared. This is the early proposal of the game which follows this work.
+
+\paragraph{Drools}
+As was written in Chapter \ref{PortingChapter} Drools package was not included in poration due to its size and
+complexity. There are plans to port Drools tool to Android separately and if portation is successful, it will be
+deployed and tested together with OptaPlanner. Although the Drools tool is consuming lot of computer resources, current
+mobile devices already have high performance and it might be interesting to have such instrument on Android platform.

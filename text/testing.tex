@@ -33,7 +33,80 @@ many values, it was performed some tests and measurements which compare these de
     \end{adjustwidth}
 \end{table}
 
-\paragraph{Time measurement}
+\subsubsection{Testing measurement}
+After debugging the application, two measurements were performed on devices mentioned in Table \ref{TestingDevicesTable}
+and one desktop computer. Parameters of the computer was:
+
+\begin{itemize}
+\item \textbf{Device} -- Notebook Lenovo ThinkPad T430s
+\item \textbf{Processor} -- Intel Core i7-3520M 2.90GHz
+\item \textbf{RAM} -- 16 GB
+\item \textbf{OS} -- Fedora 21 64b
+\end{itemize}
+
+For both tests, three testing vrp file was used. They differ with number of customers and number and capacity of
+vehicles. Parameters of these files are shown in table \ref{TestingFilesTable}. All the cases was measured five times
+and it was created diameter of values in case of first measurement or best reached score was used in case of second
+measurement.
+
+\begin {table}[h!]
+    \begin{tabular}{|l|c|c|c|}
+        \hline
+        \textbf{Vrp file} & \textbf{Number of costumers} & \textbf{Number of vehicles} & \textbf{Vehicle capacity} \\ \hline \hline
+        A-n32-k5.vrp      & 32   & 5 & 100   \\ \hline
+        A-n64-k9.vrp      & 64   & 9 & 100   \\ \hline
+        F-n135-k7.vrp     & 135  & 7 & 2210  \\ \hline
+    \end{tabular}
+    \centering
+    \caption{Testing files}
+    \label{TestingFilesTable}
+\end{table}
+
+First test dealt with time of first found solution. Every test was measure five times and it was created diameter which
+is written in Table \ref{FirstFoundTable}. As can be seen, difference between desktop computer and mobile devices is
+quite substantial and with more complicated problem difference between these devices increasing. It can also be observed
+that more powerful mobile devices surpass older device with worse CPU.
+
+\begin {table}[h!]
+    \begin{tabular}{|l|c|c|c|}
+        \hline
+        \textbf{Device}       & \textbf{A-n32-k5.vrp} & \textbf{A-n64-k9.vrp} & \textbf{F-n135-k7.vrp} \\ \hline \hline
+        LG Nexus 5            & 0,162 s               & 0,561 s               & 2,760 s                \\ \hline
+        Asus Nexus 7 2013     & 0,228 s               & 0,795 s               & 4,132 s                \\ \hline
+        Samsung Galaxy Xcover & 0,411 s               & 1,434 s               & 8,219 s                \\ \hline
+        Sony Xperia active    & 0,755 s               & 2,705 s               & 16,334 s               \\ \hline
+        Desktop computer      & 0,075 s               & 0,130 s               & 0,284 s                \\ \hline
+    \end{tabular}
+    \centering
+    \caption{Time of first found solution}
+    \label{FirstFoundTable}
+\end{table}
+
+Second test is displayed in Table \ref{ScoreLimitTable} and it was based on 10s time limit. After the time limit the
+best soft score was saved and from five measurements the lowest was selected. Soft score shows distace which should be
+traveled with all of the vehicles. Quite substantial difference is appeared again between mobile devices and desktop
+computer. Although nexus devices have different parameters they reached same results in two cases. The oldest device
+Sony Xperia active did not reach any result in that time limit for the last case.
+
+\begin {table}[h!]
+    \begin{tabular}{|l|c|c|c|}
+        \hline
+        \textbf{Device}       & \textbf{A-n32-k5.vrp} & \textbf{A-n64-k9.vrp} & \textbf{F-n135-k7.vrp} \\ \hline \hline
+        LG Nexus 5            & 857311                & 1597400               & 1411795                \\ \hline
+        Asus Nexus 7 2013     & 857311                & 1624700               & 1411795                \\ \hline
+        Samsung Galaxy Xcover & 879018                & 1631923               & 1420843                \\ \hline
+        Sony Xperia active    & 894553                & 1633708               & --                     \\ \hline
+        Desktop computer      & 787082                & 1424148               & 1292057                \\ \hline
+    \end{tabular}
+    \centering
+    \caption{Soft score after 10s limit}
+    \label{ScoreLimitTable}
+\end{table}
+
+Although, there is significant difference between desktop computer and Android phones or tablet, these mobile devices
+still sufficient fast to use OptaPlanner tool and solve such kind of problem.
+
+
 
 
 \section{Future work}

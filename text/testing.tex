@@ -1,5 +1,7 @@
 
-\section{Testing}
+Section \ref{TestingSection} \ref{FutureWorkSection}
+
+\section{Testing}\label{TestingSection}
 
 \subsubsection{Devices}
 The application was tested on several devices during and also after developement. Table \ref{TestingDevicesTable} shows
@@ -18,31 +20,46 @@ Last parameters CPU and RAM defines device speed and computing capabilities. Bec
 many values, it was performed some tests and measurements which compare these devices.
 
 \begin {table}[h!]
-\begin{adjustwidth}{-1cm}{}
-    \begin{tabular}{|l|c|c|c|c|}
-        \hline
-        \textbf{Device (Android version)} & \textbf{Display size} & \textbf{Display resolution} & \textbf{CPU} & \textbf{RAM} \\ \hline \hline
-        LG Nexus 5 (5.1.0)            & 4.95 inches  & 1080 x 1920 pixels & 4 core 2.3 GHz & 2 GB   \\ \hline
-        Asus Nexus 7 2013 (5.1.0)     & 7.0 inches   & 1200 x 1920 pixels & 4 core 1.5 GHz & 2 GB   \\ \hline
-        Samsung Galaxy Xcover (4.1.2) & 4.0 inches   & 480 x 800 pixels   & 2 core 1 GHz   & 1 GB   \\ \hline
-        Sony Xperia active (4.0.4)    & 3.0 inches   & 320 x 480 pixels   & 1 GHz          & 0.5 GB \\ \hline
-    \end{tabular}
+    \scalebox{0.9}{
+        \begin{tabular}{|c|c|c|c|c|c|c|}
+            \hline
+            \textbf{Device} &
+            \multicolumn{1}{|p{1.5cm}|}{\centering \textbf{Android version}} &
+            \multicolumn{1}{|p{1.5cm}|}{\centering \textbf{Display size [inches]}} &
+            \multicolumn{1}{|p{2cm}|}{\centering \textbf{Display resolution [pixels]}} &
+            \multicolumn{1}{|p{1cm}|}{\centering \textbf{CPU cores}} &
+            \multicolumn{1}{|p{2cm}|}{\centering \textbf{\textbf{CPU [GHz]}}} &
+            \multicolumn{1}{|p{1.5cm}|}{\centering \textbf{\textbf{RAM [GB]}}} \\ \hline \hline
+            LG Nexus 5             & 5.1.0 & 4.95 & 1080 x 1920 & 4   & 2.3 GHz & 2   \\ \hline
+            Asus Nexus 7 2013      & 5.1.0 & 7.0  & 1200 x 1920 & 4   & 1.5 GHz & 2   \\ \hline
+            Samsung Galaxy Xcover  & 4.1.2 & 4.0  & 480 x 800   & 2   & 1 GHz   & 1   \\ \hline
+            Sony Xperia active     & 4.0.4 & 3.0  & 320 x 480   & 1   & 1 GHz   & 0.5 \\ \hline
+            Emulator               & 4.4.2 & 4.5  & 720 x 1280  & --  & --      & 1.5 \\ \hline
+        \end{tabular}
+    }
     \centering
-    \caption{Testing devices}
+    \caption{Configurations of testing devices}
     \label{TestingDevicesTable}
-    \end{adjustwidth}
 \end{table}
 
 \subsubsection{Testing measurement}
 After debugging the application, two measurements were performed on devices mentioned in Table \ref{TestingDevicesTable}
 and one desktop computer. Parameters of the computer was:
 
-\begin{itemize}
-\item \textbf{Device} -- Notebook Lenovo ThinkPad T430s
-\item \textbf{Processor} -- Intel Core i7-3520M 2.90GHz
-\item \textbf{RAM} -- 16 GB
-\item \textbf{OS} -- Fedora 21 64b
-\end{itemize}
+\begin {table}[h!]
+    \begin{tabular}{|c|c|}
+        \hline
+        \textbf{Parameter} &
+        \textbf{Value} \\ \hline \hline
+        Device    & Notebook Lenovo ThinkPad T430s \\ \hline
+        Processor & Intel Core i7-3520M 2.90GHz    \\ \hline
+        RAM       & 16 GB                          \\ \hline
+        OS        & Fedora 21 64b                  \\ \hline
+    \end{tabular}
+    \centering
+    \caption{Configuration of testing computer}
+    \label{TestingComputerTable}
+\end{table}
 
 For both tests, three testing vrp file was used. They differ with number of customers and number and capacity of
 vehicles. Parameters of these files are shown in table \ref{TestingFilesTable}. All the cases was measured five times
@@ -52,10 +69,13 @@ measurement.
 \begin {table}[h!]
     \begin{tabular}{|l|c|c|c|}
         \hline
-        \textbf{Vrp file} & \textbf{Number of costumers} & \textbf{Number of vehicles} & \textbf{Vehicle capacity} \\ \hline \hline
-        A-n32-k5.vrp      & 32   & 5 & 100   \\ \hline
-        A-n64-k9.vrp      & 64   & 9 & 100   \\ \hline
-        F-n135-k7.vrp     & 135  & 7 & 2210  \\ \hline
+        \textbf{Vrp file} &
+        \textbf{Number of costumers} &
+        \textbf{Number of vehicles} &
+        \textbf{Vehicle capacity} \\ \hline \hline
+        A-n32-k5.vrp   & 32   & 5 & 100  \\ \hline
+        A-n64-k9.vrp   & 64   & 9 & 100  \\ \hline
+        F-n135-k7.vrp  & 135  & 7 & 2210 \\ \hline
     \end{tabular}
     \centering
     \caption{Testing files}
@@ -68,14 +88,20 @@ quite substantial and with more complicated problem difference between these dev
 that more powerful mobile devices surpass older device with worse CPU.
 
 \begin {table}[h!]
-    \begin{tabular}{|l|c|c|c|}
+    \catcode`\-=12
+    \begin{tabular}{|l|c|c|c|c|c|c|}
         \hline
-        \textbf{Device}       & \textbf{A-n32-k5.vrp} & \textbf{A-n64-k9.vrp} & \textbf{F-n135-k7.vrp} \\ \hline \hline
-        LG Nexus 5            & 0,162 s               & 0,561 s               & 2,760 s                \\ \hline
-        Asus Nexus 7 2013     & 0,228 s               & 0,795 s               & 4,132 s                \\ \hline
-        Samsung Galaxy Xcover & 0,411 s               & 1,434 s               & 8,219 s                \\ \hline
-        Sony Xperia active    & 0,755 s               & 2,705 s               & 16,334 s               \\ \hline
-        Desktop computer      & 0,075 s               & 0,130 s               & 0,284 s                \\ \hline
+        \multirow{2}{*}{\textbf{Device}} &
+        \multicolumn{2}{c|}{\textbf{A-n32-k5.vrp}} &
+        \multicolumn{2}{c|}{\textbf{A-n64-k9.vrp}} &
+        \multicolumn{2}{c|}{\textbf{F-n135-k7.vrp}} \\ \cline{2-7}
+        & $\mu$ & $\sigma$ & $\mu$ & $\sigma$ & $\mu$ & $\sigma$ \\ \hline \hline
+        LG Nexus 5            & 0,162 & 0,034 & 0,561 & 0,031 & 2,760  & 0,063 \\ \hline
+        Asus Nexus 7 2013     & 0,228 & 0,027 & 0,795 & 0,023 & 4,132  & 0,070 \\ \hline
+        Samsung Galaxy Xcover & 0,411 & 0,058 & 1,434 & 0,012 & 8,219  & 0,217 \\ \hline
+        Sony Xperia active    & 0,755 & 0,136 & 2,705 & 0,027 & 16,334 & 0,062 \\ \hline
+        Emulator              & 0,119 & 0,021 & 0,386 & 0,056 & 1,647  & 0,015 \\ \hline
+        Desktop computer      & 0,075 & 0,006 & 0,130 & 0,013 & 0,284  & 0,017 \\ \hline
     \end{tabular}
     \centering
     \caption{Time of first found solution}
@@ -91,12 +117,16 @@ Sony Xperia active did not reach any result in that time limit for the last case
 \begin {table}[h!]
     \begin{tabular}{|l|c|c|c|}
         \hline
-        \textbf{Device}       & \textbf{A-n32-k5.vrp} & \textbf{A-n64-k9.vrp} & \textbf{F-n135-k7.vrp} \\ \hline \hline
-        LG Nexus 5            & 857311                & 1597400               & 1411795                \\ \hline
-        Asus Nexus 7 2013     & 857311                & 1624700               & 1411795                \\ \hline
-        Samsung Galaxy Xcover & 879018                & 1631923               & 1420843                \\ \hline
-        Sony Xperia active    & 894553                & 1633708               & --                     \\ \hline
-        Desktop computer      & 787082                & 1424148               & 1292057                \\ \hline
+        \textbf{Device} &
+        \textbf{A-n32-k5.vrp} &
+        \textbf{A-n64-k9.vrp} &
+        \textbf{F-n135-k7.vrp} \\ \hline \hline
+        LG Nexus 5            & -857311 & -1597400 & -1411795 \\ \hline
+        Asus Nexus 7 2013     & -857311 & -1624700 & -1411795 \\ \hline
+        Samsung Galaxy Xcover & -879018 & -1631923 & -1420843 \\ \hline
+        Sony Xperia active    & -894553 & -1633708 & --       \\ \hline
+        Emulator              & -855010 & -1597400 & -1411448 \\ \hline
+        Desktop computer      & -787082 & -1424148 & -1292057 \\ \hline
     \end{tabular}
     \centering
     \caption{Soft score after 10s limit}
@@ -106,19 +136,18 @@ Sony Xperia active did not reach any result in that time limit for the last case
 Although, there is significant difference between desktop computer and Android phones or tablet, these mobile devices
 still sufficient fast to use OptaPlanner tool and solve such kind of problem.
 
-
-
-
-\section{Future work}
+\section{Future work}\label{FutureWorkSection}
+This section describes future work which follows after this project. There are already plans how to improve OptaPlanner
+integration to Android system and in addition, there are two main project which will be primarily processed.
 
 \paragraph{OptaPlanner game}
-Because OptaPlanner works on Android, following work which has already started is creating of simple game where user
-goal is defeat the OptaPlanner by finding shortest way for vehicles. Using clicking on the customers user create road
-for vehicle to the depot. Meanwhile time is measured and when user finish its work OptaPlanner do the same and results
+Because OptaPlanner works on Android, there are many ways how to use it. One of them is to create a simple game where user
+goal is to defeat the OptaPlanner by finding shortest way for vehicles. Using clicking on the customers user create road
+for vehicle to the depot. Meanwhile time is measured and when user finish its work, OptaPlanner do the same and results
 will be compared. This is the early proposal of the game which follows this work.
 
-\paragraph{Drools}
-As was written in Chapter \ref{PortingChapter} Drools package was not included in poration due to its size and
-complexity. There are plans to port Drools tool to Android separately and if portation is successful, it will be
-deployed and tested together with OptaPlanner. Although the Drools tool is consuming lot of computer resources, current
+\paragraph{Drools} %TODO check the reference later
+As noted in Chapter \ref{PortingChapter}, Drools package is not included in the poration due to its size and
+complexity. There are plans to port Drools tool to Android separately. If the portation is successful, it will be
+deployed and tested together with OptaPlanner. Although Drools tool is consuming a lot of computer resources, current
 mobile devices already have high performance and it might be interesting to have such instrument on Android platform.

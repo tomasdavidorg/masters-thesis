@@ -1,25 +1,39 @@
+Testing of applications is very important part of development. During this phase, a large number of bugs is often
+detected and critical problems can be also discovered. Measurement is as well counted to the testing because it can
+reveal performance problems.
 
-Section \ref{TestingSection} \ref{FutureWorkSection}
+Future work shows direction of the continuation of the project and points to important parts which can be implemented or
+improved.
+
+Section \ref{TestingSection} focused on testing devices and describes performed comparative measurements. In the section
+\ref{FutureWorkSection}, direction future work is discussed.
 
 \section{Testing}\label{TestingSection}
+This section introduces testing devices and describes performed comparative measurements. It focuses on comparison
+between mobile devices and desktop computer which differ especially in their performance.
 
 \subsubsection{Devices}
-The application was tested on several devices during and also after developement. Table \ref{TestingDevicesTable} shows
-these testing devices and their important parameters. Some issues which are associated to them are described in
-following paragraphs.
+The application is tested on several devices during and also after development. Table \ref{TestingDevicesTable} shows
+testing devices and their important parameters. Some issues which are associated to them are described in following
+paragraphs.
 
-First one is Android version which specifies supported parts of Android features. Most of problems are related with
-unsupported functions and they are ordinarily detected by compiler. However, from time to time some problems can appear
-and therefore it is better to test application on various version of system.
+First of the parameters is Android version which specifies supported parts of Android features. Most of problems are
+related with unsupported functions and they are ordinarily detected by compiler. However, from time to time some
+problems can appear and therefore it is better to test application on various versions of Android system.
 
-Next parameters are display size and display resolution which together define density of screens points. Every device
-has diferent display density and component layout must be well designed to fit on so many displays. Also after screen
-rotation, components layout changes and it must be adapted.
+Next parameters are display size and display resolution which together define density of the screens points. Every
+device has diferent display density and component layout must be well designed to fit to many devices displays. Another
+problem appears after screen rotation. Display sides are exchanded and components layout must be adapted.
 
-Last parameters CPU and RAM defines device speed and computing capabilities. Because this application calculates with
-many values, it was performed some tests and measurements which compare these devices.
+Last parameters are number of CPU cores, CPU and RAM. They defines device speed and computing capabilities. Because this
+application calculates with many values, it is performed some tests and measurements which compare these devices.
 
-\begin {table}[h!]
+The application is tested on the five devices in total. Four of them are mobile phones, one is tablet and the last one
+is Android emulator. Emulator is a virtual mobile device that runs on a desktop computer. Parameters of emulator can be
+selected as necessary except of CPU which is inherited from host computer and adjusted according to operating system
+capabilities.
+
+\begin{table}[h!]
     \scalebox{0.9}{
         \begin{tabular}{|c|c|c|c|c|c|c|}
             \hline
@@ -38,56 +52,61 @@ many values, it was performed some tests and measurements which compare these de
         \end{tabular}
     }
     \centering
-    \caption{Configurations of testing devices}
+    \caption{Configurations of testing devices.}
     \label{TestingDevicesTable}
 \end{table}
 
-\subsubsection{Testing measurement}
-After debugging the application, two measurements were performed on devices mentioned in Table \ref{TestingDevicesTable}
-and one desktop computer. Parameters of the computer was:
+\subsubsection{Comparative measurements}
+After testing and debugging the application, two comparative measurements are performed on the devices mentioned in
+Table \ref{TestingDevicesTable} and one desktop computer with parameters described in Table \ref{TestingComputerTable}.
+On the desktop computer, simple OptaPlanner project which calculates the same vehicle routing problems has been created.
+On the mobile testing devices, graphical part is excluded and only calculation itself is measured. The goal of these
+measurements is to compare capabilities of Android devices with a standard desktop computer and it should verify that
+Android device are capable to use OptaPlanner.
 
-\begin {table}[h!]
+\begin{table}[h!]
     \begin{tabular}{|c|c|}
         \hline
         \textbf{Parameter} &
         \textbf{Value} \\ \hline \hline
         Device    & Notebook Lenovo ThinkPad T430s \\ \hline
-        Processor & Intel Core i7-3520M 2.90GHz    \\ \hline
+        CPU       & Intel Core i7-3520M 2.90GHz    \\ \hline
         RAM       & 16 GB                          \\ \hline
         OS        & Fedora 21 64b                  \\ \hline
     \end{tabular}
     \centering
-    \caption{Configuration of testing computer}
+    \caption{Configuration of testing computer.}
     \label{TestingComputerTable}
 \end{table}
 
-For both tests, three testing vrp file was used. They differ with number of customers and number and capacity of
-vehicles. Parameters of these files are shown in table \ref{TestingFilesTable}. All the cases was measured five times
-and it was created diameter of values in case of first measurement or best reached score was used in case of second
-measurement.
+For both tests, three testing vrp files are used. They differ in the number of customers, the number of vehicles and
+the capacity of one vehicle. Parameters of the three used files are shown in Table \ref{TestingFilesTable}. The same
+files are also used in the application on the desktop computer.
 
-\begin {table}[h!]
+\begin{table}[h!]
     \begin{tabular}{|l|c|c|c|}
         \hline
         \textbf{Vrp file} &
         \textbf{Number of costumers} &
         \textbf{Number of vehicles} &
         \textbf{Vehicle capacity} \\ \hline \hline
-        A-n32-k5.vrp   & 32   & 5 & 100  \\ \hline
-        A-n64-k9.vrp   & 64   & 9 & 100  \\ \hline
-        F-n135-k7.vrp  & 135  & 7 & 2210 \\ \hline
+        A-n32-k5.vrp   & 31   & 5 & 100  \\ \hline
+        A-n64-k9.vrp   & 63   & 9 & 100  \\ \hline
+        F-n135-k7.vrp  & 134  & 7 & 2210 \\ \hline
     \end{tabular}
     \centering
-    \caption{Testing files}
+    \caption{Testing files.}
     \label{TestingFilesTable}
 \end{table}
 
-First test dealt with time of first found solution. Every test was measure five times and it was created diameter which
-is written in Table \ref{FirstFoundTable}. As can be seen, difference between desktop computer and mobile devices is
-quite substantial and with more complicated problem difference between these devices increasing. It can also be observed
-that more powerful mobile devices surpass older device with worse CPU.
+First test deals with a time of the first found solution. Each test case is measured five times and it is calculated
+arithmetic mean value ($\mu$) and standard deviation ($\sigma$). The values are written in Table \ref{FirstFoundTable}.
+As can be seen, differences between the desktop computer and the mobile devices is quite substantial and with more
+complicated problem difference between them rapidly grows. It can be also observed that more powerful mobile devices
+(Nexus 5 and 7) surpass older devices (Samsung Xcover and Sony Xperia) with worse CPU and performance of emaulator is
+approximately equal to the most powerful mobile device (Nexus 5).
 
-\begin {table}[h!]
+\begin{table}[h!]
     \catcode`\-=12
     \begin{tabular}{|l|c|c|c|c|c|c|}
         \hline
@@ -104,17 +123,18 @@ that more powerful mobile devices surpass older device with worse CPU.
         Desktop computer      & 0,075 & 0,006 & 0,130 & 0,013 & 0,284  & 0,017 \\ \hline
     \end{tabular}
     \centering
-    \caption{Time of first found solution}
+    \caption{Time of first found solution in seconds (less is better).}
     \label{FirstFoundTable}
 \end{table}
 
-Second test is displayed in Table \ref{ScoreLimitTable} and it was based on 10s time limit. After the time limit the
-best soft score was saved and from five measurements the lowest was selected. Soft score shows distace which should be
-traveled with all of the vehicles. Quite substantial difference is appeared again between mobile devices and desktop
-computer. Although nexus devices have different parameters they reached same results in two cases. The oldest device
-Sony Xperia active did not reach any result in that time limit for the last case.
+Second test is displayed in Table \ref{ScoreLimitTable} and it is based on 10 seconds time limit. After the time limit
+the best soft score was saved and from five measurements the largest was selected. Soft score shows a distance of the
+all vehicles as a negative value which is traveled betweeen customers and depot. A higher value means a smaller
+distance. Quite substantial difference is appeared again between mobile devices and desktop computer. Although the Nexus
+devices have different parameters they reached same results in two cases. The oldest device (Sony Xperia active) did not
+reach any result in the appointed time limit for the last case.
 
-\begin {table}[h!]
+\begin{table}[h!]
     \begin{tabular}{|l|c|c|c|}
         \hline
         \textbf{Device} &
@@ -129,12 +149,16 @@ Sony Xperia active did not reach any result in that time limit for the last case
         Desktop computer      & -787082 & -1424148 & -1292057 \\ \hline
     \end{tabular}
     \centering
-    \caption{Soft score after 10s limit}
+    \caption{The best soft score after 10 seconds time limit (larger is better).}
     \label{ScoreLimitTable}
 \end{table}
 
-Although, there is significant difference between desktop computer and Android phones or tablet, these mobile devices
-still sufficient fast to use OptaPlanner tool and solve such kind of problem.
+Although, there is a significant difference between the desktop computer and Android phones or tablet, these mobile
+devices are still sufficiently fast to use OptaPlanner tool and solve such kind of problem.
+
+From testing and measuring, it can be said that portation of OptaPlanner is successful. Standard Java score calculation
+of OptaPlanner is used and it is achieved satisfying times on the real mobile devices. Also, there were no problems
+recorded with OptaPlanner tool and its use
 
 \section{Future work}\label{FutureWorkSection}
 This section describes future work which follows after this project. There are already plans how to improve OptaPlanner

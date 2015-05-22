@@ -178,3 +178,14 @@ Build process is the way how \texttt{.apk} package is produced from Android proj
     \caption{Build process \cite{AndroidDev}}
 \end{figure}
 
+\paragraph{Gradle scripts}
+
+Gradle scripts are sections of code which are called tasks. These task can be started separately or other tasks can
+precede or follow their run. Standard tasks for every application are:
+\begin{itemize}
+  \item \texttt{gradle clean} -- cleans project and deletes the build directory
+  \item \texttt{gradle assemble} -- builds the project
+  \item \texttt{gradle check} -- runs checks and tests
+  \item \texttt{gradle build} -- runs both assemble and check
+  \item \texttt{gradle assembleDebug} -- creates debug .apk file
+\end{itemize}

@@ -4,6 +4,31 @@ Portation is modification of software for the purpose of usage on different plat
 
 In the first Section \ref{comparsion}, Java SE API and Android API are compared. There are also shown packages which are used by OptaPlanner and JavaBeans problem is introduces. The proposals for solution of JavaBean problem are described in Section \ref{JavaBeans} and its summary is presented in the last Section~\ref{summary}.
 
+\section{Requirements for OptaPlanner portation}
+In this section, three essential requirements for OptaPlanner portation are introduced. The first one focuses on
+automatic build process, the second one discusses the use of Drools library and the last requirement targets on
+OptaPlanner usability.
+
+\paragraph{Automatic build process}
+First of the requirements of portation is ensuring of the automatic build process. When an application is built, it is
+good to make all automatic. OptaPlanner libaries should be correctly imported and all the dependencies should be
+included or should be prepared by build script. Any other problems of the portation has to be also resolved in a way
+which does not required much effort from side of programmer. These procedures have to be described and demonstrated
+on a sample application.
+
+\paragraph{Drools library}
+As is described in Chapter \ref{OptaPlannerChapter}, one of the ways of calculation function in OptaPlanner is by the
+Drools rules. Drools library is distributed as a component of OptaPlanner and also as a stand-alone project. Using this
+library, it is possible to write rule prescriptions for score calculation. Ahother way how to compute the score is
+standart Java calculation which does not require additional dependencies. Because Drools project is not optimized for
+mobile platforms and there is another way how to calculate the score, it should not be included in the portation of
+OptaPlanner to Android.
+
+\paragraph{Optaplanner usability}
+In summary, it is necessary to prepare OptaPlanner for the Android platform to enable possibility of using tools for
+solving planning problems. Mobile devices have limited computing capabilities and storage space in comparison to desktop
+computers. Ported OptaPlanner should consider these capabilities and adapt to them.
+
 \section{Java API packages comparsion}\label{ComparsionSection}
 This section compares two Java Application Programming Interfaces (API) -- Java 6 Standart Edition API and Android API.
 Depending on the comparison, OptaPlanner dependencies on Java SE API are identified on Android API and the consequent

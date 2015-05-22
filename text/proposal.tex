@@ -1,31 +1,4 @@
-\section{Requirements for OptaPlanner portation}
 
-\paragraph{Automatic preparation of enviroment}
-First of the requirements of portation is automatic preparation of enviroment. When an application is built it is good
-to make all automatic. OptaPlanner libaries should be correctly imported and all missing parts as JavaBeans library
-should be included or should be prepared by build script. In summary, if the portation has special needs it must be done
-by way which does not required much efford from side of programmer.
-
-\paragraph{Drools library}
-As was described in Chapter \ref{OptaPlannerChapter}, one of the ways of calculation function in OptaPlanner is by the
-Drools rules. Drools is a big library and project which allows to write rule prescriptions for calculation of best
-choices. Because this project is not optimalized for mobile platforms it should not be included in the portation of
-OptaPlanner to Android. Instead of drools calculation standart Java calculation can be used as a default tool.
-
-\paragraph{Adding of JavaBeans libraries}
-The JavaBeans problem, which was mentioned in OptaPlaner portation analysis, should be also covered. Repacking of
-JavaBeans redistribution to Java core namespace is the selected way how to solve that problem. It should be automatic
-and all the necessary tools have to be downloaded from the internet (not included directly).
-
-\paragraph{Core library flag}
-This is the problem which is directly connected to the previous one. If libraries or classes from java core namespace
-are added into Android project, compiler reports an problem and project is not correctly compiled until these files are
-moved into another namespace. This can be avoided by using \texttt{--core-library} flag in dx file in android-sdk.
-It is desirable that the flag is used and it also should be done by an automatic way.
-
-\paragraph{Optaplanner usability}
-In summary, it is necessery to prepare OptaPlanner for the Android platform to enable possibility of using tools for
-solving planning problems. Also it should be aimed to OptaPlanner size to increasing applications speed.
 
 \section{Requirements for Android application}
 

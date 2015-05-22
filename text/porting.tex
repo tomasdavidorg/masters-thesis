@@ -1,8 +1,12 @@
-This chapter deals with differences between Java SE API and Android API. Although Java libraries of Andoid API are based on Java SE, a lot of libraries are missing or they are incomplete. It causes problems that are dealt with in this chapter. These libraries must be added to Android project or dependencies to libraries have to be removed from the OptaPlanner core.
+This chapter deals with OptaPlanner portation to Android. Portation is modification of software for the purpose of usage
+on different platforms. Optaplanner is designed for Java SE platform and for integration to Android it is necessary to
+compare both platforms and resolve potential problems.
 
-Portation is modification of software for the purpose of usage on different platforms. Optaplanner is designed for Java SE platform and for integration on Android platform it is necessary to check the API to find what difference are and solve the problems that occurs.
-
-In the first Section \ref{comparsion}, Java SE API and Android API are compared. There are also shown packages which are used by OptaPlanner and JavaBeans problem is introduces. The proposals for solution of JavaBean problem are described in Section \ref{JavaBeans} and its summary is presented in the last Section~\ref{summary}.
+In the first Section~\ref{RequirementsPortationSection}, requirements for OptaPlanner portation are introduced.
+Comparsion between Java API and Android API are described in Section~\ref{ComparsionSection} and found JavaBeans problem
+is discussed in Section~\ref{JavaBeansProblemSection}. In Section~\ref{SummarySection}, summary of JavaBeans problem
+solution are described. Section~\ref{PortationDesignSection} deals with design of the portation and the last
+Section~\ref{PortationImplSection} focuses on the its implementation.
 
 \section{Requirements for OptaPlanner portation}\label{RequirementsPortationSection}
 In this section, three essential requirements for OptaPlanner portation are introduced. The first one focuses on
@@ -296,7 +300,7 @@ namespace and following steps needs to be done by Gradle language to automate th
 \item Add \texttt{--core-library} flag to allow use of the Java core classes.
 \end{itemize}
 
-\section{Portation implementation}
+\section{Portation implementation}\label{PortationImplSection}
 In this section, implementation of the portation is described. The first part focus on the two main problems and in the
 second part Gradle scripts which implements the portation itself are introduced.
 

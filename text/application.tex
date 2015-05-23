@@ -1,337 +1,335 @@
-\section{Requirements for Android application}
+One of the goals of this thesis is creating of a simple application which demonstrates functionality of OptaPlanner tool
+on Android system. Previous Chapter~\ref{PortingChapter} shows how to port the tool to the mobile platform. In this
+chapter, OptaPlanner tool is used to creating the Vehicle Routing Problem application.
+
+First Section~\ref{RequirementsApplicationSection} introduces application requirements. Application desing is described
+in the second Section~\ref{ApplicationDesignSection}. Implementation itself is devided into two parts. The first part
+which is described in Section~\ref{ApplicationImplementationSection} present inner structure of the application and the
+second part deals with graphical user interface and its layout.
+
+\section{Requirements for Android application}\label{RequirementsApplicationSection}
+This section deals with requirements for Android application. First part introduce features of the application and the
+second part discuss support for different versions of the operating system Android.
 
 \subsection{Application features}\label{FeaturesSection}
+The following paragraphs describes essential requirements and features of created application. They focus on inner
+structure, graphical user interface and the licence under which the application is written.
 
-\paragraph{Vehicle Routing Problem}
+\paragraph{Vehicle Routing application}
 Standard OptaPlanner distribution \cite{OptaPlannerDistribution} contains demonstration examples. One of the examples is
-Vehicle Routing application. Its source code already contains Vehicle Routing Problem model which should be included in
-this application. Also it contains some tools for importing specific \texttt{.vrp} files. Graphical user interface
-cannot be ported because application is written by Awt and Swing libraries which are not included in Android API as
-described in Section \ref{OptaPlannerChapter}. Thanks to that and because it is good practise to adapt the application
-to Android mobile platform, graphical user interface and functions of application should be completely rewritten and
-adjusted to fulfill aspects of Android application development.
+Vehicle Routing application. It is often use for presentation of OptaPlanner and it is one of the real world examples
+and thus it is also a good choise for demonstration on Android. Created aplication should present the Vehicle Routing
+Problem in a similar way as the original OptaPlanner application.
+
+\paragraph{Vehicle Routing model}
+The source code of the original application already contains Vehicle Routing Problem model which should be included in
+this application. Furthermore, it contains some tools for importing specific \texttt{.vrp} files. The model specifies
+classes which are required for OptaPlanner tool to the problem.
+
+\paragraph{Graphical user interface}
+Graphical user interface cannot be ported because application is written by Awt and Swing libraries which are not
+included in Android API as described in Section~\ref{ComparsionSection}. Therefore, new application graphical user
+interface should be completely rewritten and adjusted to fulfill aspects of Android application development.
 
 \paragraph{Application settings}
-Application without any settings is too static and user cannot do much with it. Therefore, it should be option to choose
-problem solving algorithm which can show that not all algorithms are suitable for such problems. Another option should
-be setting of the time limit of caculation. Thanks to this, when process is terminated, last solution should remains
-shown on the screen. It should be also possible to terminate process before time limit manually.
+Application without any settings is too static and uninteresting for the users. Therefore, they should be at least able
+to choose problem solving algorithm. Another option could be setting of caculation time limit. Thanks to that, process
+can be terminated earlier.
 
 \paragraph{File opening}
-Original Vehicle Routing application contains \texttt{.vrp} example files. These files should be compatible with created
-application and some of them should be included. It should be possible to open these files and display them similar way
-as in original application.
+The original Vehicle Routing application contains \texttt{.vrp} example files. These files contains tasks of problems
+and they should be compatible with created application and some of them should be included. It should be possible to
+open these files and display them in a similar way as in the original application.
 
 \paragraph{Solution diplaying}
-When user selects file, unsolved solution should be displayable on the application screen. After start of solving
-process, new best solution also should be displayable every time when new it is found. Application should further
-contains resources how to display actual statistic information about solved problem.
+The application must be able to display unsolved solution on the application screen. Furthermore, it should be possible
+to display new best solution everytime when it is found and at the end of the process, last best solution should remain
+on the screen. The application should be also able to display actual statistic information about solved problem.
 
 \paragraph{License}
-Whole application should be distributed as opensource software and it should be written under Apache License 2.0.
-Source code must be publicly available on the internet to guide other persons how to use OptaPlaner in their projects.
+The entire application should be distributed as an opensource software and it should be written under Apache License
+2.0. Source code must be publicly available on the internet to guide other people how to use OptaPlaner in their
+projects.
 
 \subsection{Android devices support}
 Before the development starts, it is good to clarify for which version of Android will be application supported. Every
-version of Android comes with new API and new functionality. Biggest changes comes when first number of version is
-changed. Table \ref{distributon} shows actual distributions of Android verisons on devices.
+version of Android comes with new API and new functionality. Biggest changes comes when the first number of version is
+changed. Actual distributions of Android verisons on devices can be seen in the last column of
+Table~\ref{AndroidHistoryTable}.
 
-Versions 2.x.x are on the decline, the most used versions are 4.x with higest percentage representation and the newest
-version 5.x is not so much used yet but their participation grows. Therefore it was decided that application should
-supports android from version 4.0 (API 14). It desides which resource can be used for application proposal and
-development and how application should be tested.
+Versions 2.x.x are on decline. Currently, the most used versions are with 4.x designation and distribution of the newest
+5.x versions grows. Therefore, it was decided that application should supports Android from version 4.0 (API 14). It
+decides which resource can be used for application design and development and how application should be tested.
 
-\begin {table}[h!]
-    \begin{tabular}{|c|c|r|}
-        \hline
-        Android version   & API   & Distribution  \\ \hline \hline
-        2.2               & 8     & 0.4 \%        \\ \hline
-        2.3.3 -- 2.3.7    & 10    & 6.4 \%        \\ \hline
-        4.0.3 -- 4.0.4    & 15    & 5.7 \%        \\ \hline
-        4.1               & 16    & 16.5 \%       \\ \hline
-        4.2               & 17    & 18.6 \%       \\ \hline
-        4.3               & 18    & 5.6 \%        \\ \hline
-        4.4               & 19    & 41.4 \%       \\ \hline
-        5.0               & 21    & 5.0 \%        \\ \hline
-        5.1               & 22    & 0.4 \%        \\ \hline
-    \end{tabular}
-    \centering
-    \caption{Android version distributon \cite{Dashboards}}
-    \label{distributon}
-\end{table}
+\section{Application design}\label{ApplicationDesignSection}
+One of the critical points of creating an application is design. It can be divided into two parts. The first one is
+design of innner structure and it is presented in Section~\ref{ApplicationFeatureSection}. The second one is desing of
+graphical user interface and application component layout which is described in Section~\ref{ScreenDesignSection}.
 
-\section{Application proposal}
-
-\subsection{Application features}
+\subsection{Application features}\label{ApplicationFeatureSection}
+In Section~\ref{FeaturesSection}, inner structure requirements of the application are described. According to them, the
+application features desing is written and introduces in following paragraphs.
 
 \paragraph{Application settings}
-Application will supports several settings options. It is possible to select one of three algorithms: First fit
+Designed application supports several setting options. It is possible to select one of three algorithms: First fit
 decreasion with late acceptance, branch and bound and brute force. Simultaneously, it is required to select time limit
-of calculation in seconds. Calculation stops after time limit is reached or it is possible to stop it earlier by play
-button. Another settings option is selection of solved example. Application contains list of files and after user select
-one of them everything will be prepared to calcultion start. These setting will be diplayed on the first screen of
-the application.
+of calculation in seconds. Calculation stops after time limit is reached or it is possible to stop it earlier by stop
+button. Furthermore, vehicle routing example can be chosen. Application contains list of these files and after user
+select one of them everything should be prepared to calculation start. The setting should be placed on the first screen
+of the application.
 
 \paragraph{Vrp files}
-Mentioned list of example files will consist from files used in original OptaPlanner application. These files are named
-same way so user can compare results between both applications. Because Android system by default does not contain file
-browser and user probably do not have own \texttt{.vrp} files, application will not support opening files from device
-storage. List of files will be placed on the second screen of the application.
+Mentioned list of example files is consist from files used in original OptaPlanner application. These files are named
+same way and user can compare results between both applications. Because Android system by default does not contain file
+browser and user probably does not have own \texttt{.vrp} files, application do not support opening files from device
+storage. List of files should be placed on the second screen of the application.
 
 \paragraph{Porting of Vehicle Routing Problem model}
-In Section \ref{FeaturesSection}, it was decribed that original application already contains Vehicle Routing model for
-OptaPlanner tool. These classes will be used and embedded into application and will be used to calculation of the
-problem. Further, it will be useful to displaying current solution.
+In Section \ref{FeaturesSection}, it is decribed that original application already contains Vehicle Routing model for
+OptaPlanner tool. These classes have to be embedded into application and they have to be used to calculation of the
+problem. Further, they should be used for displaying of current solution.
 
 \paragraph{Problem solving}
-Graphical user interface cannot wait until calculation is finished and therefor these two parts must be separated from
-each other. While solving is in progress, user will control the application and use some of its parts. Typical problems
-with Android application will be solved. When screen is turned or application is hidden in background, solving process
-have to be still active and not to be stopped. Solution will be displayed as desribed bellow.
+Graphical user interface cannot wait until calculation is finished and therefore these two parts must be separated from
+each other. While solving is in progress, user control the application and he can use some of its parts. When screen is
+turned or application is hidden in background, solving process has to be still active and not stopped.
 
 \paragraph{Solution displaying}
-New best solution will be displayed every time when it is found. For that purpose application will contain third screen
-specially for this displaying. Solution will be similar to original application. Lines will present roads, vehicles and
-depots will have own icon. Customers will be different because saving screen space. Intead of point with number it will
-be presented as circles with inner number describing its demand. Time window problem will be displayed in a similar way
-but not separated from customer.
+New best solution should be displayed every time when it is found. For that purpose, application contains third screen
+specially for displaying founded solution which should be similar to original application. Lines represents roads,
+vehicles and depots have own icons. Customers differs from the original for saving screen space. Intead of point with
+number, customers should be represented as circles with inner number describing its demand. Time window circles should
+be displayed in a similar way as the original but not separated from customer.
 
 \paragraph{Solution data}
 Every solution has data which cannot be displayed graphically or they are so important that should be displayed
-separately. From that reason, score of solution and actual load of vehicles will be drawn on side menu which will be
-described bellow.
+separately. From that reason, it is designed that score of solution and actual load of vehicles should be drawn on side
+menu which is described in Section~\ref{ScreenDesignSection}.
 
-\subsection{Design of screens}
+\subsection{Design of screens}\label{ScreenDesignSection}
+This section introduces desing of application screens and describes component layouts. The overall concept and
+links between screens are shown in Figure~\ref{ScreenDesignFigure}.
 
 \paragraph{Application top bar}
-Top bar will be placed on the top of the each screen. It will contain name of the application and quick functions
-buttons. These buttons can start the calculation or call the informational dialogs. Buttons do not have to be visible
-all the time but only on the screens when it necessary.
+Top bar is placed on the top of the each screen as shown in Figure~\ref{ScreenDesignFigure}. It contains name of the
+application and quick function buttons. These buttons can start the calculation or call the informational dialogs.
+Buttons are not visible all the time but only on the screens when it necessary.
 
 \paragraph{Settings screen}
-This screen will be main screen of the application. It consists of top bar welcome text and settings part where
-calculation options can be set. Last element on the screen is button for switch to next screen where vrp file can be
-selected.
+The first screen of Figure~\ref{ScreenDesignFigure} is main screen of the application. It consists of top bar, welcome
+text and part with setting elements where calculation options can be set. Last element on the screen is button for
+continuation to next screen where one of the VRP files can be selected.
 
-\paragraph{Screen with vrp files list}
-Whole screen constains only list of vrp files and top bar. Top bar on this screen does not contain any buttons because
-no ones are needed here. List contains all included vrp files in application. After click on one of them screen will be
-switched to the last solution screen.
+\paragraph{Screen with VRP files list}
+The second screen on Figure~\ref{ScreenDesignFigure} constains only list of VRP files and top bar. Top bar does not
+contain any buttons on this screen because no one is needed here. The list contains all included VRP files in
+the application and after click on one of them, it is switched to the last solution screen.
 
-\paragraph{Screen of solution}
-More important screen of application will be solution screen. Solution and its gradual progress is displayed on this
-screen. On the top bar, button for start of calculation will be included. Under the actual solution representation,
-progress bar for displaying actual time will be placed. When user swipe with finger from left to right on the screen,
-side menu with actual solution statistic will be displayed.
+\paragraph{Solution screen}
+The most important screen of the application is the last screen. Solution and its gradual progress is displayed on this
+screen. On the top bar, button for start of calculation is included and under the actual solution representation,
+progress bar for displaying actual time is placed. When user swipe with finger from left to right on the screen,
+side menu with actual solution statistic  should be displayed.
 
 \paragraph{Side menu with statistics}
-This menu is displayed on right side on the solution screen. It contains data statistic of actual solution. First item
-of menu is solution score and next items represent every vehicle in the solution and its current load and capacity.
-Menu can be close when user clicks somewhere outside menu.
+The last section of Figure~\ref{ScreenDesignFigure} is side menu which is displayed on right side on the solution
+screen. It contains statistic data of actual solution. First item of the menu is solution score and next items represent
+every vehicle of the problem and its current load and capacity. Menu can be close when user clicks somewhere outside
+of the menu.
 
 \begin{figure}[h!]
     \centering
-    \includegraphics[scale=0.8]{fig/proposal.pdf}
-    \caption{Proposal of screens}
-    \label{proposalFig}
+    \includegraphics[scale=0.7]{fig/sceen_design.pdf}
+    \caption{Design of screens and link among them.}
+    \label{ScreenDesignFigure}
 \end{figure}
 
 \paragraph{Informational dialogs}
-Application will contains two informational dialogs to better understanding application content. First one will contain
-information about application itself. Second one will consist from legend which describes all displayed components of
+Application design contains two informational dialogs to better understanding of application content. First one contains
+information about application itself. Second one consists from legend which describes all displayed components of
 Vehicle routing problem on the screen.
 
 \paragraph{Material design}
-One of the new features which bring Android version 5 is material design. It is very sophisticated study that show how
-to handle with with elements, layouts, colors and more. Although this property is not fully backward compatible, it is
-possible partially to bring this design to earlier devices with older versions of Android. This application uses
-material design as much as possible. Every screen will contains material design elements which are described bellow.
+One of the new features which Android version 5 brings is material design. It is very sophisticated study that show how
+to handle with with elements, layouts, colors and others. Although this feature is not fully backward compatible, it is
+partially possible to bring this design to earlier devices with older versions of Android. It is designed that
+application should uses material design as much as possible.
 
-\section{Application implementation}
-%todo introduction to section
+\section{Application implementation}\label{ApplicationImplementationSection}
+In this section, implementation of Vehicle Routing Problem application is described. The first part introduces
+application structure and its important components. Second part focus on porting of Vehicle routing problem and its
+model from the  original OptaPlanner application. Graphical user interface is presented in the next
+Section~\ref{GuiSection}.
 
 \subsection{Application structure} % describe inner structure not ui
-Application consists from three screens. First screen is displayed after start of the application and it is used for
-settings of calculation time limit and algorithm. These parameters are packed in bundle and passed to next screen after
-user clicks on the Open file button placed on this screen. Second screen consist of list of example vrp files which is
-provided by RecyclerView component. User selects one of the files and its name is passed to last screen together with
-parameters from the first one. According to name, vrp file is open on the last screen and after click on start button
-asynchronous process for calculation is created. More details about individual components are described below.
+Application consists from one activity and three fragments as shown in Figure~\ref{ActivityFragmentsFigure}. Activity is
+represented by \texttt{MainActivity} class in the application code and it contains Action bar and space where fragments
+are placed. Every time when action for fragment change is invoked, the space is replaced by new frament.
 
-\subsubsection{Activities and fragments}
-Initialy, all the application screens was implemented as activities. However, it turns out that activities have problems
-with data storing and after some change of configuration (for example rotation of screen or restoring application from
-background) destroyes background process and totally recreates activity. Thus framgments were used instead.
-
-Fragments represents part of an Activity. Activity can contain multiple fragments and they can be replaced with another
-fragments. They can be presented as modular section of an activity with own lifecycle.
-
-Figure \ref{activityFragment} shows usage of fragments and activities in this application. Only one activity is presented and it
-contains action bar and place for fragments. Compared to activites, only part for fragment changes and if new screen is
-required this part is replaced with another fragment. Activity is recreated only in case when application is restarted
-or configuration is changed.
-
-For proper storage of state in fragment \texttt{setRetainInstance(true);} has to be called in method \texttt{onCreate()}
-of current fragment.
+On the first fragment which is defined by \texttt{MainFragment} class settings elements are placed. List of VRP files is
+located on the second fragment which is represented by \texttt{VrpFileListFragment} class and \texttt{VrpFragment} class
+defines the last fragment. This one is used for displaying current solution.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.7]{fig/act_frag.pdf}
     \caption{Activity and fragments in application}
-    \label{activityFragment}
+    \label{ActivityFragmentsFigure}
 \end{figure}
 
-\subsubsection{Fragment components}
-In following section, important component of application is described. Especially, these components are related to
-background process and not graphical layout of application which is described in Section \ref{guiSection}.
+In the following paragraphs, important components of application are described. Especially, the components which are
+related to the background processes. Graphical components and their layout are described in Section~\ref{GuiSection}.
 
 \paragraph{List of files}
-Second screen consist mainly from list of vrp example files. This list is implemented by \texttt{RecyclerView}
-component. This component simplifies data displaying to list and provides basic patterns of behavior.
+List of VRP example files is placed on the second fragment. This list is implemented by \texttt{RecyclerView} component
+which simplifies data displaying to list and provides basic patterns of behavior.
 
 \paragraph{Solver asynchronous process}
-After button for calculation start is pressed, asynchronous process is created. This process sets, build and run solver
-with required parameters. Listener is added to solver to publish process every time when new best solution is found.
-Asynchronous process is represented by \texttt{VrpSolverTask} class which extends \texttt{AsyncTask}. \texttt{AsyncTask}
-class enables changes of gui, perform background operations and publishing results.
+After the button for calculation start is pressed, asynchronous process is created. This process sets, builds and starts
+Solver with required parameters. Listener is added to solver to publish process every time when new best solution is
+found. The process is represented by \texttt{VrpSolverTask} class which extends \texttt{AsyncTask}. \texttt{AsyncTask}
+class enables changes of graphical user interface, perform background operations and publishing results.
 
 \paragraph{Solution painter}
-When file is selected from list in second screen unsolved solution is painted. After start of caculation, every time
-when new best solution is found solution painter draws it. Solution painter is represented by \texttt{VrpPainter} class
-and it is partially modified \texttt{VehicleRoutingSolutionPainter} class from Optaplanner project. Because Android
-does not support awt and swing graphic libraries, it was rewritten to use android tools. Also some other changes was
-done like new appearance of customers, material design colors and more.
+Solution painter is a component which draws a solutions on the screen. It is represented by \texttt{VrpPainter} class
+which is modified \texttt{VehicleRoutingSolutionPainter} class from the original Optaplanner project. Because
+Android does not support Awt and Swing Java graphic libraries, \texttt{VehicleRoutingSolutionPainter} was rewritten to
+use Android methods for drawing on the screen. Solution painter draws two types of solution:
 
-\subsection{Porting of Vehicle Routing Problem}
-%todo introduction to subsection
+\begin{enumerate}
+  \item \textbf{Unsolved solution} --  painted when a file is selected from the list in the second fragment.
+  \item \textbf{New best solution} -- painted every time after Solver starts and new best solution is found.
+\end{enumerate}
 
-\paragraph{Vehicle Routing Problem definition}
-Without defining of the problem, application cannot work. Vehicle routing problem is defined by
+\subsection{Porting of Vehicle routing problem}
+Original Vehicle routing application contains Vehicle routing Problem model for OptaPlanner tool. These files are taken
+and modified to fit in created Android application. Following paragraphs presents these files and show the way how they
+are used.
+
+\paragraph{Vehicle Routing Problem model}
+Without model of the problem, application cannot work. Vehicle routing problem is defined by
 \texttt{VehicleRoutingSolution} class which implements \texttt{Solution} interface. This class contains all information
 about solved problem (list of all customers, depots and vehicles) and Solver use it together with solver configuration
 to solve the problem. \texttt{Customer} class is marked as planned entity which contains \texttt{Standstill} planning
-variable. More information about Vehicle Routing Problem definition can be found in OptaPlanner documentation
+variable. More detailed information about Vehicle Routing Problem definition can be found in OptaPlanner documentation
 \cite{OptaPlannerDoc}.
 
 \paragraph{Solver configurations}
 In this application, it is possible to use three algorithms and set time limit of calculation. These configurations
-including problem definition abd score calculator are stored in xml file from which is Solver built. For each algorithm
-is created such file and it is selected according to the choice. Time limit is additionally set after Solver is created.
+include links to problem definition and score calculator and they are stored in \texttt{.xml} file which are used
+for building the Solver. For each algorithm, there is one XML file and it is applicated according to the choice in the
+applicatuion. Time limit is additionally set after Solver is created.
 
 \paragraph{Score calculator}
-Every solution has own score and this score must be calculated one of the three methods described in Section
-\ref{scoreConfigSection}. For score calculation in this application, \texttt{VehicleRoutingEasyScoreCalculator} class
+Every solution has own score and this score must be calculated by one of the three methods described in Section
+\ref{ScoreConfigSection}. For score calculation in this application, \texttt{VehicleRoutingEasyScoreCalculator} class
 which implements \texttt{EasyScoreCalculator} is used. This class calculates hard and soft score of solution. Hard score
-is computed as load of cars above their capacity. Soft score is calculated as total distance of cars. In case of time
-window variant, delay against due time of arrival is added to hard score.
+is computed as load of vehicles above their capacity and soft score is calculated as neagative total vehicle distance.
+In case of time window variant, delay against due time of arrival is added to the hard score.
 
-\paragraph{Vrp example files}
-Example .vrp files are used for problem datasets. These files are taken from Vehicle Routing problem part of original
-Optaplanner application. They cointains informations about number and capacity of vehicles, position and demand of
+\paragraph{VRP example files}
+Example \texttt{.vrp} files are used as problem datasets. These files are taken from the original OptaPlanner Vehicle
+Routing problem application. They cointain informations about number and capacity of vehicles, position and demand of
 customers and position of depot. This application includes 36 example files in total.
 
 \paragraph{Vehicle routing importer}
-Example files are stored in specific vrp text format and have to be transformed into Vehicle routing solution. For this
-purpose, \texttt{VehicleRoutingImporter} class is imported and used from original Optaplanner application.
+Example files are stored in specific \texttt{.vrp} text format and have to be loaded into classes which describe
+Vehicle routing problem. For this purpose, \texttt{VehicleRoutingImporter} class is imported and used from the original
+Optaplanner application.
 
-\section{Graphical user interface}\label{guiSection}
-%todo introduction to section
+\section{Graphical user interface}\label{GuiSection}
+This section presents graphical user interface implementation of the application as it is designed in
+Section~\ref{ScreenDesignSection}. The first part of this section describes application screens and the second part
+introduces three important components.
 
 \subsection{Application screens}
-Every application consists of fragments or activities which are collectively called screens. Using controls, it is
+Every application consists of Fragments or Activities which are collectively called screens. Using controls, it is
 possible to move from one screen to another or change its appearance or behavior. This application is composed from
-three screens. These screens can be seen in Figure \ref{screens}. The third screen is displayed with unsolved and with
-solved solution.
+three screens. These screens can be seen in Figure~\ref{ApplicationScreensFigure}. The third screen is displayed with
+unsolved problem and with ongoing solution process.
 
 \paragraph{Main screen}
-Main screen is displayed after the application is started. It consists from action bar, welcome text, setting elements
-and button to continue to another screen. Action bar contains application name and buttons for displaying legend and
-application informations dialogs. Welcome text provides some basic instruction for the user. Two controls are present
+Main screen is displayed after the application is started. It consists from Action bar, welcome text, setting elements
+and button to continue to another screen. Action bar contains application name and buttons for displaying legend dialog
+and application information dialog. Welcome text provides some basic instruction for the users. Two controls are present
 for calculation options of the problem. It is possible to set time limit in seconds using Number picker and Spinner
 allows select one of the three supported algorithms. Last element on this screen is Open file button which opens screen
-with list of vrp files.
+with list of VRP files.
 
-\paragraph{Screen with vrp files list} After Open file button from main screen is pressed this screen is displayed. It
-also contains action bar but it is very litimed because no controls are required there. Basically, whole screen is
-filled with list of vrp files. These example files were used from OptaPlanner project \cite{OptaPlannerPages}. After
-pressing the selected file it is switched to last screen which displays problem and its solution.
+\paragraph{Screen with VRP files list} After Open file button from the main screen is pressed, screen with VRP files is
+displayed. It also contains action bar but it is very litimed because no controls are required on this screen. Rest of
+area is filled with list of VRP files from original OptaPlanner application \cite{OptaPlannerDistribution}. After the
+selected file is pressed, it is switched to last screen which displays problem and its solutions.
 
-\paragraph{Screen of solution}
-This screen is used to displaying unsolved and solved solution. It contains action bar with all items as shown in Figure
-\ref{actionBar}. Compared to the main screen, action bar has additionally button for displaying Navigation drawer and
-button for start and end of the solution process. On the bottom of the screen, Progress bar is placed. This component
-is used for displaying approximate remaining time. Rest of screen is filled with component which draws current solution.
-This component draws unsolved solution at the beginning and after start button is pressed it draws best solution after
-solver finds some. Individual elements represents:
+\paragraph{Solution screen}
+This screen is used to displaying unsolved, ongoing and solved solution. It contains Action bar with all control items
+as shown in Figure~\ref{ApplicationScreensFigure}. Compared to the main screen, Action bar has additionally button for
+displaying Navigation drawer and button for start and end of the solution process. On the bottom of the screen, Progress
+bar is placed. This component is used for displaying time which approximately remains. Rest of screen is filled with
+component which draws current solution. At the beginning, the component draws unsolved solution and after the start
+button is pressed, it always draws the best solution after it is found. Individual elements of this component are:
 
 \begin{itemize}
   \item \textbf{Circle with a number} -- customer with his demand
-  \item \textbf{Building image} -- depot from which depart vehicles
+  \item \textbf{Building image} -- depot from which vehicles depart
   \item \textbf{Car image} -- vehicle with its color
-  \item \textbf{Solid line} -- vehicle road to customer
-  \item \textbf{Dashed line} -- vehicle road to depot
+  \item \textbf{Solid line} -- vehicle road to a customer
+  \item \textbf{Dashed line} -- vehicle road to a depot
   \item \textbf{Sector on a circle} -- time windows for vehicle arrival
   \item \textbf{Line on a circle} -- vehicle arrival time
 \end{itemize}
 
-
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.15]{fig/screens.png}
-    \caption{Application screens -- main screen, list of vrp files, screen with unsolved and solved solution}
-    \label{screens}
+    \caption{Application screens -- main screen, list of VRP files, screen with unsolved problem and ongoing solution
+    process.}
+    \label{ApplicationScreensFigure}
 \end{figure}
 
 \subsection{Application components}
-%todo introduction to subsection
+This section introduce and describe three important components of the application: Action bar, Navigation drawer and
+Dialogs.
 
 \subsubsection{Action bar}
 Action bar is a panel on top of the screen that provides basic user action and informations about user navigation. It
-always contains application name, optionally actions buttons for quick invocation of application functionalit and
+always contains application name, optionally actions buttons for quick invocation of application functionality and
 overflow button on the right side for diplaying other applications options.
 
 Action bar is diplayed on every screen of this application but it changes depending on required functions on actual
-screen. Figure \ref{actionBar} show action bar of screen where solved problems are shown. The panel contains buttons for
-displaying of navigation drawer and dialogs which are described below and application name.
-
-\begin{figure}[h!]
-    \centering
-    \includegraphics[scale=0.15]{fig/action_bar.png}
-    \caption{Action bar}
-    \label{actionBar}
-\end{figure}
+screen. Figure~\ref{ApplicationScreensFigure} shows action bars of each screen.
 
 \subsubsection{Navigation drawer}
 Navigation drawer is a panel that displays application navigation on the left edge of the screen. By default, it is
-hidden and it could be displayed by touch the left icon on the action bar. Also it could be displayed whe a user swipes
+hidden and it could be displayed by touch the left icon on the action bar. Also it could be displayed when a user swipes
 with a finger from the left edge of the screen to the right. Opposite procedure makes navigation drawer invisible.
 
-This application uses navigation drawer for displaying important computing data. Figure \ref{navigationDrawer} displays
-visible panel on the left side of the application. First item shows hard and soft score of currently the best solution
-found. Second item holds total distance of all cars. Other items are linked to cars of the problem. Every car has own
-parameters -- color, name and capacity. These three are static and do not change during the calculation. Last parametr
-is actual load of the vehicle.
+This application uses navigation drawer for displaying important statistic data. Figure~\ref{NavigationDrawerFigure}
+displays visible panel on the left side of the application. The first item on the panel shows hard and soft score of
+displayed solution. Second item holds total distance traveled. Other items are linked to vehicles of the problem. Each
+of them has own parameters -- color, name and capacity. These three are static and do not change during the calculation.
+Last parametr is actual load of the vehicle.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.15]{fig/nav_drawer.png}
     \caption{Navigation drawer with actual data}
-    \label{navigationDrawer}
+    \label{NavigationDrawerFigure}
 \end{figure}
 
 \subsubsection{Dialogs}
-Dialogs are small windows which displays some significant informations or are used for user interaction with a decision
-that decides on further actions. Dialogs are always located above all other parts of the application
+Dialogs are small windows which display some significant informations or they are used for user interaction with
+decisions that define further actions. Dialogs are always located above all other parts of the application.
 
-Figure \ref{dialogs} shows all three dialogs which are used in the application. Two of them can be retrieved directly from the
-action bar by clicking on the icon with a question mark or the informative icon. First dialog contains application
-legend for understanding what is displayed on the screen and second dialog briefly describes the application. Third
-dialog is displayed only solving is running and user clicks on the back button. Dialog asks the user if he wants to end
-the ongoing calculation.
+Figure~\ref{DialogsFigure} shows all the three dialogs which are used in the application. Two of them can be retrieved
+directly from the action bar by clicking on the icons with question mark or informative icon. The first dialog contains
+application legend for understanding what is displayed on the screen and the second dialog briefly describes the
+application. The last dialog is displayed only when calculations runs and user clicks on the back button. Dialog asks
+the user if he wants to end the ongoing calculation.
 
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.15]{fig/dialogs.png}
-    \caption{dialogs used in the application}
-    \label{dialogs}
+    \caption{Screenshots of used dialogs in the application.}
+    \label{DialogsFigure}
 \end{figure}

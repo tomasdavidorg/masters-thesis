@@ -69,7 +69,7 @@ Planning value is a possible value of a planning variable. Usually, a planning v
 \paragraph{Planning problem and planning solution}
 Each planning problem has to be packaged as a class which Solver uses to solve the problem. In the case of N-Queens problem, class must contains column, row, and queen lists. The planning problem corresponds with unresolved planning solution. The solution must be described by a class that implements the Solution interface. This interface requires to implement setScore, getScore and getProblemFacts methods.
 
-\subsection{Solver configuration}\label{scoreConfigSection}
+\subsection{Solver configuration}\label{ScoreConfigSection}
 The second part of OptaPlanner configuration is configuration of Solver. It is described by XML file and it also can be changed dynamically at runtime using SolverConfig API. Basically, it can be divided into three parts:
 
 \begin{enumerate}

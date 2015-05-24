@@ -1,13 +1,17 @@
 This chapter deals with the Android operating system which becomes more popular with the time. Android platform is quite different from Java plaform. They use the same language for source code of applications and the build process is also similar but the differences cause that they are not fully compatible.
 
-In Section~\ref{AndroidIntroduction}, Android and its history is presented. Architecture of this platform is described in Section~\ref{AndroidArchitecture} and part of this architecture -- Android runtime is discussed in more detail in Section~\ref{AndroidRuntime}. Basic components of Android application are presented in Section~\ref{AppStructure} and the build process of Android source code and resources is described in Section~\ref{buildProcess}
+In Section~\ref{AndroidIntroduction}, Android and its history is presented. Architecture of this platform is described in Section~\ref{AndroidArchitecture} and part of this architecture -- Android runtime -- is discussed in more detail in Section~\ref{AndroidRuntime}. Basic components of Android application are presented in Section~\ref{AppStructure} and the build process of Android source code and resources is described in Section~\ref{buildProcess}
 
 \section{Introduction}\label{AndroidIntroduction}
 Android \cite{AndroidBook, AndroidProgBook} is a mobile operating system developed by Google. It's an open-source system based on the Linux kernel mainly used in mobile devices such as smartphones, tablets and smart watches but it can be found also in devices such as set-top boxes, media players and other electronics.
 
 Android, Inc. was founded in California USA in 2003. Google, Inc. bought Android two years later. In 2007, Google acquired several patents in the field of mobile devices. At the same year on November 5, there is official presentation of an association of companies formed the Open Handset Alliance which aims to create open standards for mobile devices. The first smartphone running Android released on October 22, 2008.
 
-Table \ref{androidHistory} presents a brief history of the Android operating system. It describes release dates of major versions, the numbering which change by the size of a system modifications, code names represented by a popular foods from version 1.5 and API levels in the last column.
+Table~\ref{AndroidHistoryTable} presents a brief history of the Android operating system. It describes release dates of
+major versions, the numbering, code names, API levels and distributions in the last column. As can be seen from version
+1.5, every major version has its own codename represented by a popular food. API level indicates that version brings
+changes in its programming interface and the most important column shows the distrubiton of each version. According to
+this, it may be decided for which versions still makes sense to develop an application.
 
 \begin {table}[h!]
     \catcode`\-=12
@@ -18,13 +22,13 @@ Table \ref{androidHistory} presents a brief history of the Android operating sys
         \textbf{Codename} &
         \textbf{API level} &
         \multicolumn{1}{p{2.3cm}|}{\centering \textbf{Distribution} [\%]} \\ \hline \hline
-        September 23, 2008 & 1.0 -- 1.1   & --                 & 1 -- 2   & \multirow{4}{*}{--} \\ \cline{1-4}
+        September 23, 2008 & 1.0 -- 1.1   & --                 & 1 -- 2   & \textless~0.1       \\ \cline{1-4}
         April 27, 2009     & 1.5          & Cupcake            & 3        &                     \\ \cline{1-4}
         September 15, 2009 & 1.6          & Donut              & 4        &                     \\ \cline{1-4}
         October 26, 2009   & 2.0 -- 2.1   & Eclair             & 5 -- 7   &                     \\ \hline
         May 20, 2010       & 2.2 -- 2.2.3 & Froyo              & 8        & 0.3                 \\ \hline
         December 6, 2010   & 2.3 -- 2.3.7 & Gingerbread        & 9 -- 10  & 5.7                 \\ \hline
-        February 22, 2011  & 3.0 -- 3.2   & Honeycomb          & 11 -- 13 & --                  \\ \hline
+        February 22, 2011  & 3.0 -- 3.2   & Honeycomb          & 11 -- 13 & \textless~0.1       \\ \hline
         October 18, 2011   & 4.0 -- 4.0.4 & Ice Cream Sandwich & 14 -- 15 & 5.3                 \\ \hline
         July 9, 2012       & 4.1 -- 4.3   & Jelly Bean         & 16 -- 18 & 39.2                \\ \hline
         October 31, 2013   & 4.4 -- 4.4.4 & KitKat             & 19 -- 20 & 39.8                \\ \hline
@@ -36,10 +40,13 @@ Table \ref{androidHistory} presents a brief history of the Android operating sys
 \end{table}
 
 \section{Architecture}\label{AndroidArchitecture}
-The following section describes the architecture of Android system \cite{AndroidDevBook} which consists from six layers. Figure~\ref{androidArchitecture} shows this architecture starting with kernel layer and ending with user application.
+This section describes the architecture of Android system \cite{AndroidDevBook} which consists from six layers. Figure~\ref{androidArchitecture} shows this architecture starting with kernel layer and ending with user application.
 
 \paragraph{Linux kernel}
-The lowest layer stands between hardware devices and other architecture layers. Android is based on a special version of the Linux kernel and several accessories such as memory management system, the Binder IPC driver and others. Since the beginning, Android was built on the Linux 2.6 kernel but the latest Android version runs on the kernel 3.4.
+The lowest layer stands between hardware devices and other architecture layers. Android is based on a special version of
+the Linux kernel and several accessories such as memory management system, the Binder IPC driver and others. Since the
+beginning, Android was built on the Linux 2.6 kernel. The latest version 5 from Table~\ref{AndroidHistoryTable} runs on
+the kernel 3.4.
 
 \paragraph{Hardware abstraction layer}
 Hardware abstraction layer (HAL) is standart interface which allows Android system calls to drivers layer while he does not care what is the implementation of drivers and hardware in the lower layers. For each piece of hardware should be a driver and matching HAL providing hardware options.
@@ -76,7 +83,7 @@ Application framework layer provides many high-level services to applications in
 \item \textbf{Activity manager} -- controls all aspects of running activities. It manages all Services and Activities  described in Section~\ref{AppStructure}.
 \item \textbf{Windows manager} -- provides services for windows management such as visibility and arrangement. It also takes care about animation on the screen.
 \item \textbf{Content Providers} -- allows to work with the contents of other applications, it encapsulates the data, and provide mechanisms for defining data security.
-\item \textbf{View System} -- a set of basic blocks that is used to build the application user interface. The basis of every graphical component is thr View class which is represented by a rectangular area on the screen.
+\item \textbf{View System} -- a set of basic blocks that is used to build the application user interface. The basis of every graphical component is the \texttt{View} class which is represented by a rectangular area on the screen.
 \item \textbf{Notification manager} -- provides the possibility how to inform the user about some action that happened in the background. Notifications can take different forms like LED flashing, vibrating, ringing or notification on display.
 \item \textbf{Package manager} -- allows obtaining of various information about applications that are currently installed on device.
 \item \textbf{Telephony manager} -- provides access to telephone services of device. These services include SIM card, network, cellphone and other information.
@@ -135,7 +142,7 @@ Content providers store, load data and make them available for other application
 Intents are messages between one component and other component. Intent can be sent to inside or outside of an application and that means one applications can communicate with other. The three types of application components are supported for Intents communication -- Activities, Services, and Broadcast receivers. There are two types of intents: Explicit and Implicit. Explicit intents specify the component to start by name. Implicit intents do not specify the component, another application can handle it and makes appropriate response.
 
 \paragraph{Broadcast receivers}
-These components are used to listen message notifications (Intents) from outside (other application or system) or from inside of the application. After receiving the message, receivers can initiate appropriate reaction. An example might be a incoming sms or low battery notification.
+These components are used to listen message notifications (Intents) from outside (other application or system) or from inside of the application. After receiving the message, receivers can initiate appropriate reaction. An example might be a incoming SMS (Short Message Service) or low battery notification.
 
 \paragraph{Application Resources}
 Android application consists not only from Java files but also from the resources that are separated from the source code. These resources include:
@@ -153,7 +160,10 @@ Android application consists not only from Java files but also from the resource
 Each application must have an \texttt{AndroidManifest.xml} file. This file contains information about application with regard to Android and it has to be placed in root directory of project. It must contains a unique package name for the application, the declaration of used Activity and Service components, application permissions to the protected parts of the API (such as access to the camera, etc.). There also have to be declared a minimum API level, list of connected and used libraries and other important informations about application. Android manifest is together with resources compiled by \texttt{aapt} tool to \texttt{R.java} file. Thanks to this, the information is then available in the source code.
 
 \section{Build Process}\label{buildProcess}
-Build process is the way how \texttt{.apk} package is produced from Android project. Apk file is a package file format used to distribution and installation of application software to Android devices. It contains all of the necessery files to run an application. Figure~\ref{buildProcess} shows how apk package is created from Java source code and resources, including Android Manifest file. The individual steps are:
+Build process is the way how \texttt{.apk} package is produced from Android project. Apk file is a package file format
+used to distribution and installation of application software to Android devices. It contains all of the necessery files
+to run an application. Figure~\ref{buildProcess} shows how apk package is created from Java source code and resources,
+including Android Manifest file. The individual steps are:
 
 \begin{enumerate}
 \item The Android Asset Packaging Tool compiles resource files and \texttt{AndroidManifest.xml} and produce \texttt{R.java}. Resource references from Java code are then linked to this file.
@@ -171,14 +181,23 @@ Build process is the way how \texttt{.apk} package is produced from Android proj
     \caption{Build process \cite{AndroidDev}}
 \end{figure}
 
-\paragraph{Gradle scripts}
-%todo
-Gradle scripts are sections of code which are called tasks. These task can be started separately or other tasks can
-precede or follow their run. Standard tasks for every application are:
+Following paragraphs presents environment for developing of Android applications and its build tool. These two
+systems automate development and the build process which is described above.
+
+\paragraph{Android studio}
+The official environment for developing of Android applications is called Android studio~\cite{AndroidDev}. It is a
+multiplatform application which provides tools to facilitate application development. Android studio is based on the
+IntelliJ IDEA Java IDE and Gradle language is used as default build system.
+
+\paragraph{Gradle build system}
+Gradle build system~\cite{Gradle} is a project automation tool which is built on the concepts of Apache Ant~\cite{Ant}
+and Apache Maven~\cite{Maven} tools. It is used as default build system in Android studio and using tasks from Android
+Gradle plugin automates the entire build process described above. A task represents a process which launches some
+sections of code. Standard tasks for every Android application are:
 \begin{itemize}
-  \item \texttt{gradle clean} -- cleans project and deletes the build directory
-  \item \texttt{gradle assemble} -- builds the project
-  \item \texttt{gradle check} -- runs checks and tests
-  \item \texttt{gradle build} -- runs both assemble and check
-  \item \texttt{gradle assembleDebug} -- creates debug .apk file
+  \item \texttt{gradle clean} -- cleans project and deletes the build directory.
+  \item \texttt{gradle assemble} -- builds the project.
+  \item \texttt{gradle check} -- runs checks and tests.
+  \item \texttt{gradle build} -- runs both assemble and check.
+  \item \texttt{gradle assembleDebug} -- creates debug .apk file.
 \end{itemize}

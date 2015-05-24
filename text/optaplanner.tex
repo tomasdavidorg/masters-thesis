@@ -1,13 +1,34 @@
 In this chapter, the planning engine Optaplanner is presented. OptaPlanner \cite{OptaPlannerPages, DroolsBook} is an open-source project developed by JBoss community since 2006 and it is software designed for solving planning problems. Optaplanner is a part of the Drools project \cite{Drools} and it combines optimization algorithms with the core of rule engine -- Drools Expert \cite{Drools}.
 
-Section~\ref{planningProblem} shows what planning problem is and presents basic terminology. Introduction of basic phases of the OptaPlanner configuration is described in Section~\ref{plannerConf}. 
+Section~\ref{planningProblem} shows what planning problem is and Section~\ref{OptaPlannerTerminologySection} presents
+basic terminology. Introduction of basic phases of the OptaPlanner configuration is described in
+Section~\ref{plannerConf}.
 
 \section{Planning problem}\label{planningProblem}
-In everyday life, at work or in another occasion, the people meet the problems for which they have limited resources (time, money, etc.). Also organizations need to face these problems at a larger scale. Planning mechanisims help them to save these resources and time. The planning problem is something what can be described and on what mechanisms can be applied.
+In everyday life, at work or in another occasion, people meet problems for which they have limited resources (time,
+money, etc.). Also organizations need to face these problems at a larger scale. Planning mechanisims help them to save
+these resources and time.
 
-In Optaplanner, the planning problem is represented by Java classes, XML configuration file and optional DRL rule files. Java classes together form the model of the planning problem. Configuration file is written in Extensible Markup Language and it serves to describe the configuration of Solver. Configuration contains declarated model classes, score configuration and used optimalization algorithm. DRL files are optional. They contain special rules and can be used for calculation of a score otherwise the score can be calculated by a Java function.
+Planning problems can be for example N-Queen problem, Vehicle routing problem, Course timetabling or Hospital bed
+planning. More examples can be found in \cite{OptaPlannerDoc}. Following paragraphs presents two of these problems.
 
-Planning problems can be for example N-Queen problem, Vehicle routing problem, Course timetabling or Hospital bed planning. More examples can be found in \cite{OptaPlannerDoc}.
+\paragraph{N-Queen problem}
+One of planning problems is N-Queen problem. It is not very realistic case but it is ideal as an example. In this problem, it is necessary to place \texttt{n} queens to the chess field of size \texttt{n}. It is known from the Chess game that queen can move vertically, horizontally and diagonally. The goal is to achieve that none of the queens should threaten another.
+
+\paragraph{Vehicle routing problem}
+The second example of planning problems is Vehicle routing problem (VRP)~\cite{VehicleRouting}. Problem consists from
+depots, customers and vehicles. Vehicles depart from depots, collect objects of each customer and bring them back to
+the depot. Each vehicle can service multiple customers but it has a limited capacity. The goal is to minimize total
+total traveled distance. There are several variants of this problem, for example Vehicle routing problem with time
+window.
+
+\section{OptaPlanner terminology}\label{OptaPlannerTerminologySection}
+In Optaplanner, the planning problem is represented by Java classes, XML configuration file and optional DRL rule files.
+Java classes together form the model of the planning problem. Configuration file is written in Extensible Markup
+Language and it serves to describe the configuration of Solver. Configuration contains declarated model classes, score
+configuration and used optimalization algorithm. DRL files which are optional contain special rules and can be used for
+calculation of a score otherwise the score can be calculated by a Java function. Important concepts from OptaPlanner
+terminology are described in following paragraphs
 
 \paragraph{Solver}
 A tool in OptaPlanner which solves optimalization problems is the Solver. It uses the problem model and calculates the score of possible solutions. Except of calculating the score, Solver use optimalization algorithms to find the best score of planning problem. End of calculation can be caused for example by find the best solution or by reaching the time limit.
@@ -25,6 +46,11 @@ Score is a way how to compare two solutions of a problem. Every solution has own
 \item \textbf{Combining score techniques} -- All the previous techniques can also be combined.
 \end{itemize}
 
+\paragraph{Drools and DRL}
+Drools~\cite{Drools} is a business rules management system which provides way how to use rules, workflow and event
+processing. DRL file is one of the methods of storing business rules. OptaPlanner uses Drools as one of options of score
+calculations which are are described in Section~\ref{ScoreConfigSection}.
+
 \paragraph{Optimization algorithms}\label{optimalAlg}
 Every individual solution computation takes some time. OptaPlanner does not count only one solution but looking for the best solution and there may be a lot of solutions. The search space can grow to astronomical proportions and the calculation time as well. More information about optimization algorithms can be found at \cite{OptaPlannerDoc}. Following list shows some of algorithms that can be used:
 \begin{itemize}
@@ -36,9 +62,6 @@ Every individual solution computation takes some time. OptaPlanner does not coun
 \item \textbf{Evolutionary Algorithms} -- Evolutionary Strategies, Genetic Algorithms
 \end{itemize}
 \end{itemize}
-
-\paragraph{N-Queen problem}
-One of planning problems is N-Queen problem. It is not very realistic case but it is ideal as an example. In this problem, it is necessary to place \texttt{n} queens to the chess field of size \texttt{n}. It is known from the Chess game that queen can move vertically, horizontally and diagonally. The goal is to achieve that none of the queens should threaten another.
 
 \section{OptaPlanner configuration}\label{plannerConf}
 In this section, OptaPlanner configuration is described. It can be divided into five basic steps that are required to get the best solution. The steps are the following:
@@ -106,4 +129,3 @@ Not all calculations terminate automatically and therefore it is sometimes neces
 \item \textbf{Combining of multiple terminations} -- previous termination methods can be also combined
 \item \textbf{Asynchronous termination from another thread} -- can be used if it is necessary to terminate the calculation differently than by automated methods
 \end{itemize}
-

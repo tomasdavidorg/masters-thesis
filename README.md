@@ -6,14 +6,13 @@ Master thesis devoted to OptaPlanner use  on Android.
 
 To build and create PDF file from this project follow these steps:
 
-1. Install latex packages.
+* Install latex packages.
 
 ```shell
-yum -y install texlive-collection-latex texlive-collection-latexrecommended texlive-collection-latexextra
-texlive-collection-langczechslovak
+yum -y install texlive-collection-latex texlive-collection-latexrecommended texlive-collection-latexextra texlive-collection-langczechslovak
 ```
 
-2. Build the project.
+* Build the project.
 
 ```shell
 make

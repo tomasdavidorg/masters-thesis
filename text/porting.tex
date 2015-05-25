@@ -1,12 +1,12 @@
-This chapter deals with OptaPlanner portation to Android. Portation is modification of software for the purpose of usage
-on different platforms. Optaplanner is designed for Java SE platform and for integration to Android it is necessary to
-compare both platforms and resolve potential problems.
+This chapter deals with porting of OptaPlanner to Android. Portation is a~modification of software for the purpose of
+usage on different platforms. Optaplanner is designed for Java Standard Edition (SE) platform and for integration to
+Android it is necessary to compare both platforms and resolve potential problems.
 
 In the first Section~\ref{RequirementsPortationSection}, requirements for OptaPlanner portation are introduced.
-Comparsion between Java API and Android API are described in Section~\ref{ComparsionSection} and found JavaBeans problem
-is discussed in Section~\ref{JavaBeansProblemSection}. In Section~\ref{SummarySection}, summary of JavaBeans problem
-solution are described. Section~\ref{PortationDesignSection} deals with design of the portation and the last
-Section~\ref{PortationImplSection} focuses on the its implementation.
+Comparison of Java Application Programming Interface (API) and Android API are described in
+Section~\ref{ComparsionSection} and discovered JavaBeans problem is discussed in Section~\ref{JavaBeansProblemSection}.
+Section~\ref{SummarySection} summarizes possible solutions of JavaBeans problem. Section~\ref{PortationDesignSection}
+deals with design of the portation and the last Section~\ref{PortationImplSection} focuses on its implementation.
 
 \section{Requirements for OptaPlanner portation}\label{RequirementsPortationSection}
 In this section, three essential requirements for OptaPlanner portation are introduced. The first one focuses on
@@ -14,45 +14,45 @@ automatic build process, the second one discusses the use of Drools library and 
 OptaPlanner usability.
 
 \paragraph{Automatic build process}
-First of the requirements of portation is ensuring of the automatic build process. When an application is built, it is
-good to make all automatic. OptaPlanner libaries should be correctly imported and all the dependencies should be
-included or should be prepared by build script. Any other problems of the portation has to be also resolved in a way
-which does not required much effort from side of programmer. These procedures have to be described and demonstrated
-on a sample application.
+First of the portation requirements is ensuring of the automatic build process. When an~application is built, it is
+good to make all the steps automatic. OptaPlanner libraries should be imported correctly and all the dependencies should
+be included or should be prepared by build script. Any other problems of the portation has to be also resolved in a~way
+which does not required much effort from users of the scripts. These procedures have to be described and demonstrated on
+a~model application.
 
 \paragraph{Drools library}
-As is described in Chapter \ref{OptaPlannerChapter}, one of the ways of calculation function in OptaPlanner is by the
-Drools rules. Drools library is distributed as a component of OptaPlanner and also as a stand-alone project. Using this
-library, it is possible to write rule prescriptions for score calculation. Ahother way how to compute the score is
-standart Java calculation which does not require additional dependencies. Because Drools project is not optimized for
-mobile platforms and there is another way how to calculate the score, it should not be included in the portation of
-OptaPlanner to Android.
+As described in Chapter~\ref{OptaPlannerChapter}, one of the ways of computing function in OptaPlanner is by the Drools
+rules. Drools library is distributed as a~part of OptaPlanner and also as a~standalone project. Using this library, it
+is possible to write rule prescriptions for score calculation. Ahother way how to compute the score is standard Java
+calculation which does not require additional dependencies. Because Drools project is not optimized for mobile platforms
+and there is another way how to calculate the score, it should not be included in the portation of OptaPlanner on
+Android.
 
-\paragraph{Optaplanner usability}
+\paragraph{OptaPlanner usability}
 In summary, it is necessary to prepare OptaPlanner for the Android platform to enable possibility of using tools for
 solving planning problems. Mobile devices have limited computing capabilities and storage space in comparison to desktop
 computers. Ported OptaPlanner should consider these capabilities and adapt to them.
 
-\section{Java API packages comparsion}\label{ComparsionSection}
-This section compares two Java Application Programming Interfaces (API) -- Java 6 Standart Edition API and Android API.
+\section{Java API packages comparison}\label{ComparsionSection}
+This section compares two Java Application Programming Interfaces -- Java 6 Standart Edition API and Android API.
 Depending on the comparison, OptaPlanner dependencies on Java SE API are identified on Android API and the consequent
 problems are highlighted.
 
 \paragraph{Java SE API and Android API}
 Android API is based on Apache Harmony Java 6 SE API~\cite{Apache} (the open-source version of Java SE). First column of
 Table~\ref{ApiDiffTable} shows all the packages in Java 6 SE API. In second column of the table, it is described whether
-the packages are or are not included in Android API. If both APIs are compared, it is certainly possible to say that
-Android API is not complete Java SE API. Out of 38 Java SE API packages, 20 packages are completely missing and 9
-packages are incomplete in Android API. For example, packages for graphical user interface such as \texttt{java.swing}
-and \texttt{java.awt} are not included and provided for Android development because they are replaced with the Android
+or not are the packages included in Android API. If both APIs are compared, it is certainly possible to say that Android
+API is not complete Java SE API. Out of 38 Java SE API packages, 20 packages are completely missing and 9 packages are
+incomplete in Android API. For example, packages for graphical user interface such as \texttt{java.swing} and
+\texttt{java.awt} are not included and provided for Android development because they are replaced with the Android
 graphical elements.
 
 \paragraph{Android API and Optaplanner}
-Third column in Table~\ref{ApiDiffTable} describes if specific package is needed by OptaPlanner. This tool directly uses
-only 6 of the total number of 38 packages of Java SE API, namely: \texttt{java.beans}, \texttt{java.io},
+The third column in Table~\ref{ApiDiffTable} describes whether the package is needed by OptaPlanner. This tool directly
+uses only 6 of the total number of 38 packages of Java SE API, namely: \texttt{java.beans}, \texttt{java.io},
 \texttt{java.lang}, \texttt{java.math}, \texttt{java.net} and \texttt{java.util}. Three of the used packages are
-incomplete in Android API but only one of them affects OptaPlanner and that is \texttt{java.beans} package. Due to the
-fact that some of the \texttt{java.beans} classes are missing in Android API, direct OptaPlanner integration is
+incomplete in Android API but only one of them affects OptaPlanner, speciffically \texttt{java.beans} package. Due to
+the fact that some of the \texttt{java.beans} classes are missing in Android API, direct OptaPlanner integration is
 impossible. Other missing packages do not affect OptaPlanner use on Android.
 
 \begin {table}[h!]
@@ -101,116 +101,117 @@ impossible. Other missing packages do not affect OptaPlanner use on Android.
         org.xml.sax           & Yes -- complete           & No  \\ \hline
     \end{tabular}
     \centering
-    \caption{Java 6 SE API packages in Android API and Optaplanner dependencies on these packages.}
+    \caption{Java 6 SE API packages in Android API and OptaPlanner dependencies.}
     \label{ApiDiffTable}
 \end{table}
 
 \section{JavaBeans problem}\label{JavaBeansProblemSection}
-JavaBeans package allows to reuse components written in the Java programming language. Mostly, its classes are used for
-creation of graphical user interface but they can also be used for introspection of methods, properties and events.
+JavaBeans package allows to reuse components written in the Java programming language. Primarily, its classes are used
+for creation of graphical user interface but they can also be used for introspection of methods, properties and events.
 More information about JavaBeans can be found in~\cite{Beans}.
 
 OptaPlanner is completely written in the Java language and one of its dependencies is \texttt{java.beans} package. As
 described in Section~\ref{ComparsionSection}, this package is incomplete and classes which OptaPlanner requires are
 missing. In case of OptaPlanner use on Android, the compiler throws \texttt{ClassNotFoundException} and with this error,
 OptaPlanner project cannot be built. In this section, the possible solutions of this problem are presented and one of
-the solutions is selected for needs of the portation.
+the solutions is selected for the needs of the portation.
 
-The proposed solutions can be divided into two groups. First one contains solutions which do not interfere into
+The proposed solutions can be divided into two groups. First one contains solutions which do not interfere in
 OptaPlanner source code and they are described in Section~\ref{RepackingJavaBeansSection},
-Section~\ref{OpenJdkDistrSection} and Section~\ref{PrunedJarSection}. Solution which change the source code of
-OptaPlanner belongs to the second group and they are described in Section~\ref{UseOpenBeansSection} and
+Section~\ref{OpenJdkDistrSection} and Section~\ref{PrunedJarSection}. Solutions which change the source code of
+OptaPlanner belong to the second group and they are described in Section~\ref{UseOpenBeansSection} and
 Section~\ref{RemoveJavaBeansSection}.
 
 \subsection{Repacking of JavaBeans redistribution to Java core namespace}\label{RepackingJavaBeansSection}
-The first of the ways how to complete the missing \texttt{java.beans} package is use of a JavaBeans redistribution.
-These libraries are specially designed for the Android platform to support JavaBeans or other missing packages. If
-OptaPlanner source code should stay the same, it is necessary to repackage these libraries to Java core namespace. Java
-core namespace is an identification of Java API classes which belongs to \texttt{java.*} or \texttt{javax.*} namespace.
-In the following paragraphs, two redistribution and the Jar Jar Links tool for repacking Java Archive (JAR) files are
-introduced. Last paragraph describes problem which appears when classes from Java core namespace are used on Android.
+The first of the possibilities how to complete the missing \texttt{java.beans} package is use of a~JavaBeans
+redistribution. These libraries are specially designed for the Android platform to support JavaBeans or other missing
+packages. If OptaPlanner source code should stay the same, it is necessary to repackage these libraries to Java core
+namespace. Java core namespace is an~identification of Java API classes which belongs to \texttt{java.*} or
+\texttt{javax.*} namespace. In the following paragraphs, two redistribution and the Jar Jar Links tool for repacking
+Java Archive (JAR) files are introduced. Last paragraph describes problem which is appearing during usage of classes
+from Java core namespace on Android.
 
 \paragraph{OpenBeans}
-OpenBeans project \cite{OpenBeans} is a redistribution of \texttt{java.beans} package based on the Apache Harmony
-project. It was created because of missing JavaBeans on the Android platform. Used namespace of this redistribution is
-\texttt{com.googlecode.openbeans}. OpenBeans is an open-source project and it is distributed as JAR file that can be
-included into a Java or an Android project.
+OpenBeans project~\cite{OpenBeans} is a~redistribution of \texttt{java.beans} package based on the Apache Harmony
+project. It was created because of missing JavaBeans on the Android platform. Used namespace of this package is
+\texttt{com.googlecode.openbeans}. OpenBeans is an~open-source project and it is distributed as JAR file that can be
+included into a~Java or an~Android project.
 
 \paragraph{Mad Robot}
-A similar project to OpenBeans is called Mad Robot \cite{MadRobot}. As well as OpenBeans, it contains redistribution of
+A~similar project to OpenBeans is called Mad Robot~\cite{MadRobot}. As well as OpenBeans, it contains redistribution of
 \texttt{java.beans} package in \texttt{com.madrobot.beans} namespace but it also includes some additional packeges for
 database, graphics or geometry manipulation. This project is distributed as Maven dependency.
 
 \paragraph{Jar Jar Links}
-Jar Jar Links \cite{JarJar} is a utility for repackaging Java libraries. It enables to repack Java classes from one
+Jar Jar Links~\cite{JarJar} is a~utility for repackaging Java libraries. It enables to repack Java classes from one
 namespace to another. For proper use, it is necessary to define rules which describe way how Java classes should be
-repacked and the classes have to be placed in a JAR file. Jar Jar tool uses this file to create new JAR with repacked
-classes.
+repacked and how the classes have to be placed in a~JAR file. Jar Jar tool uses this file to create new JAR with
+repacked classes.
 
 \paragraph{Core library problem}
-Compilation of Android project that contains a class from namespace \texttt{java.*} or \texttt{javax.*} crashes during
-the translation which is highlighted by message about using of a classes from Java core namespace. It is a protection
-against unauthorized use of the namespace. This can be avoided by using \texttt{--core-library} flag. Adding the flag
-allows translation of an application. An options how to put the flag is modifying the dx script in Android SDK.
-Listing~\ref{FlagListing} shows the flag added to the last line of dx file.
+Compilation of an~Android project that contains a~class from namespace \texttt{java.*} or \texttt{javax.*} crashes
+during the translation which is highlighted by message about using the classes from Java core namespace. It is
+a~protection against unauthorized use of the namespace. This can be avoided by using \texttt{--core-library} flag.
+Adding the flag allows translation of the application. One of options how to use the flag is modifying the \texttt{dx}
+script in Android SDK (Software Development Kit). Listing~\ref{FlagListing} shows the flag added to the last line of the
+\texttt{dx} file.
 \\
-\begin{lstlisting}[captionpos={b},caption={Core library flag in the last line of dx script.},frame={lines},
+\begin{lstlisting}[captionpos={b},caption={Core library flag in the last line of \texttt{dx} script.},frame={lines},
 label={FlagListing},basicstyle=\footnotesize]
 exec java $javaOpts -jar "$jarpath" --core-library "$@"
 \end{lstlisting}
 
 \subsection{Use of OpenJDK distribution source code}\label{OpenJdkDistrSection}
-This solution is based on the use of available source code of OpenJDK Java SE \cite{OpenJDK} which is an open-source
-distribution of Java SE. By adding sources to an Android project, it is possible to get the necessary libraries. The
-advantage of this solution is that the dependency failure are seen in translation and not when the application runs.
-This makes possible to choose only the required classes. However, this adjustment is not trivial. It needs to be done by
-a special tool that removes unused dependencies or it must be done manually.
+This solution is based on the use of available source code of OpenJDK Java SE~\cite{OpenJDK} which is an~open-source
+distribution of Java SE. By adding sources to an~Android project, it is possible to get the necessary libraries. The
+advantage of this solution is that the dependency failures are seen in translation and not when the application runs.
+This enables to choose only the required classes. However, this adjustment is not trivial. It needs to be done by
+a~special tool that removes unused dependencies or it must be done manually.
 
 \subsection{Use of pruned rt.jar from OpenJDK distribution}\label{PrunedJarSection}
-The last option without interference to the source code is use of the rt.jar file which is part of the Java SE
+The last option without interference to the source code is use of the \texttt{rt.jar} file which is part of the Java SE
 libraries. This package contains JavaBeans compiled classes and other parts of Java SE. Due to its size, it is not well
-suited for an Android applications and it also includes libraries that are already contained in Android API and it can
+suited for an~Android applications and it also includes libraries that are already contained in Android API and can
 causes collisions. Therefore, it has to be pruned. The advantage of pruning is that there is no need to worry about
-dependencies that are not needed for Optaplanner tool because these files are not again compiled. On the other hand,
-it may happen that an application hits some missing required dependencies during runtime and the application crashes.
+dependencies that are not needed for OptaPlanner tool because these files are not again compiled. On the other hand,
+it may happen that an~application hits some missing required dependencies during runtime and the application crashes.
 
 \subsection{Use of OpenBeans in OptaPlanner project}\label{UseOpenBeansSection}
-This is the first solution which intervenes to the Optaplanner source code and it consists of replacing all
+This is the first solution which intervenes to the OptaPlanner source code and it consists of replacing all
 \texttt{java.beans} dependencies for the \texttt{com.googlecode.openbeans} by rewriting all imports and by addition of
-OpenBeans.jar archive to the Optaplanner core project. This causes that all dependencies are redirected to OpenBeans.
-The disadvantage of this solution is the intervention to OptaPlanner source code. In terms of Android application
-developers, it is needed to create a new fork of OptaPlanner and modify it and this causes that the maintenance is then
-considerably complicated.
+\texttt{OpenBeans.jar} archive to the Optaplanner core project. This causes redirection of all dependencies to
+OpenBeans. The disadvantage of this solution is the intervention in the OptaPlanner source code. In terms of Android
+application developers, it is needed to create anew fork (or branch) of OptaPlanner and maintenance of such copy is
+complicated and complex.
 
 \subsection{Removing and replacing JavaBeans from OptaPlanner}\label{RemoveJavaBeansSection}
-Last option to solve the JavaBeans problem is its elimination from the source code and its replacing by another
-technology. This is the biggest intervention to Optaplanner code of the offered solutions and it is also the major
-disadvantage. As in the previous solution, it is necessary to create a new fork of OptaPlanner and take care of its
+Last option to solve the JavaBeans problem is its elimination from the source code and its replacement by another
+technology. This is the biggest intervention to OptaPlanner code of all the offered solutions and it is also the major
+disadvantage. As in the previous solution, it is necessary to create a~new fork of OptaPlanner and take care of its
 maintenance.
 
 \section{Summary of approaches}\label{SummarySection}
-Table \ref{SummaryJavaBeansTable} shows summary of the JavaBeans problem solutions. The first column contains solution
+Table~\ref{SummaryJavaBeansTable} shows summary of the JavaBeans problem solutions. The first column contains solution
 name. In the second column, licenses which should be respected when using concrete approach are placed. The need for
-modification of OptaPlanner source code is marked in the third column. Assumed solution level of difficulty is place in
+modification of OptaPlanner source code is marked in the third column. Assumed solution level of difficulty is placed in
 the fourth column and advantages and disadvantages of each approach are described in the last column.
 
-The essential requirements of the selection are license and avoiding the modification of OptaPlanner. License have to
-permits commercial and private use and modification of the code. Furthermore, the easier solution is better solution
-because then each developer has an opportunity to easily use OptaPlanner on Android without making any special
-modifications.
+License and avoiding the modification of OptaPlanner are the essential requirements of the selection. License has to
+permit commercial and private use and modification of the code. Furthermore, the easier solution is better because then
+each developer has an~opportunity to easily use OptaPlanner on Android without making any special modifications.
 
 The best solution of JavaBeans problem seems to be repacking of the OpenBeans redistribution of JavaBean to Java core
 namespace. In this approach, suitable Apache licence must be respected. This licence is free software license and it
-allows easily use the code. It is not necessary to modify the OptaPlaner code and generally, this approach requires less
-effort from the programmer.
+allows easy usage of the code. It is not necessary to modify the OptaPlaner code and generally, this approach requires
+less effort from the programmer.
 
-\begin {table}[h!]
+\begin{table}[h!]
     \scalebox{0.95}{
         \begin{tabular}{|l|c|c|c|p{5cm}|}
             \hline
             \multicolumn{1}{|p{2.5cm}|}{\centering \textbf{Approach name}} &
             \textbf{Licence} &
-            \multicolumn{1}{p{2.4cm}}{\centering \textbf{Optaplanner modification}} &
+            \multicolumn{1}{p{2.4cm}}{\centering \textbf{OptaPlanner modification}} &
             \multicolumn{1}{|p{1.8cm}}{\centering \textbf{Level of difficulty}} &
             \multicolumn{1}{|p{5cm}|}{\centering \textbf{Advantages and disadvantages}} \\ \hline \hline
 
@@ -249,7 +250,7 @@ effort from the programmer.
             Easy &
             \texttt{+} easy adjustment
 
-            \texttt{-} need of modification of Optaplanner source code and the subsequent maintenance of
+            \texttt{-} need of modification of OptaPlanner source code and the subsequent maintenance of
             OptaPlanner fork \\ \hline
 
             \multicolumn{1}{|p{2.5cm}|}{Removing and replacing JavaBeans from OptaPlanner} &
@@ -266,63 +267,62 @@ effort from the programmer.
 
 \section{Design of the portation}\label{PortationDesignSection}
 This section describes design of the portation based on the requirements from
-Section~\ref{RequirementsPortationSection}. Major task is to automate the entire process and show how OptaPlanner can be
-ported into Android project of a developer tool.
+Section~\ref{RequirementsPortationSection}. Major task is to make the entire process automatic and show how OptaPlanner
+can be ported into Android project of a~developer tool.
 
 \paragraph{Developer tools}
-Google supports two developer tools for developing Android applications. From the very beginning, Eclipse with Android
-plugin was primary environment but it was replaced by Android studio. It is newer deleloper tool which bring many
-different features comparing to Eclipse. It is based on IntelliJ Idea application with plugins supporting Android
-features. Also it brings new build system which is based on Gradle language. Android studio is selected as primary
+As described in Chapter~\ref{AndroidChapter}, the official environment for development of Android applications is called
+Android studio which brings new build system which is based on Gradle language. Android studio is selected as primary
 deleloper tool for portation needs and Gradle laguage is chosen for automatization of all the required processes.
 
 \paragraph{Importing of OptaPlanner libraries}
-OptaPlanner is distributed as a Maven dependency or it is packed in JAR files. Because one of the requirement is
+OptaPlanner is distributed as a~Maven dependency or it is packed in JAR files. Because one of the requirement is
 automatic build process, first type of distribution is selected. Gradle language supports Maven dependencies and it
 allows complete automation of importing process. Because OptaPlanner is daily developed, its last snapshot version
-should be always used to secure that portation is compatible with Android for the future releases of OptaPlanner.
+should be always used to secure that the portation is compatible with Android for the future releases of OptaPlanner.
 
 \paragraph{Exclusion of unnecessary libraries}
-As is written in Section~\ref{RequirementsPortationSection}, Drools libraries should not be included in portation. It
-can be assumed that also another libraries can be excluded because they can be already contained in Android API. These
-exclusions has to be performed by Gradle language to secure the process automation. It also helps to reduce size of the
-potential applications.
+As written in Section~\ref{RequirementsPortationSection}, Drools libraries should not be included in portation. It can
+be assumed that also another libraries can be excluded because they can be already part of Android API. These exclusions
+has to be performed by Gradle language to secure the process automation. It also helps to reduce size of the potential
+applications.
 
 \paragraph{Completion of missing libraries}
 Section~\ref{JavaBeansProblemSection} describes JavaBeans problem and one of the suggested possible solutions was
 selected in Section~\ref{SummarySection}. Task of the chosen solution is to repack OpenBeans redistribution to Java core
-namespace and following steps needs to be done by Gradle language to automate the entire process:
+namespace and following steps should be performed by Gradle language to automate the entire process:
+
 \begin{itemize}
-\item Download JarJar tool for repacking libraries.
-\item Download OpenBeans package which is in \texttt{com.googlecode.beans} namespace.
-\item Run JarJar tools and repack OpenBeans package to Java core namespace (\texttt{java.beans}).
-\item Clean temporary files and move final JAR into proper directory.
-\item Add \texttt{--core-library} flag to allow use of the Java core classes.
+    \item Download JarJar tool for repacking libraries.
+    \item Download OpenBeans package which is in \texttt{com.googlecode.beans} namespace.
+    \item Run JarJar tools and repack OpenBeans package to Java core namespace (\texttt{java.beans}).
+    \item Clean temporary files and move final JAR into proper directory.
+    \item Add \texttt{--core-library} flag to allow use of the Java core classes.
 \end{itemize}
 
-\section{Portation implementation}\label{PortationImplSection}
-In this section, implementation of the portation is described. The first part focus on the two main problems and in the
-second part Gradle scripts which implements the portation itself are introduced.
+\section{Implementation of the portation}\label{PortationImplSection}
+In this section, implementation of the portation is described. The first part focuses on the two main issues and the
+second part on the Gradle scripts which implement the portation itself are introduced.
 
-\subsection{JavaBeans and core library flag}\label{coreLib}
+\subsection{JavaBeans and Core library flag}\label{JavaBeansCoreLibFlagSection}
 Two main issues need be to solved before it is possible to use OptaPlanner on Android. First one is completion of
-missing libraries to a project and second one is adding the \texttt{--core-library} flag to allow use of the Java core
+missing libraries to a~project and second one is adding the \texttt{--core-library} flag to allow use of the Java core
 classes.
 
 \paragraph{Completion of JavaBeans library}
 Completion of JavaBeans library is implemented by Gradle scripts described in Section~\ref{GradleScriptsSection}. These
 scripts can be used in any Android Gradle project and they enable to automatically download required tools and packages
-from the internet, repack OpenBeans library and create JavaBeans JAR file which is added to the project.
+from the Internet, repack OpenBeans library and create JavaBeans JAR file which is added to the project.
 
 \paragraph{Core library flag}
-If some classes from Java core namespace are present in an Android project, its compilation fails. Proposed
-solution where \texttt{--core-library} flag is added to dx script in Android SDK directory as shown in
+If some classes from Java core namespace are present in an~Android project, its compilation fails. Proposed solution
+where \texttt{--core-library} flag is added to \texttt{dx} script in Android SDK directory as shown in
 Listing~\ref{FlagListing} does not work from version 1.1.0 of Android Gradle build tools. The build tools are changed
-and they no longer use the dx script. Therefore, the flag must be directly embedded in settings of Android plugin in
-build.gradle file as shown in Listing~\ref{coreFlagSec}.
+and they no longer use the \texttt{dx} script. Therefore, the flag must be directly embedded in settings of Android
+plugin in \texttt{build.gradle} file as shown in Listing~\ref{CoreFlagGradleListing}.
 \\
-\begin{lstlisting}[captionpos={b},caption={Addition of core library flag in build.gradle script},frame={lines},
-label={coreFlagSec},basicstyle=\footnotesize]
+\begin{lstlisting}[captionpos={b},caption={Addition of core library flag in \texttt{build.gradle} script.},frame={lines},
+label={CoreFlagGradleListing},basicstyle=\footnotesize]
 project.tasks.withType(com.android.build.gradle.tasks.Dex) {
     additionalParameters=['--core-library']
 }
@@ -330,18 +330,18 @@ project.tasks.withType(com.android.build.gradle.tasks.Dex) {
 
 \subsection{Gradle scripts}\label{GradleScriptsSection}
 The entire process of the portation is automatized by Gradle scripts. Gradle is default building tool for Android studio
-which is currently primary application for creating Android projects.
+which is currently a~primary application for creating Android projects.
 
-This section discusses how OptaPlanner can be added to an Android project and describes tasks which perform operations
+This section discusses how OptaPlanner can be added to an~Android project and describes tasks which perform operations
 required to complete missing libraries described in Section~\ref{PortationDesignSection}.  All the described tasks are
-used in application described in Section~\ref{}. %todo
+used in application described in Section~\ref{ApplicationChapter}.
 
 \paragraph{OptaPlanner dependency}
-As in any other project which does not use only standard Java classes, it is necessary to include third party
-libraries. Gradle can use Maven dependencies and this is one of the ways how Optaplanner is distributed. Libraries can
-also be added directly as JAR files but it would be worse for automatization. As mentioned in
+As in any other project which does not use only standard Java classes, it is necessary to include third party libraries.
+Gradle can use Maven dependencies and this is one of the ways how OptaPlanner is distributed. Libraries can also be
+added directly as JAR files but it would be worse for automatization. As mentioned in
 Section~\ref{RequirementsPortationSection}, Drools library should not be included and also \texttt{xmlpull} library has
-to be exluded because it is already contained in Android API. Listing \ref{DependencyListing} shows OptaPlanner
+to be excluded because it is already contained in Android API. Listing~\ref{DependencyListing} shows OptaPlanner
 dependency with excluded libraries.
 \\
 \begin{lstlisting}[captionpos={b},caption={Optaplanner Maven dependency in Gradle build script.},frame={lines},
@@ -353,14 +353,14 @@ compile ('org.optaplanner:optaplanner-core:6.3.0-SNAPSHOT') {
 \end{lstlisting}
 
 \paragraph{Downloading and removing tasks}
-There are two downloading task \texttt{downloadJarJar} and \texttt{dowloadOpenBeans}. First task downloads repacking
-tool Jar Jar links and second download OpenBeans package in JAR format from the internet. The tasks for removing
+There are two downloading tasks \texttt{downloadJarJar} and \texttt{dowloadOpenBeans}. First task downloads repacking
+tool Jar Jar links and second one downloads OpenBeans package in JAR format from the Internet. The tasks for removing
 temporary files after their use are namely: \texttt{deleteJarJar}, \texttt{deleteOpenBeans}, \texttt{deleteRule} and
 \texttt{deleteJavaBeans}.
 
-\paragraph{Task for creating repacking rule file}
-Jar Jar tool needs to know how should repacke OpenBeans jar. For that purpose, there is \texttt{createRuleFile} task
-which creates file with rule as shown in Listing \ref{RuleListing}. This rule tells that all OpenBeans namespaces should
+\paragraph{Task for creating of repacking rule file}
+Jar Jar tool needs to know how to repack \texttt{OpenBeans jar}. For this purpose, there is \texttt{createRuleFile} task
+which creates file with rule as shown in Listing~\ref{RuleListing}. This rule tells that all OpenBeans namespaces should
 be replaced with JavaBeans namespace.
 \\
 \begin{lstlisting}[captionpos={b},caption={Jar Jar Links rule for repacking OpenBeans to Java core namespace.},
@@ -371,15 +371,15 @@ rule com.googlecode.openbeans.** java.beans.@1
 \paragraph{Task for repacking OpenBeans}
 Last task for manipulation with OpenBeans package is \texttt{repackOpenBeans} task. This task launches all the previous
 tasks and also executes command which creates JAR file with repacked OpenBeans to Java core name space. The new file is
-placed it into project \texttt{/lib} directory. This command is shown in Listings~\ref{CommandListing}. Finally,
-removing tasks are started and temporary files are deleted.
+placed into project \texttt{/lib} directory. This command is shown in Listings~\ref{CommandListing}. Finally,
+removing tasks are activated and temporary files are deleted.
 \\
-\begin{lstlisting}[captionpos={b},caption={Command for repacking openbeans.jar file.},frame={lines},
+\begin{lstlisting}[captionpos={b},caption={Command for repacking \texttt{openbeans.jar} file.},frame={lines},
 label={CommandListing},basicstyle=\footnotesize]
 java -jar jarjar.jar process rule.txt openbeans.jar javabeans.jar
 \end{lstlisting}
 
-\paragraph{Task for adding core library flag}
-This task is originally created for modification of dx script in build tools directory in Android SDK. It finds dx file
-and adds \texttt{--core-library} flag to the last line of the file. In newer versions of Andriod Gradle build plugin,
-this approach does not work and it is replaced as is described above in this section.
+\paragraph{Task for adding Core library flag}
+This task is originally created for modification of \texttt{dx} script in build tools directory in Android SDK. It finds
+\texttt{dx} file and adds \texttt{--core-library} flag to the last line of the file. In latest versions of Andriod
+Gradle build plugin, this approach does not work and it is replaced as described above in this section.

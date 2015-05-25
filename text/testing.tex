@@ -1,38 +1,36 @@
-Testing of applications is very important part of development. During this phase, a large number of bugs is often
+Testing of applications is very important part of the development. During this phase, a~large number of bugs is often
 detected and critical problems can be also discovered. Measurement is as well counted to the testing because it can
 reveal performance problems.
 
-Future work shows direction of the continuation of the project and points to important parts which can be implemented or
-improved.
-
-Section \ref{TestingSection} focused on testing devices and describes performed comparative measurements. In the section
-\ref{FutureWorkSection}, direction future work is discussed.
+Section~\ref{TestingSection} is focused on testing devices and describes performed comparative measurements.
+Section~\ref{FutureWorkSection} describes future work which shows direction of the continuation of the project and
+points out to the important parts which can be implemented or improved.
 
 \section{Testing}\label{TestingSection}
 This section introduces testing devices and describes performed comparative measurements. It focuses on comparison
 between mobile devices and desktop computer which differ especially in their performance.
 
 \subsubsection{Devices}
-The application is tested on several devices during and also after development. Table \ref{TestingDevicesTable} shows
+The application is tested on several devices during and also after development. Table~\ref{TestingDevicesTable} shows
 testing devices and their important parameters. Some issues which are associated to them are described in following
 paragraphs.
 
-First of the parameters is Android version which specifies supported parts of Android features. Most of problems are
-related with unsupported functions and they are ordinarily detected by compiler. However, from time to time some
-problems can appear and therefore it is better to test application on various versions of Android system.
+First of the parameters is Android version which specifies supported parts of Android features. Most of the problems are
+related with unsupported functions and they are usually detected by compiler. However, from time to time some problems
+can appear and therefore it is better to test application on various versions of Android system.
 
 Next parameters are display size and display resolution which together define density of the screens points. Every
-device has diferent display density and component layout must be well designed to fit to many devices displays. Another
-problem appears after screen rotation. Display sides are exchanded and components layout must be adapted.
+device has different display density and component layout must be well designed to fit to many devices screens. Another
+problem appears after the screen rotation. Display sides are exchanded and components layout must be adapted.
 
-Last parameters are number of CPU cores, CPU and RAM. They defines device speed and computing capabilities. Because this
-application calculates with many values, it is performed some tests and measurements which compare these devices.
+Last parameters are number of CPU cores, CPU and RAM. They define device speed and computing capabilities. Because this
+application calculates with many values, some tests and measurements which compare these devices are performed.
 
 The application is tested on the five devices in total. Four of them are mobile phones, one is tablet and the last one
-is Android emulator. Emulator is a virtual mobile device that runs on a desktop computer. Parameters of emulator can be
+is Android emulator. Emulator is a~virtual mobile device that runs on a~desktop computer. Parameters of emulator can be
 selected as necessary except of CPU which is inherited from host computer and adjusted according to operating system
 capabilities.
-
+\\
 \begin{table}[h!]
     \scalebox{0.9}{
         \begin{tabular}{|c|c|c|c|c|c|c|}
@@ -52,18 +50,18 @@ capabilities.
         \end{tabular}
     }
     \centering
-    \caption{Configurations of testing devices.}
+    \caption{Configuration of testing devices.}
     \label{TestingDevicesTable}
 \end{table}
 
 \subsubsection{Comparative measurements}
 After testing and debugging the application, two comparative measurements are performed on the devices mentioned in
-Table \ref{TestingDevicesTable} and one desktop computer with parameters described in Table \ref{TestingComputerTable}.
-On the desktop computer, simple OptaPlanner project which calculates the same vehicle routing problems has been created.
-On the mobile testing devices, graphical part is excluded and only calculation itself is measured. The goal of these
-measurements is to compare capabilities of Android devices with a standard desktop computer and it should verify that
-Android device are capable to use OptaPlanner.
-
+Table~\ref{TestingDevicesTable} and on one desktop computer with parameters described in
+Table~\ref{TestingComputerTable}. On the desktop computer, simple OptaPlanner project calculating the same Vehicle
+Routing problems has been created. On the mobile testing devices, graphical part is excluded and only calculation itself
+is measured. The goal of these measurements is to compare capabilities of Android devices with a~standard desktop
+computer and it should verify if Android devices are capable to use OptaPlanner.
+\\
 \begin{table}[h!]
     \begin{tabular}{|c|c|}
         \hline
@@ -80,14 +78,14 @@ Android device are capable to use OptaPlanner.
 \end{table}
 
 For both tests, three testing vrp files are used. They differ in the number of customers, the number of vehicles and
-the capacity of one vehicle. Parameters of the three used files are shown in Table \ref{TestingFilesTable}. The same
-files are also used in the application on the desktop computer.
-
+the capacity of vehicles. Parameters of the three used files are shown in Table~\ref{TestingFilesTable}. The same files
+are also used in the application on the desktop computer.
+\\
 \begin{table}[h!]
     \begin{tabular}{|l|c|c|c|}
         \hline
         \textbf{Vrp file} &
-        \textbf{Number of costumers} &
+        \textbf{Number of customers} &
         \textbf{Number of vehicles} &
         \textbf{Vehicle capacity} \\ \hline \hline
         A-n32-k5.vrp   & 31   & 5 & 100  \\ \hline
@@ -99,13 +97,13 @@ files are also used in the application on the desktop computer.
     \label{TestingFilesTable}
 \end{table}
 
-First test deals with a time of the first found solution. Each test case is measured five times and it is calculated
-arithmetic mean value ($\mu$) and standard deviation ($\sigma$). The values are written in Table \ref{FirstFoundTable}.
-As can be seen, differences between the desktop computer and the mobile devices is quite substantial and with more
-complicated problem difference between them rapidly grows. It can be also observed that more powerful mobile devices
-(Nexus 5 and 7) surpass older devices (Samsung Xcover and Sony Xperia) with worse CPU and performance of emaulator is
+First test deals with a~time of the first found solution. Each test case is measured five times and the arithmetic mean
+value ($\mu$) and standard deviation ($\sigma$) was calculated. The values are written in Table~\ref{FirstFoundTable}.
+As can be seen, differences between the desktop computer and the mobile devices are quite substantial. Thus, the more
+complex problems the difference between them rapidly grows. It can be also observed that more powerful mobile devices
+(Nexus 5 and 7) surpass older devices (Samsung Xcover and Sony Xperia) with worse CPU and performance of emulator is
 approximately equal to the most powerful mobile device (Nexus 5).
-
+\\
 \begin{table}[h!]
     \catcode`\-=12
     \begin{tabular}{|l|c|c|c|c|c|c|}
@@ -127,13 +125,13 @@ approximately equal to the most powerful mobile device (Nexus 5).
     \label{FirstFoundTable}
 \end{table}
 
-Second test is displayed in Table \ref{ScoreLimitTable} and it is based on 10 seconds time limit. After the time limit
-the best soft score was saved and from five measurements the largest was selected. Soft score shows a distance of the
-all vehicles as a negative value which is traveled betweeen customers and depot. A higher value means a smaller
-distance. Quite substantial difference is appeared again between mobile devices and desktop computer. Although the Nexus
-devices have different parameters they reached same results in two cases. The oldest device (Sony Xperia active) did not
-reach any result in the appointed time limit for the last case.
-
+Second test is displayed in Table~\ref{ScoreLimitTable} and it is based on 10 seconds time limit. After the time limit
+the best soft score was saved and of five measurements the largest was selected. Soft score shows a~distance of the all
+vehicles which is traveled between customers and depot as a~negative value. A~higher value means a~smaller distance.
+Quite substantial difference is appears again between mobile devices and desktop computer. Although the Nexus devices
+have different parameters they reached same results in two cases. The oldest device (Sony Xperia active) did not reach
+any result in the appointed time limit for the last case.
+\\
 \begin{table}[h!]
     \begin{tabular}{|l|c|c|c|}
         \hline
@@ -153,25 +151,25 @@ reach any result in the appointed time limit for the last case.
     \label{ScoreLimitTable}
 \end{table}
 
-Although, there is a significant difference between the desktop computer and Android phones or tablet, these mobile
+Although, there is a~significant difference between the desktop computer and Android phones or tablet, these mobile
 devices are still sufficiently fast to use OptaPlanner tool and solve such kind of problem.
 
 From testing and measuring, it can be said that portation of OptaPlanner is successful. Standard Java score calculation
-of OptaPlanner is used and it is achieved satisfying times on the real mobile devices. Also, there were no problems
-recorded with OptaPlanner tool and its use
+of OptaPlanner is used and the calculation process is able to achieve satisfying times on the real mobile devices. Also,
+there were no problems recorded with OptaPlanner tool and its use.
 
 \section{Future work}\label{FutureWorkSection}
-This section describes future work which follows after this project. There are already plans how to improve OptaPlanner
-integration to Android system and in addition, there are two main project which will be primarily processed.
+This section describes future work which comes after this project. There are already plans how to improve OptaPlanner
+integration to Android system and in addition, there are two main projects which will be primarily processed.
 
 \paragraph{OptaPlanner game}
-Because OptaPlanner works on Android, there are many ways how to use it. One of them is to create a simple game where user
-goal is to defeat the OptaPlanner by finding shortest way for vehicles. Using clicking on the customers user create road
-for vehicle to the depot. Meanwhile time is measured and when user finish its work, OptaPlanner do the same and results
-will be compared. This is the early proposal of the game which follows this work.
+Because OptaPlanner works on Android, there are many ways how to use it. One of them is to create a~simple game where
+user goal is to defeat the OptaPlanner by finding shortest way for vehicles. By clicking on the customers user can
+create road for vehicle to the depot. Meanwhile, time is measured and when user finishes his task, OptaPlanner do the
+same and results are compared. This is the preliminary proposal of the game that follows this work.
 
-\paragraph{Drools} %TODO check the reference later
-As noted in Chapter \ref{PortingChapter}, Drools package is not included in the poration due to its size and
-complexity. There are plans to port Drools tool to Android separately. If the portation is successful, it will be
-deployed and tested together with OptaPlanner. Although Drools tool is consuming a lot of computer resources, current
-mobile devices already have high performance and it might be interesting to have such instrument on Android platform.
+\paragraph{Drools}
+As noted in Chapter~\ref{PortingChapter}, Drools package is not included in the poration due to its size and complexity.
+There are plans to port Drools tool to Android separately. If the portation is successful, it will be deployed and
+tested together with OptaPlanner. Although Drools tool consumes a~lot of computer resources, current mobile devices
+already have high performance and it might be interesting to have such instrument on Android platform.

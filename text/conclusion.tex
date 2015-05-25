@@ -1,27 +1,30 @@
-Libraries of Java SE Application Programming Interfaces (API) and Android API were compared and it was found that they
-differ significantly. Out of 38 Java SE API packages, 20 packages are completely missing and 9 packages are incomplete
-in Android API. On closer inspection, it was revealed that one of the OptaPlanner tool dependecies is missing in
-Android API. This missing package is named \texttt{java.beans} and it covers JavaBeans technology.
+Libraries of Java SE API and Android API were compared and it was found that they differ significantly. Out of 38 Java
+SE API packages, 20 packages are completely missing and 9 packages are incomplete in Android API. On closer inspection,
+it was revealed that one of the OptaPlanner tool dependencies is missing in Android API. This missing package is named
+JavaBeans.
 
 For JavaBeans problem were suggested five solutions, namely: Repacking JavaBeans redistribution to Java core namespace,
 Use of the OpenJDK distribution source code, Use of pruned rt.jar from OpenJDK distribution, Use of OpenBeans in
 OptaPlanner project and Removing and replacing JavaBeans from OptaPlanner. Due to comparison of advantages and
-disadvantages of individual solutions, it was selected a solution which does not change source code of Optaplanner tool,
-has a license that allows easy application and generally it is suitable for application on Android.
+disadvantages of individual solutions, it was selected a~solution which does not change source code of OptaPlanner tool,
+has a~license that allows easy application and generally is suitable for usage on Android.
 
-Chosen solution for further progress consists of repacking of OpenBeans redistribution to new JAR file which classes
-are placed Java core namespace. Such file can be included in Android project and it supplement missing libraries.
-However, this faces with problem which does not allow to use classes from Java core namespace on Android. The problem
-was resolved by using of Core library flag. The entire process of the portation was designed, implemented and
-automated by Gradle language -- the default build tool for Android projects.
+Chosen solution for further progress consists of repacking of OpenBeans redistribution to Java core namespace. During
+this process, new JAR file consisting of the missing JavaBeans libraries is created and could be subsequently inserted
+into an~Android project. However, this faces the problem which does not allow to use classes of Java core namespace on
+Android. The problem was resolved by using the Core library flag and the entire process of the portation was designed,
+implemented and automated by Gradle language -- the default build tool for Android projects.
 
-According to the written requirements, sample Android Vehicle Routing Problem application which use the ported
-OptaPlanner was designed and implemented. The application can use one of the three algorithms and set time limit to
-solve attached problem examples. Actual problem is always displayed in graphic form on the screen of the application
-together with the newest found solution.
+According to the written requirements, model Android Vehicle Routing Problem application which uses the ported
+OptaPlanner was designed and implemented. The application can use one of the three algorithms, set calculation time
+limit and solve attached problem examples. Actual problem is always displayed in text and graphic form on the screen of
+the application together with the newest found solution. The application is publicly available on Google Play Store on
+the Internet and the presentation video was created and was presented along with solution how to use OptaPlanner on
+Android to developers community on OptaPlanner website.
 
-The application is publicly available on Google Play Store on the internet and it was created presentation video which
-was presented along with solution how to use OptaPlanner on Android to developers community on OptaPlanner website.
+On the Vehicle Routing Problem example, comparative measurements that focus on performance comparison between mobile
+devices and desktop computer were performed. These measurements proved that OptaPlanner is working and can be used on
+Android.
 
 The challenge for the future work is portation of Drools tool. It is standalone project which can be used by OptaPlanner
-as one of the option for calculation the score and in the future it may be interesting to have such tool on Android.
+as one of the option for calculation the score and in the future, it may be interesting to have such tool on Android.

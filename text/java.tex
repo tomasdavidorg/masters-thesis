@@ -2,10 +2,10 @@ This chapter introduces the Java programming language. It is primarily focused o
 specially on Java Standard Edition and its Application Programming Interface (API) which serves as the basis for Android
 API described in Chapter~\ref{AndroidChapter}.
 
-Section~\ref{JavaLang} presents the Java programming language, Java platforms are described in
-Section~\ref{JavaPlatforms} and Section~\ref{JavaSE} introduces Java Standard Edition and its main parts.
+Section~\ref{JavaLangSection} presents the Java programming language, Java platforms are described in
+Section~\ref{JavaPlatformsSection} and Section~\ref{JavaSESection} introduces Java Standard Edition and its main parts.
 
-\section{Java language}\label{JavaLang}
+\section{Java language}\label{JavaLangSection}
 Java~\cite{JavaBook, Java6Doc} is one of the most famous and most widely used computer programming languages in the
 world. It is developed by Oracle Corporation and its application is widespread. Java is used for programming smart
 cards, mobile and desktop applications, as well as large business and information systems. It is class based and object
@@ -16,9 +16,9 @@ The first public version of Java was released in 1996 and since this year, eight
 Java changed its owner from Sun Microsystems to Oracle Corporation. The latest version of Java (Java 8) was released in
 2014.
 
-\section{Java platforms}\label{JavaPlatforms}
+\section{Java platforms}\label{JavaPlatformsSection}
 Java is published in four platforms. Each platform provides tools for development and running programs written in Java
-and consists of two main parts. The first part is Java Virtual Machine (JVM) which is connected to an operating system
+and consists of two main parts. The first part is Java Virtual Machine (JVM) which is connected to an~operating system
 and thus Java programs can be executed. The second part is Java Application programming interface which provides many
 public classes of standard Java libraries.
 
@@ -42,18 +42,18 @@ This technology is designed for application development of smart cards or device
 capabilities. For example, it is used for SIM cards of mobile devices, plastic smart card for Automated teller machine
 and similar devices. Last released version is Java Card 3.
 
-\section{Java Standard Edition}\label{JavaSE}
+\section{Java Standard Edition}\label{JavaSESection}
 Java SE platform is distributed in two versions. The first version is Java Runtime Enviroment which is commonly used on
 personal computers for running Java applications. The second version named Java Development Kit is used mostly for
 application development. This platform has its own open-source implementation called OpenJDK~\cite{OpenJDK}.
-Figure~\ref{Java6JDK} shows parts of Java SE Development Kit (JDK) distribution in comparison with Java SE Runtime
-Environment (JRE) and in the following paragraphs, these components are briefly described.
+Figure~\ref{JavaComponentsFigure} shows parts of Java SE Development Kit (JDK) distribution in comparison with Java SE
+Runtime Environment (JRE) and in the following paragraphs, these components are briefly described.
 \\
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.35]{fig/java_6_jdk.png}
     \caption{Components of the Java Standard Edition Development Kit 1.6~\cite{Java6Doc}.}
-    \label{Java6JDK}
+    \label{JavaComponentsFigure}
 \end{figure}
 
 \paragraph{Java SE Development Kit}
@@ -72,14 +72,14 @@ interface, manipulation with databases, base language and utility libraries and 
 
 \paragraph{Java Virtual Machine}
 Java programs can not run without virtual machine. JVM is a~program that provides the runtime environment necessary for
-executing of Java application. Figure~\ref{JavaLifecycle} shows the lifecycle of Java program. It starts with Java
-source code which is compiled to bytecode by \texttt{javac} compiler. Bytecode is an instruction code and it is stored
-in \texttt{.class} files. These files go through classloading mechanism to JVM and then are ready for execution by the
-interpreter.
-
+executing of Java application. Figure~\ref{JavaLifecycleFigure} shows the lifecycle of Java program. It starts with
+Java source code which is compiled to bytecode by \texttt{javac} compiler. Bytecode is an~instruction code and it is
+stored in \texttt{.class} files. These files go through classloading mechanism to JVM and then are ready for execution
+by the interpreter.
+\\
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.3]{fig/java_program_lifecycle.png}
-    \caption{The lifecycle of a Java program~\cite{JavaBook}.}
-    \label{JavaLifecycle}
+    \caption{The lifecycle of a~Java program~\cite{JavaBook}.}
+    \label{JavaLifecycleFigure}
 \end{figure}

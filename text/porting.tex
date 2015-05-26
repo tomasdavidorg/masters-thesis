@@ -23,7 +23,7 @@ a~model application.
 \paragraph{Drools library}
 As described in Chapter~\ref{OptaPlannerChapter}, one of the ways of computing function in OptaPlanner is by the Drools
 rules. Drools library is distributed as a~part of OptaPlanner and also as a~standalone project. Using this library, it
-is possible to write rule prescriptions for score calculation. Ahother way how to compute the score is standard Java
+is possible to write rule prescriptions for score calculation. Another way how to compute the score is standard Java
 calculation which does not require additional dependencies. Because Drools project is not optimized for mobile platforms
 and there is another way how to calculate the score, it should not be included in the portation of OptaPlanner on
 Android.
@@ -139,7 +139,7 @@ included into a~Java or an~Android project.
 
 \paragraph{Mad Robot}
 A~similar project to OpenBeans is called Mad Robot~\cite{MadRobot}. As well as OpenBeans, it contains redistribution of
-\texttt{java.beans} package in \texttt{com.madrobot.beans} namespace but it also includes some additional packeges for
+\texttt{java.beans} package in \texttt{com.madrobot.beans} namespace but it also includes some additional packages for
 database, graphics or geometry manipulation. This project is distributed as Maven dependency.
 
 \paragraph{Jar Jar Links}
@@ -201,7 +201,7 @@ permit commercial and private use and modification of the code. Furthermore, the
 each developer has an~opportunity to easily use OptaPlanner on Android without making any special modifications.
 
 The best solution of JavaBeans problem seems to be repacking of the OpenBeans redistribution of JavaBean to Java core
-namespace. In this approach, suitable Apache licence must be respected. This licence is free software license and it
+namespace. In this approach, suitable Apache license must be respected. This license is free software license and it
 allows easy usage of the code. It is not necessary to modify the OptaPlaner code and generally, this approach requires
 less effort from the programmer.
 
@@ -210,7 +210,7 @@ less effort from the programmer.
         \begin{tabular}{|l|c|c|c|p{5cm}|}
             \hline
             \multicolumn{1}{|p{2.5cm}|}{\centering \textbf{Approach name}} &
-            \textbf{Licence} &
+            \textbf{License} &
             \multicolumn{1}{p{2.4cm}}{\centering \textbf{OptaPlanner modification}} &
             \multicolumn{1}{|p{1.8cm}}{\centering \textbf{Level of difficulty}} &
             \multicolumn{1}{|p{5cm}|}{\centering \textbf{Advantages and disadvantages}} \\ \hline \hline
@@ -273,7 +273,7 @@ can be ported into Android project of a~developer tool.
 \paragraph{Developer tools}
 As described in Chapter~\ref{AndroidChapter}, the official environment for development of Android applications is called
 Android studio which brings new build system which is based on Gradle language. Android studio is selected as primary
-deleloper tool for portation needs and Gradle laguage is chosen for automatization of all the required processes.
+developer tool for portation needs and Gradle laguage is chosen for automatization of all the required processes.
 
 \paragraph{Importing of OptaPlanner libraries}
 OptaPlanner is distributed as a~Maven dependency or it is packed in JAR files. Because one of the requirement is
@@ -359,7 +359,7 @@ temporary files after their use are namely: \texttt{deleteJarJar}, \texttt{delet
 \texttt{deleteJavaBeans}.
 
 \paragraph{Task for creating of repacking rule file}
-Jar Jar tool needs to know how to repack \texttt{OpenBeans jar}. For this purpose, there is \texttt{createRuleFile} task
+Jar Jar tool needs to know how to repack \texttt{OpenBeans.jar}. For this purpose, there is \texttt{createRuleFile} task
 which creates file with rule as shown in Listing~\ref{RuleListing}. This rule tells that all OpenBeans namespaces should
 be replaced with JavaBeans namespace.
 \\
@@ -381,5 +381,5 @@ java -jar jarjar.jar process rule.txt openbeans.jar javabeans.jar
 
 \paragraph{Task for adding Core library flag}
 This task is originally created for modification of \texttt{dx} script in build tools directory in Android SDK. It finds
-\texttt{dx} file and adds \texttt{--core-library} flag to the last line of the file. In latest versions of Andriod
+\texttt{dx} file and adds \texttt{--core-library} flag to the last line of the file. In latest versions of Android
 Gradle build plugin, this approach does not work and it is replaced as described above in this section.

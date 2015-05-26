@@ -63,7 +63,7 @@ version decides which resource can be used for application design and developmen
 
 \section{Application design}\label{ApplicationDesignSection}
 One of the critical points of creating an~application is design. It can be divided into two parts. The first one is
-design of an~innner structure and it is presented in Section~\ref{ApplicationFeatureSection}. The second one is design
+design of an~inner structure and it is presented in Section~\ref{ApplicationFeatureSection}. The second one is design
 of graphical user interface and application component layout which is described in Section~\ref{ScreenDesignSection}.
 
 \subsection{Application features}\label{ApplicationFeatureSection}
@@ -97,7 +97,7 @@ is turned or application is hidden in background, solving process has to be stil
 \paragraph{Solution displaying}
 New best solution should be displayed every time when it is found. For that purpose, application contains third screen
 especially for displaying founded solution which should be similar to original application. Lines represents roads,
-vehicles and depots have their own icons. Customers differs from the original for saving screen space. Intead of points
+vehicles and depots have their own icons. Customers differs from the original for saving screen space. Instead of points
 with numbers, customers should be represented as circles with inner number describing its demand. Time window circles
 should be displayed in a~similar way as the original but not separated from customer.
 
@@ -225,12 +225,12 @@ application. Time limit is additionally set after Solver is created.
 Every solution has its own score and this score must be calculated by one of the three methods described in
 Section~\ref{ScoreConfigSection}. For score calculation in this application, \texttt{VehicleRoutingEasyScoreCalculator}
 class which implements \texttt{EasyScoreCalculator} is used. This class calculates hard and soft score of solution. Hard
-score is computed as a~load of vehicles above their capacity and soft score is calculated as neagative total vehicle
+score is computed as a~load of vehicles above their capacity and soft score is calculated as negative total vehicle
 distance. In case of time window variant, delay against due time of arrival is added to the hard score.
 
 \paragraph{VRP example files}
 Example \texttt{.vrp} files are used as problem datasets. These files are taken from the original OptaPlanner Vehicle
-Routing Problem application. They contain informations about number and capacity of vehicles, position and demands of
+Routing Problem application. They contain information about number and capacity of vehicles, position and demands of
 customers and position of depot. This application includes 36 example files in total.
 
 \paragraph{Vehicle Routing importer}
@@ -294,7 +294,7 @@ This section introduces and describes three important components of the applicat
 Dialogs.
 
 \subsubsection{Action bar}
-Action bar is a~panel on top of the screen that provides basic user action and informations about user navigation. It
+Action bar is a~panel on top of the screen that provides basic user action and information about user navigation. It
 always contains application name, optionally action buttons for quick invocation of application functionality and
 overflow button on the right side for displaying the other applications options.
 
@@ -311,7 +311,7 @@ This application uses navigation drawer for displaying important statistic data.
 displays visible panel on the left side of the application. The first item on the panel shows hard and soft score of
 displayed solution. Second item holds total distance traveled. Other items are linked to vehicles of the problem. Each
 of them has its own parameters -- color, name and capacity. These three items are static and do not change during the
-calculation. Last parametr is actual load of the vehicle.
+calculation. Last parameter is actual load of the vehicle.
 \\
 \begin{figure}[h!]
     \centering
@@ -321,7 +321,7 @@ calculation. Last parametr is actual load of the vehicle.
 \end{figure}
 
 \subsubsection{Dialogs}
-Dialogs are small windows which display some significant informations or they are used for user interaction with
+Dialogs are small windows which display some significant information or they are used for user interaction with
 decisions that define further actions. Dialogs are always located above all other parts of the application.
 
 Figure~\ref{DialogsFigure} shows all three dialogs used in the application. The first one and the second one can be

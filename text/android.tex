@@ -21,7 +21,7 @@ smartphone with Android released on October 22, 2008.
 Table~\ref{AndroidHistoryTable} presents a~brief history of the Android operating system. It describes release dates of
 major versions, version numbers, code names, API levels and distributions in the last column. As can be seen from
 version 1.5, every major version has its own codename represented by a~popular food. API level indicates that version
-brings changes in its programming interface and the most important column shows the distrubiton of each version.
+brings changes in its programming interface and the most important column shows the distribution of each version.
 According to this, it may be decided for which versions still makes sense to develop an~application.
 
 \begin {table}[h!]
@@ -228,8 +228,8 @@ Each application must have an~\texttt{AndroidManifest.xml} file. This file conta
 regard to Android and it has to be placed in root directory of project. It has to contain a~unique package name for the
 application, the declaration of used Activity and Service components, application permissions to the protected parts of
 the API (such as access to the camera, etc.). A~minimum API level, list of connected and used libraries and other
-important informations about application have to also be declared. Android manifest is together with resources compiled
-by \texttt{aapt} tool to \texttt{R.java} file. Thanks to this, the manifest informations are available in the source
+important information about application have to also be declared. Android manifest is together with resources compiled
+by \texttt{aapt} tool to \texttt{R.java} file. Thanks to this, the manifest information are available in the source
 code.
 
 \begin{figure}[h!]
@@ -239,7 +239,7 @@ code.
     \label{BuildProcessFigure}
 \end{figure}
 
-\section{Build Process}\label{BuildProcessSection}
+\section{Build process}\label{BuildProcessSection}
 Build process is the way how \texttt{.apk} package is produced from Android project. APK (Android application package)
 file is a~file format used for distribution and installation of application software to Android devices. It contains all
 of the necessary files to run an~application. Figure~\ref{BuildProcessFigure} shows how APK package is created from
@@ -248,7 +248,7 @@ Java source code and resources including Android manifest file. The individual s
 \begin{enumerate}
     \item The Android Asset Packaging Tool compiles resource files and \texttt{AndroidManifest.xml} and produces
     \texttt{R.java}. Resource references from Java code are then linked to this file.
-    \item \texttt{aidl} tool coverts all \texttt{.aidl} interfacese to Java interfaces. Aidl files are interfaces used
+    \item \texttt{aidl} tool coverts all \texttt{.aidl} interfaces to Java interfaces. Aidl files are interfaces used
     for interprocess communication between client and service.
     \item Java compiler takes and compiles \texttt{R.java} file, application source code and Java interfaces to
     bytecode. Bytecode is stored in \texttt{.class} output files.
@@ -267,10 +267,10 @@ automate development and the build process which is described above.
 
 \paragraph{Android studio}
 In the past, Google has supported two developer tools for developing Android applications. From the very beginning,
-Eclipse with Android plugin was primary environment. Now, the official environment for development of Android
-applications is called Android studio~\cite{AndroidDev}. It is a~multiplatform application which provides tools to
-facilitate application development. Android studio is based on the IntelliJ IDEA Java IDE and Gradle language is used as
-default build system.
+Eclipse with Android plugin was primary environment. Nowadays, the official environment for development of Android
+applications is called Android studio~\cite{AndroidDev}. It is a~multi-platform application which provides tools to
+facilitate application development. Android studio is based on the IntelliJ IDEA Java IDE (Integrated Development
+Environment) and Gradle language is used as default build system.
 
 \paragraph{Gradle build system}
 Gradle build system~\cite{Gradle} is a~project automation tool which is built on the concepts of Apache Ant~\cite{Ant}

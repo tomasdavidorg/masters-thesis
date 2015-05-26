@@ -9,10 +9,10 @@ Section~\ref{PlannerConfSection}.
 
 \section{Planning problem}\label{PlanningProblemSection}
 In everyday life, at work or in another occasion, people meet problems for which they have limited resources (time,
-money, etc.). Also organizations need to face these problems at a~larger scale. Planning mechanisms help them to save
+money, etc.). Also, organizations need to face these problems at a~larger scale. Planning mechanisms help them to save
 these resources and time.
 
-Planning problems can be for example N-Queen problem, Vehicle routing problem, Course timetabling or Hospital bed
+Planning problems can be for example N-Queen problem, Vehicle Routing Problem, Course timetabling or Hospital bed
 planning. More examples can be found in~\cite{OptaPlannerDoc}. Following paragraphs presents two of these problems.
 
 \paragraph{N-Queen problem}
@@ -21,14 +21,14 @@ case, it is necessary to place \texttt{n} queens to the chess field of size \tex
 that queen can move vertically, horizontally and diagonally. The goal is to achieve that none of the queens should
 threaten another.
 
-\paragraph{Vehicle routing problem}
+\paragraph{Vehicle Routing Problem}
 The second example of the planning problems is Vehicle Routing Problem (VRP)~\cite{VehicleRouting}. Problem consists of
 depots, customers and vehicles. Vehicles depart from depots, collect objects of each customer and bring them back to
 the depot. Each vehicle can service multiple customers but it has a~limited capacity. The goal is to minimize total
-traveled distance. There are several variants of this problem, for example Vehicle routing problem with time windows.
+traveled distance. There are several variants of this problem, for example Vehicle Routing Problem with time windows.
 
 \section{OptaPlanner terminology}\label{OptaPlannerTerminologySection}
-In Optaplanner, the planning problem is represented by Java classes, XML (eXtensible Markup Language) configuration file
+In OptaPlanner, the planning problem is represented by Java classes, XML (eXtensible Markup Language) configuration file
 and optional DRL (Drools Rule Language) files. Java classes together form the model of the planning problem.
 Configuration file is written in XML and it serves to describe the configuration of Solver. Configuration contains
 links to classes of declared model, score configuration and used optimization algorithm. DRL files which are optional
@@ -48,7 +48,7 @@ initialized solutions. In contrast to second type, the first one does not have t
 \paragraph{Score}
 Score is a~way how to compare two solutions of a~problem. Every solution has own score and solution with higher score is
 better. There is significant difference between best and optimal solution. Solver always finds solution with the highest
-score from possible solutions -- the best solution. Although, it is not always the optimal solution which is the best
+score from possible solutions -- the best solution. Although it is not always the optimal solution which is the best
 solution of current problem. There are several techniques for comparing scores:
 
 \begin{itemize}
@@ -186,7 +186,7 @@ termination. Subsequent options can stop calculation:
     \item \textbf{Time limit termination} -- occurs after exceeding the time limit.
     \item \textbf{Best score termination} -- terminates when a~certain best score is reached.
     \item \textbf{Step count termination} -- occurs after exceeding the limit of step count of calculation.
-    \item \textbf{Combining of multiple terminations} -- previous termination methods can be also combined.
+    \item \textbf{Combining of multiple terminations} -- previous termination methods can also be combined.
     \item \textbf{Asynchronous termination from another thread} -- can be used if it is necessary to terminate
     calculation differently than by automated methods.
 \end{itemize}

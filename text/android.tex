@@ -11,7 +11,7 @@ described in Section~\ref{BuildProcessSection}.
 \section{Introduction}\label{AndroidIntroductionSection}
 Android~\cite{AndroidBook, AndroidProgBook} is a~mobile operating system developed by Google. It is an~open-source
 system based on the Linux kernel mainly used in mobile devices such as smartphones, tablets and smart watches but it can
-be also found in devices such as set-top boxes, media players and other electronics.
+also be found in devices such as set-top boxes, media players and other electronics.
 
 Android Inc. was founded in California USA in 2003. Google Inc. bought Android two years later. In 2007, Google acquired
 several patents in the field of mobile devices and at the same year on November 5, there was an~official presentation
@@ -63,7 +63,7 @@ beginning, Android was built on the Linux 2.6 kernel. The latest version 5 from 
 the kernel 3.4.
 
 \paragraph{Hardware abstraction layer}
-Hardware abstraction layer (HAL) is standart interface which allows to Android system calls drivers layer while it does
+Hardware abstraction layer (HAL) is standard interface which allows to Android system calls drivers layer while it does
 not have to care what is the implementation of drivers and hardware in lower layers. For each piece of hardware should
 be a~driver and matching HAL providing hardware options.
 
@@ -82,7 +82,7 @@ the Native Development Kit (NDK). The layer includes the following libraries:
     \item \textbf{OpenGL ES} -- a~library for support 2D and 3D graphics and hardware accelerated rendering.
     \item \textbf{Audio Manager} -- a~library for working with audio of device.
     \item \textbf{FreeType} -- a~library for bitmap and vector font rendering.
-    \item \textbf{SSL} -- a~library for the use of encryption protocol for secure Internet communications.
+    \item \textbf{SSL} -- a~library for the use of encryption protocol for secure internet communications.
 \end{itemize}
 
 \paragraph{Android runtime}
@@ -228,7 +228,7 @@ Each application must have an~\texttt{AndroidManifest.xml} file. This file conta
 regard to Android and it has to be placed in root directory of project. It has to contain a~unique package name for the
 application, the declaration of used Activity and Service components, application permissions to the protected parts of
 the API (such as access to the camera, etc.). A~minimum API level, list of connected and used libraries and other
-important informations about application have to be also declared. Android manifest is together with resources compiled
+important informations about application have to also be declared. Android manifest is together with resources compiled
 by \texttt{aapt} tool to \texttt{R.java} file. Thanks to this, the manifest informations are available in the source
 code.
 

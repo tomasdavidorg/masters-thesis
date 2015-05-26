@@ -1,5 +1,5 @@
 This chapter deals with porting of OptaPlanner to Android. Portation is a~modification of software for the purpose of
-usage on different platforms. Optaplanner is designed for Java Standard Edition (SE) platform and for integration to
+usage on different platforms. OptaPlanner is designed for Java Standard Edition (SE) platform and for integration to
 Android it is necessary to compare both platforms and resolve potential problems.
 
 In the first Section~\ref{RequirementsPortationSection}, requirements for OptaPlanner portation are introduced.
@@ -16,7 +16,7 @@ OptaPlanner usability.
 \paragraph{Automatic build process}
 First of the portation requirements is ensuring of the automatic build process. When an~application is built, it is
 good to make all the steps automatic. OptaPlanner libraries should be imported correctly and all the dependencies should
-be included or should be prepared by build script. Any other problems of the portation has to be also resolved in a~way
+be included or should be prepared by build script. Any other problems of the portation has to also be resolved in a~way
 which does not required much effort from users of the scripts. These procedures have to be described and demonstrated on
 a~model application.
 
@@ -34,7 +34,7 @@ solving planning problems. Mobile devices have limited computing capabilities an
 computers. Ported OptaPlanner should consider these capabilities and adapt to them.
 
 \section{Java API packages comparison}\label{ComparsionSection}
-This section compares two Java Application Programming Interfaces -- Java 6 Standart Edition API and Android API.
+This section compares two Java Application Programming Interfaces -- Java 6 Standard Edition API and Android API.
 Depending on the comparison, OptaPlanner dependencies on Java SE API are identified on Android API and the consequent
 problems are highlighted.
 
@@ -179,7 +179,7 @@ it may happen that an~application hits some missing required dependencies during
 \subsection{Use of OpenBeans in OptaPlanner project}\label{UseOpenBeansSection}
 This is the first solution which intervenes to the OptaPlanner source code and it consists of replacing all
 \texttt{java.beans} dependencies for the \texttt{com.googlecode.openbeans} by rewriting all imports and by addition of
-\texttt{OpenBeans.jar} archive to the Optaplanner core project. This causes redirection of all dependencies to
+\texttt{OpenBeans.jar} archive to the OptaPlanner core project. This causes redirection of all dependencies to
 OpenBeans. The disadvantage of this solution is the intervention in the OptaPlanner source code. In terms of Android
 application developers, it is needed to create anew fork (or branch) of OptaPlanner and maintenance of such copy is
 complicated and complex.
@@ -321,7 +321,7 @@ Listing~\ref{FlagListing} does not work from version 1.1.0 of Android Gradle bui
 and they no longer use the \texttt{dx} script. Therefore, the flag must be directly embedded in settings of Android
 plugin in \texttt{build.gradle} file as shown in Listing~\ref{CoreFlagGradleListing}.
 \\
-\begin{lstlisting}[captionpos={b},caption={Addition of core library flag in \texttt{build.gradle} script.},frame={lines},
+\begin{lstlisting}[captionpos={b},caption={Addition of Core library flag in \texttt{build.gradle} script.},frame={lines},
 label={CoreFlagGradleListing},basicstyle=\footnotesize]
 project.tasks.withType(com.android.build.gradle.tasks.Dex) {
     additionalParameters=['--core-library']
@@ -344,7 +344,7 @@ Section~\ref{RequirementsPortationSection}, Drools library should not be include
 to be excluded because it is already contained in Android API. Listing~\ref{DependencyListing} shows OptaPlanner
 dependency with excluded libraries.
 \\
-\begin{lstlisting}[captionpos={b},caption={Optaplanner Maven dependency in Gradle build script.},frame={lines},
+\begin{lstlisting}[captionpos={b},caption={OptaPlanner Maven dependency in Gradle build script.},frame={lines},
 label={DependencyListing},basicstyle=\footnotesize]
 compile ('org.optaplanner:optaplanner-core:6.3.0-SNAPSHOT') {
     exclude group: 'xmlpull'

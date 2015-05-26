@@ -47,7 +47,7 @@ to display new best solution everytime when it is found and at the end of the pr
 on the screen. The application should also be able to display actual statistic information about solved problem.
 
 \paragraph{License}
-The entire application should be distributed as an~opensource software and it should be written under Apache License
+The entire application should be distributed as an~open-source software and it should be written under Apache License
 2.0. Source code must be publicly available on the Internet for guidance of other people in their own OptaPlanner
 projects.
 
@@ -74,11 +74,11 @@ application features design is written and introduced in following paragraphs.
 Designed application supports several setting options. It is possible to select one of three algorithms: First fit
 decreasing with Late acceptance, Branch and bound and Brute force. Simultaneously, it is required to select time limit
 of calculation in seconds. Calculation stops after time limit is reached or it is possible to stop it earlier by stop
-button. Furthermore, vehicle routing example can be chosen. Application contains list of these files and after user
+button. Furthermore, Vehicle Routing example can be chosen. Application contains list of these files and after user
 selects one of them everything should be prepared to calculation start. The setting should be placed on the first screen
 of the application.
 
-\paragraph{Vrp files}
+\paragraph{VRP files}
 Mentioned list of example files consists from files used in original OptaPlanner application. These files are named the
 same way and user can compare results between both applications. Because default Android system does not contain file
 browser and user probably does not have his own \texttt{.vrp} files, application does not support opening files from
@@ -114,7 +114,7 @@ is described in Section~\ref{ScreenDesignSection}.
 \end{figure}
 
 \subsection{Design of screens}\label{ScreenDesignSection}
-This section introduces desing of application screens and describes component layouts. The overall concept and links
+This section introduces design of application screens and describes component layouts. The overall concept and links
 between screens are shown in Figure~\ref{ScreenDesignFigure}.
 
 \paragraph{Application top bar}
@@ -236,7 +236,7 @@ customers and position of depot. This application includes 36 example files in t
 \paragraph{Vehicle Routing importer}
 Example files are stored in specific \texttt{.vrp} text format and have to be loaded into classes that describe Vehicle
 Routing problem. For this purpose, \texttt{VehicleRoutingImporter} class is imported and used from the original
-Optaplanner application.
+OptaPlanner application.
 
 \section{Graphical user interface}\label{GuiSection}
 This section presents graphical user interface implementation of the application as designed in
@@ -312,7 +312,7 @@ displays visible panel on the left side of the application. The first item on th
 displayed solution. Second item holds total distance traveled. Other items are linked to vehicles of the problem. Each
 of them has its own parameters -- color, name and capacity. These three items are static and do not change during the
 calculation. Last parametr is actual load of the vehicle.
-
+\\
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.15]{fig/nav_drawer.png}
@@ -329,7 +329,7 @@ retrieved directly from the action bar by clicking on the icons with question ma
 contains application legend for understanding what is displayed on the screen and the second dialog briefly describes
 the application. The last dialog is displayed only when calculation runs and user clicks on the back button. Dialog then
 asks the user if he wants to end the ongoing calculation.
-
+\\
 \begin{figure}[h!]
     \centering
     \includegraphics[scale=0.15]{fig/dialogs.png}
